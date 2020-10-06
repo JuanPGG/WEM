@@ -63,7 +63,7 @@ if (isset($_GET["id"])) {
                     <th colspan="12" id="instructor"></th>
                 </tr>
                 <tr>
-                    <th colspan="12" id="fechainicio"></th>
+                    <th colspan="12" id="fecha"></th>
                 </tr>
                 <tr>
                     <th colspan="2">Hora</th>

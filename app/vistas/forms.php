@@ -61,18 +61,26 @@ if (!isset($_SESSION['user'])) {
 				</div>
 				<div class="cont-forms">
 					<!------------ formulario agregar instrctor------------->
+					<p id="alerta" class="alerta"></p>
 					<div class="form show" id="instructor">
-						<form id="agregar_instructor" method="POST">
-							<h1>Registrar Instructor</h1>
+						<form id="agregar_instructor" method="POST" class="formulario">
+							<h1>Formulario: Instructor</h1>
 							<input type="hidden" id="id">
-							<input type="text" id="nombres" placeholder="Nombres">
-							<input type="text" id="apellidos" placeholder="Apellidos">
-							<input type="text" id="documento" placeholder="Documento">
-							<input type="text" id="correo" placeholder="Correo electronico">
+							<input class="input" type="text" id="nombres">
+							<label>Nombre</label>
+							<input class="input" type="text" id="apellidos">
+							<label>Apellidos</label>
+							<input class="input" type="text" id="documento">
+							<label>Documento</label>
+							<input class="input" type="text" id="correo">
+							<label>Correo</label>
 							<select id="tipoContrato"></select>
-							<div><label>Elige un color: </label><input type="color" id="color" value="#000000"></div>
+							<div class="color">Elige un color: <input type="color" id="color" value="#000000"></div>
+							<div class="botones">
+								<button type="submit">Guardar</button>
+								<button type="button" class="cancelar">Cancelar</button>
+							</div>
 
-							<button type="submit">Guardar</button>
 						</form>
 						<div class="lista">
 							<h2>Lista</h2>
@@ -97,12 +105,17 @@ if (!isset($_SESSION['user'])) {
 					</div>
 					<!------------ formulario agregar ambiente------------->
 					<div class="form" id="ambiente">
-						<form method="POST" id='agregar_ambiente'>
-							<h1>Registrar Ambiente</h1>
+						<form method="POST" id="agregar_ambiente" class="formulario">
+							<h1>Formulario: Ambiente</h1>
 							<input type="hidden" id="id_amb">
-							<input type="text" id="nombre_ambiente" placeholder="Nombre del ambiente">
-							<input type="text" id="descripcion_ambiente" placeholder="descripción">
-							<button type="submit">Guardar</button>
+							<input class="input" type="text" id="nombre_ambiente">
+							<label>Nombre del ambiente</label>
+							<input class="input" type="text" id="descripcion_ambiente">
+							<label>Descripción del ambiente</label>
+							<div class="botones">
+								<button type="submit">Guardar</button>
+								<button type="button" class="cancelar">Cancelar</button>
+							</div>
 						</form>
 						<div class="lista">
 							<h2>Lista</h2>
@@ -124,12 +137,17 @@ if (!isset($_SESSION['user'])) {
 
 					<!------------ formulario agregar competencia------------->
 					<div class="form" id="competencia">
-						<form method="POST" id='agregar_competencia'>
-							<h1>Registrar Competencia</h1>
+						<form method="POST" id='agregar_competencia' class="formulario">
+							<h1>Formulario: Competencia</h1>
 							<input type="hidden" id="id_comp">
-							<input type="text" id="nombre_comp" placeholder="Nombre de la competencia">
-							<input type="text" id="descripcion_comp" placeholder="descripción">
-							<button type="submit">Guardar</button>
+							<input class="input" type="text" id="nombre_comp">
+							<label>Nombre de la competencia</label>
+							<input class="input" type="text" id="descripcion_comp">
+							<label>Descripción de la competencia</label>
+							<div class="botones">
+								<button type="submit">Guardar</button>
+								<button type="button" class="cancelar">Cancelar</button>
+							</div>
 						</form>
 						<div class="lista">
 							<h2>Lista</h2>
@@ -151,12 +169,17 @@ if (!isset($_SESSION['user'])) {
 
 					<!------------ formulario agregar programa formacion------------->
 					<div class="form" id="programa">
-						<form method="POST" id="agregar_programaformacion">
-							<h1>Registrar Programa de Formacion</h1>
+						<form method="POST" id="agregar_programaformacion" class="formulario">
+							<h1>Formulario: Programa de Formacion</h1>
 							<input type="hidden" id="id_pf">
-							<input type="text" id="nombre_programa" placeholder="Nombre del programa">
-							<input type="text" id="descripcion_programa" placeholder="Descripción">
-							<button type="submit">Guardar</button>
+							<input class="input" type="text" id="nombre_programa">
+							<label>Nombre del programa de formación</label>
+							<input class="input" type="text" id="descripcion_programa">
+							<label>Descripción del programa</label>
+							<div class="botones">
+								<button type="submit">Guardar</button>
+								<button type="button" class="cancelar">Cancelar</button>
+							</div>
 						</form>
 						<div class="lista">
 							<h2>Lista</h2>
@@ -178,12 +201,17 @@ if (!isset($_SESSION['user'])) {
 
 					<!------------ formulario agregar contrato------------->
 					<div class="form" id="contrato">
-						<form method="POST" id="agregar_contrato">
-							<h1>Registrar Contrato</h1>
+						<form method="POST" id="agregar_contrato" class="formulario">
+							<h1>Formulario: Contrato</h1>
 							<input type="hidden" id="id_contrato">
-							<input type="text" id="descripcion_contrato" placeholder="Descripción de contrato">
-							<input type="text" id="horas_contrato" placeholder="Horas">
-							<button type="submit">Guardar</button>
+							<input class="input" type="text" id="descripcion_contrato">
+							<label>Descripción del contrato</label>
+							<input class="input" type="text" id="horas_contrato">
+							<label>Cantidad de horas</label>
+							<div class="botones">
+								<button type="submit">Guardar</button>
+								<button type="button" class="cancelar">Cancelar</button>
+							</div>
 						</form>
 						<div class="lista">
 							<h2>Lista</h2>

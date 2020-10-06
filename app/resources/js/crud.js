@@ -7,62 +7,12 @@ window.addEventListener('load', function() {
     datosFichayTrimestre();
     mostrarDatos();
     buscarHorario();
-    document.querySelector('#enlace-pdf').addEventListener('click', function() {
-        quitarColor();
-        generarpdf();
-    });
-
-    function quitarColor() {
-        var bg = 'transparent';
-        var fondos = document.querySelectorAll('.caja');
-        var herramienta = document.querySelectorAll('.icon-cog');
-        document.querySelectorAll('table')[0].style.background = 'none';
-        for (var i = 0; i < fondos.length; i++) {
-            fondos[i].style.background = bg;
-        }
-        for (var i = 0; i < herramienta.length; i++) {
-            herramienta[i].style.display = 'none';
-        }
-        for (var i = 0; i < td.length; i++) {
-            td[i].style.background = bg;
-        }
-        for (var i = 0; i < th.length; i++) {
-            th[i].style.background = bg;
-            th[i].style.color = 'black';
-        }
-    }
-
-    function generarimg() {
-        html2canvas($("table")[0], {
-            onrendered: function(canvas) {
-                canvas.toBlob(function(blob) {
-                    saveAs(blob, "horario.png");
-                }, "image/png", 1);
-            }
-        });
-    }
-
-    function generarpdf() {
-        var pdf = new jsPDF('l', 'mm', [203, 254]);
-        html2canvas($("table")[0], {
-            onrendered: function(canvas) {
-                var imgData = canvas.toDataURL("image/png", 1.0);
-                var width = canvas.width;
-                var height = canvas.clientHeight;
-                pdf.setFont('helvetica');
-                pdf.setFontType('bold');
-                pdf.setFontSize(30);
-                pdf.text(110, 20, 'Horario');
-                pdf.addImage(imgData, 'PNG', 10, 30, (width - 965), (height + 100));
-                pdf.save('HorarioTrimestre.pdf');
-                location.reload();
-            }
-        });
-    }
     for (var i = 0; i < td.length; i++) {
         td[i].addEventListener('dblclick', mostrarForm);
     }
-    // Función tipo submit para el envío de los datos para guardar el horario
+    /**
+     *  Función tipo submit para el envío de los datos para guardar el horario
+     */
     $('#formulario').submit(function(ev) {
         ev.preventDefault();
         var celda_select = document.querySelector("#" + celdaId);
@@ -75,8 +25,8 @@ window.addEventListener('load', function() {
             id_Instructor: $('#select_instructor').val(),
             id_Horario: $('table')[0].id,
             id_Usuario: $('main').attr('data-user'),
-            fecha_inicio: $('#fechainicio p').attr('inicio'),
-            fecha_fin: $('#fechainicio p').attr('fin')
+            fecha_inicio: $('#fecha p').attr('inicio'),
+            fecha_fin: $('#fecha p').attr('fin')
         };
         $.ajax({
             url: "http://localhost/Proyecto-WEM/index.php?v=peticionesAjaxDetallesHorario&p=agregar",
@@ -100,7 +50,60 @@ window.addEventListener('load', function() {
         });
     });
 });
-// Se defina la función que hace una petición de los datos de la ficha
+document.querySelector('#enlace-pdf').addEventListener('click', function() {
+    quitarColor();
+    generarpdf();
+});
+
+function quitarColor() {
+    var bg = 'transparent';
+    var fondos = document.querySelectorAll('.caja');
+    var herramienta = document.querySelectorAll('.icon-cog');
+    document.querySelectorAll('table')[0].style.background = 'none';
+    for (var i = 0; i < fondos.length; i++) {
+        fondos[i].style.background = bg;
+    }
+    for (var i = 0; i < herramienta.length; i++) {
+        herramienta[i].style.display = 'none';
+    }
+    for (var i = 0; i < td.length; i++) {
+        td[i].style.background = bg;
+    }
+    for (var i = 0; i < th.length; i++) {
+        th[i].style.background = bg;
+        th[i].style.color = 'black';
+    }
+}
+// function generarimg() {
+//     html2canvas($("table")[0], {
+//         onrendered: function(canvas) {
+//             canvas.toBlob(function(blob) {
+//                 saveAs(blob, "horario.png");
+//             }, "image/png", 1);
+//         }
+//     });
+// }
+function generarpdf() {
+    var pdf = new jsPDF('l', 'mm', [203, 254]);
+    html2canvas($("table")[0], {
+        onrendered: function(canvas) {
+            var imgData = canvas.toDataURL("image/png", 1.0);
+            var width = canvas.width;
+            var height = canvas.clientHeight;
+            pdf.setFont('helvetica');
+            pdf.setFontType('bold');
+            pdf.setFontSize(30);
+            pdf.text(110, 20, 'Horario');
+            pdf.addImage(imgData, 'PNG', 10, 30, (width - 965), (height + 100));
+            pdf.save('HorarioTrimestre.pdf');
+            location.reload();
+        }
+    });
+}
+/**
+ *Se defina la función que hace una petición de los datos de la ficha
+ *
+ */
 function datosFichayTrimestre() {
     let id_fic = {
         id_fic: $('.table').attr("id")
@@ -128,7 +131,7 @@ function datosFichayTrimestre() {
             template = `<h3>${trimestre[0].nombre_trimestre}</h3>`;
             // Se inserta el numero de la ficha en el título de la tabla
             $('#trimestre').html(template);
-            $('#fechainicio').html(`<p inicio="${trimestre[0].fecha_inicio}" fin="${trimestre[0].fecha_fin}">Fecha Inicio: ${trimestre[0].fecha_inicio} / ${trimestre[0].fecha_fin}</p>`);
+            $('#fecha').html(`<p inicio="${trimestre[0].fecha_inicio}" fin="${trimestre[0].fecha_fin}">Fecha: ${trimestre[0].fecha_inicio} / ${trimestre[0].fecha_fin}</p>`);
         }
     });
 }
@@ -152,10 +155,10 @@ function buscarHorario() {
                     <p>${horario['competencia']}</p>
                     <p>${horario['ambiente']}</p>
                     <div class='opciones'>
-                    <i id=op${horario['id']} data-id=${horario['id']} class='icon-cog'></i>
+                    <i id=op${horario['id']} class='icon-cog'></i>
                     <div class='menu'>
                     <a class='detalles' id=${horario['id_instructor']}>Detalles</a>
-                    <a class='eliminar'>Eliminar</a>
+                    <a class='eliminar' id=${horario['id']}>Eliminar</a>
                     </div>
                     </div>
                     </div>
@@ -222,6 +225,27 @@ function mostrarForm(ev) { // Se define la función que se encarga de mostrar el
         celdaId = ev.target.id;
     }
 }
+// Se define la función donde se realizará la petición ajax, la cual recibe la url, el tipo y los datos
+function peticion(lugar, tipo, datos) {
+    // se define la variable que será retornada
+    let respuesta;
+    $.ajax({
+        url: "http://localhost/Proyecto-WEM/index.php?v=" + lugar,
+        type: tipo,
+        data: datos,
+        async: false,
+        success: function(response) {
+            // En caso de no haber respuesta, retornará false para poder usar el código general sin error
+            if (!response) {
+                respuesta = false;
+                return;
+            }
+            // Se almacena la respuesta convertida en JSON en la ariable definida anteriormente
+            respuesta = JSON.parse(response);
+        }
+    });
+    return respuesta;
+}
 document.querySelector('#enlace-atras').addEventListener('click', function() {
     window.history.back();
 });
@@ -236,7 +260,23 @@ $(document).on('click', '.detalles', function(e) {
 });
 // Evento click que eliminará el elemento arrastrado de la tabla
 $(document).on('click', '.eliminar', function(e) {
-    e.target.parentElement.parentElement.parentElement.parentElement.innerHTML = "";
+    console.log(e.target.id);
+    if (confirm("Está seguro de eliminar esto?")) {
+        // Variables donde se almacena el atributo data-id de la fila donde se dio click
+        let element = $(this)[0].parentElement.parentElement;
+        let id_dh = {
+            id_dh: e.target.id
+        };
+        // Ajax que hará la consulta para eliminar instructor según el id
+        $.ajax({
+            url: "http://localhost/Proyecto-WEM/index.php?v=peticionesAjaxDetallesHorario&p=eliminar",
+            type: "POST",
+            data: id_dh,
+            success: function(response) {
+                buscarHorario();
+            }
+        });
+    }
 });
 cont.addEventListener('click', function(e) { // Evento para esconder el formulario según donde se de clic
     // condición para cerrar el form si se da por fuera de este o en la X

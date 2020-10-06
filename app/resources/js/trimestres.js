@@ -4,6 +4,17 @@ window.addEventListener('load', function() {
     var edit_trimestre = false;
     buscarFicha();
     buscarTrimestre();
+    var fechas = document.querySelectorAll(".fecha");
+    for (var i = 0; i < fechas.length; i++) {
+        fechas[i].type = 'text';
+        fechas[i].addEventListener('focus', function() {
+            this.type = 'date';
+        });
+        fechas[i].addEventListener('blur', function() {
+            this.type = 'text';
+            validarLength();
+        });
+    }
     document.querySelector('#agregar').addEventListener('click', function() {
         mostrarForm();
     });
@@ -23,21 +34,20 @@ window.addEventListener('load', function() {
         cont.style.display = 'none';
         edit_trimestre = false;
     });
-    $(document).on('click', '.editar', function() {
+    $('#cont_trimestres').on('click', '.editar', function() {
         var id_horario = {
             id_horario: $(this)[0].parentElement.parentElement.parentElement.id
         };
-        console.log(id_horario);
         mostrarForm();
         var horario = peticion("peticionesAjaxTrimestre&p=obtenerdatos", "POST", id_horario);
-        console.log(horario);
         $('#id_trimestre').val(horario[0].id_horario);
         $('#nombre_trimestre').val(horario[0].nombre_trimestre);
         $('#fecha_inicio').val(horario[0].fecha_inicio);
         $('#fecha_fin').val(horario[0].fecha_fin);
         edit_trimestre = true;
+        validarLength();
     });
-    $(document).on('click', '.eliminar', function(ev) {
+    $('#cont_trimestres').on('click', '.eliminar', function(ev) {
         if (confirm("Está seguro que desea eliminar esto?")) {
             let id_horario = {
                 id_horario: $(this)[0].parentElement.parentElement.parentElement.id
@@ -46,7 +56,21 @@ window.addEventListener('load', function() {
             buscarTrimestre();
         }
     });
+    cont.addEventListener('click', function(e) {
+        if (abierto == true && ((e.target == cont) || (e.target == cerrar))) {
+            abierto = false;
+            cont.style.display = 'none';
+            edit_trimestre = false;
+            $("#form_trimestre").trigger('reset');
+        }
+    });
 });
+var inputs = document.querySelectorAll('.input');
+for (var i = 0; i < inputs.length; i++) {
+    inputs[i].addEventListener('keyup', function() {
+        validarLength();
+    });
+}
 // Se define la función donde se realizará la petición ajax, la cual recibe la url, el tipo y los datos
 function peticion(lugar, tipo, datos) {
     // se define la variable que será retornada
@@ -114,17 +138,22 @@ function buscarTrimestre() {
     });
 }
 
+function validarLength() {
+    var inputs = document.querySelectorAll('.input');
+    for (var i = 0; i < inputs.length; i++) {
+        if (inputs[i].value.length >= 1) {
+            inputs[i].nextElementSibling.classList.add('fijar');
+        } else {
+            inputs[i].nextElementSibling.classList.remove('fijar');
+        }
+    }
+}
+
 function mostrarForm() {
     cont.style.display = 'flex';
     abierto = true;
+    validarLength();
 }
 document.querySelector('#enlace-atras').addEventListener('click', function() {
     window.history.back();
-});
-cont.addEventListener('click', function(e) {
-    if (abierto == true && ((e.target == cont) || (e.target == cerrar))) {
-        abierto = false;
-        cont.style.display = 'none';
-        $("#form_trimestre").trigger('reset');
-    }
 });

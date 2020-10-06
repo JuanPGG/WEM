@@ -1,5 +1,6 @@
 window.addEventListener('load', function() {
     buscarDatos();
+    datosKeyup();
     $('#usuario').submit(function(ev) {
         ev.preventDefault();
         const data = {
@@ -13,6 +14,26 @@ window.addEventListener('load', function() {
         alert("Para ver los cambios, por favor vuelva iniciar sesión.");
     });
 });
+var inputs = document.querySelectorAll('.input');
+for (var i = 0; i < inputs.length; i++) {
+    inputs[i].addEventListener('keyup', function() {
+        if (this.value.length >= 1) {
+            this.nextElementSibling.classList.add('fijar');
+        } else {
+            this.nextElementSibling.classList.remove('fijar');
+        }
+    });
+}
+
+function datosKeyup() {
+    for (var i = 0; i < inputs.length; i++) {
+        if (inputs[i].value.length >= 1) {
+            inputs[i].nextElementSibling.classList.add('fijar');
+        } else {
+            inputs[i].nextElementSibling.classList.remove('fijar');
+        }
+    }
+}
 
 function buscarDatos() {
     var user = {

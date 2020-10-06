@@ -70,17 +70,17 @@ if (!isset($_SESSION['user'])) {
             </div>
         </div>
         <div id="cont_form">
-            <div id="formFicha">
-                <i class="icon-cross" id="cerrar"></i>
-                <form method="POST" id="form_ficha">
-                    <h1>Ficha</h1>
-                    <input type="hidden" id="id_fic">
-                    <input type="text" id="nombre_gestor" placeholder="Nombre del gestor">
-                    <input type="text" id="num_ficha" placeholder="Numero de la ficha">
-                    <select class="select" id="nombre_prog"></select>
-                    <button type="submit">Guardar</button>
-                </form>
-            </div>
+            <form method="POST" id="form_ficha" class="formulario">
+            <i class="icon-cross" id="cerrar"></i>
+                <h1>Ficha</h1>
+                <input type="hidden" id="id_fic">
+                <input type="text" class="input" id="nombre_gestor">
+                <label>Nombre del Gestor</label>
+                <input type="text" class="input" id="num_ficha">
+                <label>Número de la ficha</label>
+                <select class="select" id="nombre_prog"></select>
+                <button type="submit">Guardar</button>
+            </form>
         </div>
     </main>
     <!--- Javascriprt ---->

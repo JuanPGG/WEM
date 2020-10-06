@@ -10,7 +10,7 @@ if (!isset($_SESSION['user'])) {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title><?php echo $_SESSION['user'][1] . " " . $_SESSION['user'][2]; ?></title>
     <link rel="stylesheet" href="app/resources/css/perfil.css">
     <link rel="stylesheet" href="app/resources/iconos/icomoon/style.css">
@@ -53,20 +53,14 @@ if (!isset($_SESSION['user'])) {
                 <div class="user">
                     <i class="icon-user-tie"></i>
                 </div>
-                <div id="form">
+                <div id="form" class="formulario">
                     <form method="POST" id="usuario">
-                        <div class="cont-input">
-                            <label for="">Nombres:</label><br>
-                            <input type="text" id="nombre">
-                        </div>
-                        <div class="cont-input">
-                            <label for="">Apellidos:</label><br>
-                            <input type="text" id="apellido">
-                        </div>
-                        <div class="cont-input">
-                            <label for="">Correo:</label><br>
-                            <input type="text" id="correo" disabled>
-                        </div>
+                        <input class="input" type="text" id="nombre">
+                        <label>Nombres</label>
+                        <input class="input" type="text" id="apellido">
+                        <label>Apellidos</label>
+                        <input class="input" type="text" id="correo" disabled>
+                        <label>Correo</label>
                         <button type="submit" id="guardar" name="guardar">Guardar Cambios</button>
                     </form>
                 </div>

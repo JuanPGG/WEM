@@ -1,5 +1,8 @@
 <?php
-
+/**
+ *Se llama el modelo conexion
+ * Se llama y usa la libreria PHPMailer
+ */
 require_once "app/models/conexion.php";
 use PHPMailer\PHPMailer\PHPMailer;
 
@@ -9,10 +12,13 @@ require 'lib/phpmailer/SMTP.php';
 /**
  * login_controller
  *
- * Clase en la que se harán las diferentes funciones de CRUD para la parte de Login y Registro
+ * Clase en la que se harán las diferentes funciones de CRUD para el Usuario
  */
 class login_controller {
 
+    /**
+     * @construct
+     */
     private function __construct() {}
     /**
      * @Main
@@ -92,7 +98,7 @@ class login_controller {
             $stmt->bind_param("ssss", $array[0], $array[1], $array[2], $array[3]);
             $stmt->execute();
             echo "<script>
-            alert('Registrado con exito!');
+            alert('Usuario registrado con exito!');
             window.location = 'index.php?v=sesion';
             </script>";
             return $stmt;
@@ -178,7 +184,7 @@ class login_controller {
             $mail->Body    = $message;
 
             if ($mail->send()) {
-                echo '<script>alert("Se envio correctamente"); </script>';
+                echo '<script>alert("Se envió un link a su correo para cambiar contraseña."); </script>';
                 $sqlEvent = "SET GLOBAL event_scheduler = ON";
                 $conexion->query($sqlEvent);
                 $sql2 = "CREATE EVENT borrar_token
@@ -235,12 +241,26 @@ class login_controller {
         $result = $stmt->get_result();
         return $result->fetch_row();
     }
+    /**
+     * @consultarId
+     *
+     * En esta función se hará una consulta a la base de datos para traer los datos de usuario
+     * @param type $array Array que contiene el id del usuario
+     * @return type retorna los datos del usuario encontrado
+     */
     public function consultarId($array) {
         $conexion = Conexion::connection();
         $sql      = "SELECT * FROM usuario WHERE id_Usuario = $array[0]";
         $result   = $conexion->query($sql);
         return $result;
     }
+    /**
+     * @actualizarDatos
+     *
+     * En esta función se hará una consulta a la base de datos para actualizar los datos del usuario
+     * @param type $array Array que contiene el nombre y el apellido
+     * @return type retorna un true o false
+     */
     public function actualizarDatos($array) {
         $conexion = Conexion::connection();
         $sql      = "UPDATE usuario SET Nombres=?,Apellidos=? WHERE id_Usuario=?";

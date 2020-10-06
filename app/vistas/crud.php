@@ -95,10 +95,10 @@ if (isset($_GET["n"]) && isset($_GET['t'])) {
                     <th colspan="6" id="trimestre"></th>
                 </tr>
                 <tr>
-                    <th colspan="12" id="fechainicio"></th>
+                    <th colspan="12" id="fecha"></th>
                 </tr>
                 <tr>
-                    <th colspan="2">Hora</th>
+                    <th colspan="2">Hora Inicio / Fin</th>
                     <th colspan="2">Lunes</th>
                     <th colspan="2">Martes</th>
                     <th colspan="2">Miercoles</th>
@@ -106,7 +106,7 @@ if (isset($_GET["n"]) && isset($_GET['t'])) {
                     <th colspan="2">Viernes</th>
                 </tr>
                 <tr data-inicio="06:00:00" data-fin="09:00:00">
-                    <th colspan="2" class="horas">6:00 / 9:00AM</th>
+                    <th colspan="2" class="horas">6:00AM / 9:00AM</th>
                     <td colspan="2" class="drops" id="drop1" data-dia="Lunes"></td>
                     <td colspan="2" class="drops" id="drop2" data-dia="Martes"></td>
                     <td colspan="2" class="drops" id="drop3" data-dia="Miercoles"></td>
@@ -114,7 +114,7 @@ if (isset($_GET["n"]) && isset($_GET['t'])) {
                     <td colspan="2" class="drops" id="drop5" data-dia="Viernes"></td>
                 </tr>
                 <tr data-inicio="09:00:00" data-fin="12:00:00">
-                    <th colspan="2" class="horas">9:00 / 12:00PM</th>
+                    <th colspan="2" class="horas">9:00AM / 12:00PM</th>
                     <td colspan="2" class="drops" id="drop6" data-dia="Lunes"></td>
                     <td colspan="2" class="drops" id="drop7" data-dia="Martes"></td>
                     <td colspan="2" class="drops" id="drop8" data-dia="Miercoles"></td>
@@ -122,7 +122,7 @@ if (isset($_GET["n"]) && isset($_GET['t'])) {
                     <td colspan="2" class="drops" id="drop10" data-dia="Viernes"></td>
                 </tr>
                 <tr data-inicio="12:00:00" data-fin="15:00:00">
-                    <th colspan="2" class="horas">12:00 / 3:00PM</th>
+                    <th colspan="2" class="horas">12:00PM / 3:00PM</th>
                     <td colspan="2" class="drops" id="drop11" data-dia="Lunes"></td>
                     <td colspan="2" class="drops" id="drop12" data-dia="Martes"></td>
                     <td colspan="2" class="drops" id="drop13" data-dia="Miercoles"></td>
@@ -130,7 +130,7 @@ if (isset($_GET["n"]) && isset($_GET['t'])) {
                     <td colspan="2" class="drops" id="drop15" data-dia="Viernes"></td>
                 </tr>
                 <tr data-inicio="15:00:00" data-fin="18:00:00">
-                    <th colspan="2" class="horas">3:00 / 6:00PM</th>
+                    <th colspan="2" class="horas">3:00PM / 6:00PM</th>
                     <td colspan="2" class="drops" id="drop16" data-dia="Lunes"></td>
                     <td colspan="2" class="drops" id="drop17" data-dia="Martes"></td>
                     <td colspan="2" class="drops" id="drop18" data-dia="Miercoles"></td>
@@ -138,7 +138,7 @@ if (isset($_GET["n"]) && isset($_GET['t'])) {
                     <td colspan="2" class="drops" id="drop20" data-dia="Viernes"></td>
                 </tr>
                 <tr data-inicio="18:00:00" data-fin="21:00:00">
-                    <th colspan="2" class="horas">6:00 / 9:00PM</th>
+                    <th colspan="2" class="horas">6:00PM / 9:00PM</th>
                     <td colspan="2" class="drops" id="drop21" data-dia="Lunes"></td>
                     <td colspan="2" class="drops" id="drop22" data-dia="Martes"></td>
                     <td colspan="2" class="drops" id="drop23" data-dia="Miercoles"></td>

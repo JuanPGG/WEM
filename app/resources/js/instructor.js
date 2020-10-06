@@ -73,7 +73,7 @@ function datosFichayTrimestre() {
         success: function(response) {
             const trimestre = JSON.parse(response);
             // Se inserta el numero de la ficha en el título de la tabla
-            $('#fechainicio').html(`<p inicio="${trimestre[0].fecha_inicio}" fin="${trimestre[0].fecha_fin}">Fecha Inicio: ${trimestre[0].fecha_inicio} / ${trimestre[0].fecha_fin}</p>`);
+            $('#fecha').html(`<p inicio="${trimestre[0].fecha_inicio}" fin="${trimestre[0].fecha_fin}">Fecha: ${trimestre[0].fecha_inicio} / ${trimestre[0].fecha_fin}</p>`);
             buscarHorario(trimestre[0].fecha_inicio, trimestre[0].fecha_fin);
         }
     });

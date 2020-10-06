@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Se llama los controladores a utilizar
+ */
 require_once "login_controller.php";
 require_once "instructor_controller.php";
 require_once "api_response.php";
@@ -10,7 +12,11 @@ require_once "contrato_controller.php";
 require_once "horario_controller.php";
 require_once "competencia_controller.php";
 require_once "detalleshorario_controller.php";
-
+/**
+ * controller
+ * 
+ * Llama las funciones de los diferentes controladores requeridos anteriormente
+ */
 class controller {
 
     public function Login($option, $array = []) {

@@ -73,18 +73,19 @@ if (isset($_GET['n'])) {
         </div>
         <div id="cont_form">
             <div id="formTrimestre">
+                <form method="POST" id="form_trimestre" class="formulario">
                 <i class="icon-cross" id="cerrar"></i>
-                <form method="POST" id="form_trimestre">
                     <h1>Trimestre</h1>
                     <input type="hidden" id="id_trimestre">
-                    <input type="text" id="nombre_trimestre" placeholder="Nombre del trimestre">
+                    <input class="input" type="text" id="nombre_trimestre">
+                    <label>Nombre del Trimestre</label>
                     <div>
-                        <label>Fecha de inicio: </label>
-                        <input type="date" id="fecha_inicio">
+                        <input class="input fecha" type="date" id="fecha_inicio">
+                        <label>Fecha de inicio</label>
                     </div>
                     <div>
-                        <label>Fecha de fin: </label>
-                        <input type="date" id="fecha_fin">
+                        <input class="input fecha" type="date" id="fecha_fin">
+                        <label>Fecha de fin</label>
                     </div>
                     <button type="submit">Guardar</button>
                 </form>

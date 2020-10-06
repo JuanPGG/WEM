@@ -1,5 +1,7 @@
 <?php
-
+/**
+ *Se llama el modelo conexion
+ */
 require_once "app/models/conexion.php";
 /**
  * ambiente_controller - Clase en la que se harán las diferentes funciones de CRUD para los ambientes

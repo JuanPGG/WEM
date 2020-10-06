@@ -1,40 +1,112 @@
 <?php
+/**
+ *Se llama el controlador principal
+ */
 require_once "app/controllers/controller.php";
-
+/**
+ * redirec_controller
+ *
+ * Clase en la que se redireccionará a las diferentes vistas y
+ * que hará las diferentes peticiones y llamadas los archivos js
+ */
 class redirec_controller {
+    /**
+     * @redireccion
+     *
+     * Función que será llamada por las diferentes vistas para hacer un redirecionamiento
+     * @param type|String parametro que recibirá el string de la ruta a la que se redireccionará
+     * @return type retorna una vista
+     */
     public function redireccion($ruta) {
         include_once 'app/vistas/' . $ruta . '.php';
     }
+    /**
+     * @index
+     *
+     * Función para redireccionar a la vista index.php
+     */
     public function index() {
         $this->redireccion('index');
     }
+    /**
+     * @sesion
+     *
+     * Función para redireccionar a la vista login.php
+     */
     public function sesion() {
         $this->redireccion('login');
     }
+    /**
+     * @registrar
+     *
+     * Función para redireccionar a la vista registro.php
+     */
     public function registrar() {
         $this->redireccion('registro');
     }
+    /**
+     * @crud
+     *
+     * Función para redireccionar a la vista crud.php
+     */
     public function crud() {
         $this->redireccion('crud');
     }
+    /**
+     * @forms
+     *
+     * Función para redireccionar a la vista forms.php
+     */
     public function forms() {
         $this->redireccion('forms');
     }
+    /**
+     * @recuperarPw
+     *
+     * Función para redireccionar a la vista recuperarPw.php
+     */
     public function recuperarPw() {
         $this->redireccion('recuperarPw');
     }
+    /**
+     * @fichas
+     *
+     * Función para redireccionar a la vista fichas.php
+     */
     public function fichas() {
         $this->redireccion('fichas');
     }
+    /**
+     * @trimestre
+     *
+     * Función para redireccionar a la vista trimestres.php
+     */
     public function trimestre() {
         $this->redireccion('trimestres');
     }
+    /**
+     * @detallesinstructor
+     *
+     * Función para redireccionar a la vista instructor.php
+     */
     public function detallesinstructor() {
         $this->redireccion('instructor');
     }
+    /**
+     * @perfil
+     *
+     * Función para redireccionar a la vista perfil.php
+     */
     public function perfil() {
         $this->redireccion('perfil');
     }
+    /**
+     * @peticionUsuario
+     *
+     * Función que será llamada desde js para traer o editar los datos del usuario
+     * @param type|String parametro que recibirá el string del caso que se ejecutará
+     * @return type retorna datos en el caso de 'mostrar' o un true o false en caso de 'editar'
+     */
     public function peticionUsuario($p) {
         $controller = new controller();
         switch ($p) {
@@ -53,6 +125,13 @@ class redirec_controller {
             break;
         }
     }
+    /**
+     * @petiionesAjax
+     *
+     * Función que será llamada desde js para traer, agregar, eliminar o editar los datos del instructor
+     * @param type|String parametro que recibirá el string del caso que se ejecutará
+     * @return type retorna los datos si es 'mostrar', 'obtenerdatos' y en los demás solo true o false
+     */
     public function peticionesAjax($p) {
         $controller = new controller();
         switch ($p) {
@@ -88,9 +167,14 @@ class redirec_controller {
             $result = $controller->instructor(4, $array);
             break;
         }
-
     }
-
+    /**
+     * @petiionesAjaxAmbiente
+     *
+     * Función que será llamada desde js para traer, agregar, eliminar o editar los datos del ambiente
+     * @param type|String parametro que recibirá el string del caso que se ejecutará
+     * @return type retorna los datos si es 'mostrar', 'obtenerdatos' y en los demás solo true o false
+     */
     public function peticionesAjaxAmbiente($p) {
         $controller = new controller();
         switch ($p) {
@@ -126,8 +210,14 @@ class redirec_controller {
             $result = $controller->ambiente(4, $array);
             break;
         }
-
     }
+    /**
+     * @petiionesAjaxCompetencia
+     *
+     * Función que será llamada desde js para traer, agregar, eliminar o editar los datos de la competencia
+     * @param type|String parametro que recibirá el string del caso que se ejecutará
+     * @return type retorna los datos si es 'mostrar', 'obtenerdatos' y en los demás solo true o false
+     */
     public function peticionesAjaxCompetencia($p) {
         $controller = new controller();
         switch ($p) {
@@ -163,8 +253,14 @@ class redirec_controller {
             $result = $controller->competencia(4, $array);
             break;
         }
-
     }
+    /**
+     * @petiionesAjaxFicha
+     *
+     * Función que será llamada desde js para traer, agregar, eliminar o editar los datos de la ficha
+     * @param type|String parametro que recibirá el string del caso que se ejecutará
+     * @return type retorna los datos si es 'mostrar', 'obtenerdatos' y en los demás solo true o false
+     */
     public function peticionesAjaxFicha($p) {
         $controller = new controller();
         switch ($p) {
@@ -200,9 +296,14 @@ class redirec_controller {
             $result = $controller->ficha(4, $array);
             break;
         }
-
     }
-
+    /**
+     * @petiionesAjaxProgramaFormacion
+     *
+     * Función que será llamada desde js para traer, agregar, eliminar o editar los datos del programa de formación
+     * @param type|String parametro que recibirá el string del caso que se ejecutará
+     * @return type retorna los datos si es 'mostrar', 'obtenerdatos' y en los demás solo true o false
+     */
     public function peticionesAjaxProgramaFormacion($p) {
         $controller = new controller();
         switch ($p) {
@@ -238,8 +339,14 @@ class redirec_controller {
             $result = $controller->programaformacion(4, $array);
             break;
         }
-
     }
+    /**
+     * @petiionesAjaxContrato
+     *
+     * Función que será llamada desde js para traer, agregar, eliminar o editar los datos del contrato
+     * @param type|String parametro que recibirá el string del caso que se ejecutará
+     * @return type retorna los datos si es 'mostrar', 'obtenerdatos' y en los demás solo true o false
+     */
     public function peticionesAjaxContrato($p) {
         $controller = new controller();
         switch ($p) {
@@ -275,8 +382,14 @@ class redirec_controller {
             $result = $controller->contrato(4, $array);
             break;
         }
-
     }
+    /**
+     * @petiionesAjaxTrimestre
+     *
+     * Función que será llamada desde js para traer, agregar, eliminar o editar los datos del trimestre
+     * @param type|String parametro que recibirá el string del caso que se ejecutará
+     * @return type retorna los datos si es 'mostrar', 'obtenerdatos' y en los demás solo true o false
+     */
     public function peticionesAjaxTrimestre($p) {
         $controller = new controller();
         switch ($p) {
@@ -314,8 +427,14 @@ class redirec_controller {
             $result = $controller->horario(4, $array);
             break;
         }
-
     }
+    /**
+     * @petiionesAjaxDetallesHorario
+     *
+     * Función que será llamada desde js para traer, agregar, eliminar o editar los datos del horario
+     * @param type|String parametro que recibirá el string del caso que se ejecutará
+     * @return type retorna los datos si es 'mostrar', 'obtenerInstructor' y en los demás solo true o false
+     */
     public function peticionesAjaxDetallesHorario($p) {
         $controller = new controller();
         switch ($p) {
@@ -330,7 +449,7 @@ class redirec_controller {
         case 'agregar':
             $array = [];
             array_push($array, $_POST['dia'], $_POST['hora_inicio'], $_POST['hora_fin'], $_POST['id_Ambiente'], $_POST['id_Competencia'], $_POST['id_Instructor'], $_POST['id_Horario'], $_POST['id_Usuario'], $_POST['fecha_inicio'], $_POST['fecha_fin']);
-            $result = $controller->detalleshorario(1, $array);
+            $controller->detalleshorario(1, $array);
             break;
 
         case 'obtenerInstructor':
@@ -340,8 +459,12 @@ class redirec_controller {
             $resultado = api_response::mostrar($result, ["dia", "hora_inicio", "hora_fin", "color", "ambiente", "competencia", "ficha"]);
             echo $resultado;
             break;
+        case 'eliminar':
+            $array = [];
+            array_push($array, $_POST['id_dh']);
+            $result = $controller->detalleshorario(3, $array);
+            break;
         }
-
     }
 }
 
