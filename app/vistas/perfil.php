@@ -33,7 +33,16 @@ if (!isset($_SESSION['user'])) {
                     <img src="app/resources/img/logo.png" alt="">
                 </div>
                 <div id="enlaces" class="enlaces">
-                    <a href="index.php?v=fichas" id="enlace-ambientes" class="btn-header">Mis Fichas</a>
+                    <?php
+if ($_SESSION['user'][6] == 1) {
+    ?>
+                    <a href="index.php?v=adminFichas" id="enlace-ambientes" class="btn-header">Mis Fichas</a>
+                    <?php
+
+} else if ($_SESSION['user'][6] == 2) {
+    ?>
+                    <a href="index.php?v=fichas" id="enlace-ambientes" class="btn-header">Fichas</a>
+                <?php }?>
                     <a id="enlace-atras" class="btn-header">Atrás</a>
                     <a href="app/models/salir.php" id="salir">Cerrar Sesión</a>
                 </div>
@@ -68,10 +77,7 @@ if (!isset($_SESSION['user'])) {
         </div>
     </main>
 
-<script
-    src="https://code.jquery.com/jquery-3.3.1.min.js"
-    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-    crossorigin="anonymous"></script>
+<script type="text/javascript" src="app/resources/libjs/jquery.min.js"></script>
 <script src="app/resources/js/loader.js"></script>
 <script src="app/resources/js/nav.js"></script>
 <script src="app/resources/js/perfil.js"></script>

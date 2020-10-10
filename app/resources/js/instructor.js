@@ -10,13 +10,9 @@ window.addEventListener('load', function() {
     function quitarColor() {
         var bg = 'transparent';
         var fondos = document.querySelectorAll('.caja');
-        var herramienta = document.querySelectorAll('.icon-cog');
         document.querySelectorAll('table')[0].style.background = 'none';
         for (var i = 0; i < fondos.length; i++) {
             fondos[i].style.background = bg;
-        }
-        for (var i = 0; i < herramienta.length; i++) {
-            herramienta[i].style.display = 'none';
         }
         for (var i = 0; i < td.length; i++) {
             td[i].style.background = bg;
@@ -75,6 +71,24 @@ function datosFichayTrimestre() {
             // Se inserta el numero de la ficha en el título de la tabla
             $('#fecha').html(`<p inicio="${trimestre[0].fecha_inicio}" fin="${trimestre[0].fecha_fin}">Fecha: ${trimestre[0].fecha_inicio} / ${trimestre[0].fecha_fin}</p>`);
             buscarHorario(trimestre[0].fecha_inicio, trimestre[0].fecha_fin);
+            cantidadHoras(trimestre[0].fecha_inicio, trimestre[0].fecha_fin);
+        }
+    });
+}
+
+function cantidadHoras(f_inicio, f_fin) {
+    var datos = {
+        id_instructor: $('.table')[0].id,
+        fecha_inicio: f_inicio,
+        fecha_fin: f_fin
+    }
+    $.ajax({
+        url: "http://localhost/Proyecto-WEM/index.php?v=peticionesAjaxDetallesHorario&p=horas",
+        type: "POST",
+        data: datos,
+        success: function(response) {
+            const horas = JSON.parse(response);
+            $('#horasp').html(`<p>Horas programadas: ${horas[0].horas * 3}</p>`);
         }
     });
 }

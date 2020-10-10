@@ -5,7 +5,8 @@ require_once "app/controllers/controller.php";
 if (!isset($_SESSION['user'])) {
     header("Location: index.php");
 }
-?>
+if ($_SESSION['user'][6] == 2) {
+    ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -43,7 +44,6 @@ if (!isset($_SESSION['user'])) {
                 </div>
                 <!-- Contenedor de los enlaces del nav -->
                 <div id="enlaces" class="enlaces">
-                    <a href="index.php?v=forms" id="enlace-registros" class="btn-header">Registros</a>
                     <a href="index.php?v=perfil" id="usuario">Bienvenido, <?php echo $_SESSION['user'][1]; ?></a>
                     <a href="app/models/salir.php" id="salir">Cerrar Sesión</a>
                 </div>
@@ -58,40 +58,25 @@ if (!isset($_SESSION['user'])) {
     <main>
         <div class="container">
             <div id="titulo">
-                <h1>Mis Fichas</h1>
+                <h1>Fichas</h1>
             </div>
             <!-- Contenedor donde se insertarán los ambientes encontrado en la BD -->
             <div id="cont_fichas">
 
             </div>
-            <!-- Contenedor con el evento click para agregar trimestres -->
-            <div id="agregar">
-                <i class="icon-plus"></i>
-            </div>
-        </div>
-        <div id="cont_form">
-            <form method="POST" id="form_ficha" class="formulario">
-            <i class="icon-cross" id="cerrar"></i>
-                <h1>Ficha</h1>
-                <input type="hidden" id="id_fic">
-                <input type="text" class="input" id="nombre_gestor">
-                <label>Nombre del Gestor</label>
-                <input type="text" class="input" id="num_ficha">
-                <label>Número de la ficha</label>
-                <select class="select" id="nombre_prog"></select>
-                <button type="submit">Guardar</button>
-            </form>
         </div>
     </main>
     <!--- Javascriprt ---->
 
-    <script
-    src="https://code.jquery.com/jquery-3.3.1.min.js"
-    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-    crossorigin="anonymous"></script>
+    <script type="text/javascript" src="app/resources/libjs/jquery.min.js"></script>
     <script src="app/resources/js/nav.js"></script>
     <script src="app/resources/js/loader.js"></script>
-    <script src="app/resources/js/fichas.js"></script>
+    <script src="app/resources/js/usuarioFichas.js"></script>
 
 </body>
 </html>
+<?php
+} else if ($_SESSION['user'][6] == 1) {
+    header("Location: index.php?v=adminFichas");
+}
+?>

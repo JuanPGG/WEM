@@ -45,22 +45,6 @@ class redirec_controller {
         $this->redireccion('registro');
     }
     /**
-     * @crud
-     *
-     * Función para redireccionar a la vista crud.php
-     */
-    public function crud() {
-        $this->redireccion('crud');
-    }
-    /**
-     * @forms
-     *
-     * Función para redireccionar a la vista forms.php
-     */
-    public function forms() {
-        $this->redireccion('forms');
-    }
-    /**
      * @recuperarPw
      *
      * Función para redireccionar a la vista recuperarPw.php
@@ -69,20 +53,12 @@ class redirec_controller {
         $this->redireccion('recuperarPw');
     }
     /**
-     * @fichas
+     * @perfil
      *
-     * Función para redireccionar a la vista fichas.php
+     * Función para redireccionar a la vista perfil.php
      */
-    public function fichas() {
-        $this->redireccion('fichas');
-    }
-    /**
-     * @trimestre
-     *
-     * Función para redireccionar a la vista trimestres.php
-     */
-    public function trimestre() {
-        $this->redireccion('trimestres');
+    public function perfil() {
+        $this->redireccion('perfil');
     }
     /**
      * @detallesinstructor
@@ -93,12 +69,46 @@ class redirec_controller {
         $this->redireccion('instructor');
     }
     /**
-     * @perfil
+     * @adminHorario
      *
-     * Función para redireccionar a la vista perfil.php
+     * Función para redireccionar a la vista crud.php
      */
-    public function perfil() {
-        $this->redireccion('perfil');
+    public function adminHorario() {
+        $this->redireccion('/admin/horario');
+    }
+    /**
+     * @adminForms
+     *
+     * Función para redireccionar a la vista forms.php
+     */
+    public function adminForms() {
+        $this->redireccion('/admin/forms');
+    }
+    /**
+     * @adminFichas
+     *
+     * Función para redireccionar a la vista fichas.php
+     */
+    public function adminFichas() {
+        $this->redireccion('/admin/fichas');
+    }
+    /**
+     * @adminTrimestre
+     *
+     * Función para redireccionar a la vista trimestres.php
+     */
+    public function adminTrimestre() {
+        $this->redireccion('/admin/trimestres');
+    }
+
+    public function fichas() {
+        $this->redireccion('/usuario/usuarioFichas');
+    }
+    public function trimestres() {
+        $this->redireccion('/usuario/usuarioTrimestre');
+    }
+    public function horario() {
+        $this->redireccion('/usuario/usuarioHorario');
     }
     /**
      * @peticionUsuario
@@ -462,7 +472,21 @@ class redirec_controller {
         case 'eliminar':
             $array = [];
             array_push($array, $_POST['id_dh']);
-            $result = $controller->detalleshorario(3, $array);
+            $controller->detalleshorario(3, $array);
+            break;
+        case 'horas':
+            $array = [];
+            array_push($array, $_POST['id_instructor'], $_POST['fecha_inicio'], $_POST['fecha_fin']);
+            $result    = $controller->detalleshorario(4, $array);
+            $resultado = api_response::mostrar($result, ["horas"]);
+            echo $resultado;
+            break;
+        case 'existe':
+            $array = [];
+            array_push($array, $_POST['dia'], $_POST['hora_inicio'], $_POST['hora_fin'], $_POST['fecha_inicio'], $_POST['fecha_fin'], $_POST['id_horario']);
+            $result    = $controller->detalleshorario(5, $array);
+            $resultado = api_response::mostrar($result, ["dia", "hora_inicio", "hora_fin", "fecha_inicio", "fecha_fin", "id_horario"]);
+            echo $resultado;
             break;
         }
     }

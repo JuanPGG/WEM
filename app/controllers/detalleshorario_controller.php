@@ -5,7 +5,7 @@
 require_once "app/models/conexion.php";
 /**
  * detalleshorario_controller
- * 
+ *
  * Se usa para el funcionamiento del CRUD de la clase detalleshorario
  */
 class detalleshorario_controller {
@@ -36,6 +36,12 @@ class detalleshorario_controller {
 
         case 3:
             $result = $login->delete($array);
+            break;
+        case 4:
+            $result = $login->consultarHoras($array);
+            break;
+        case 5:
+            $result = $login->existe($array);
             break;
         }
         return $result;
@@ -93,6 +99,16 @@ class detalleshorario_controller {
         $stmt     = $conexion->prepare($sql);
         $stmt->bind_param("i", $array[0]);
         $stmt->execute();
+    }
+    public function consultarHoras($array) {
+        $conexion = Conexion::connection();
+        $sql      = "SELECT COUNT(id_Instructor) FROM detalles_horario dh INNER JOIN horario h ON dh.id_Horario = h.id_Horario WHERE id_Instructor = '$array[0]' AND (h.Fecha_Inicio BETWEEN CAST('$array[1]' AS DATE) AND CAST('$array[2]' AS DATE))";
+        return $conexion->query($sql);
+    }
+    public function existe($array) {
+        $conexion = Conexion::connection();
+        $sql      = "SELECT Dia, Hora_Inicio, Hora_Fin, h.Fecha_Inicio, h.Fecha_Fin, dh.id_Horario FROM detalles_horario dh INNER JOIN horario h ON dh.id_Horario = h.id_Horario WHERE Dia = '$array[0]' AND Hora_Inicio = '$array[1]' AND Hora_Fin = '$array[2]' AND h.Fecha_Inicio = '$array[3]' AND  h.Fecha_Fin ='$array[4]' AND dh.id_Horario = '$array[5]'";
+        return $conexion->query($sql);
     }
 }
 

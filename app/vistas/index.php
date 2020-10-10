@@ -171,10 +171,7 @@
         </div>
     </footer>
     <!--- Javascriprt ---->
-    <script
-    src="https://code.jquery.com/jquery-3.3.1.min.js"
-    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-    crossorigin="anonymous"></script>
+    <script type="text/javascript" src="app/resources/libjs/jquery.min.js"></script>
     <script src="app/resources/js/index.js"></script>
     <script src="app/resources/js/loader.js"></script>
     <script src="app/resources/js/nav.js"></script>

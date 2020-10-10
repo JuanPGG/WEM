@@ -5,7 +5,8 @@ require_once "app/controllers/controller.php";
 if (!isset($_SESSION['user'])) {
     header("Location: index.php");
 }
-?>
+if ($_SESSION['user'][6] == 1) {
+    ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -33,7 +34,7 @@ if (!isset($_SESSION['user'])) {
 					<img src="app/resources/img/logo.png" alt="">
 				</div>
 				<div id="enlaces" class="enlaces">
-					<a href="index.php?v=fichas" id="enlace-ambientes" class="btn-header">Mis Fichas</a>
+					<a href="index.php?v=adminFichas" id="enlace-ambientes" class="btn-header">Mis Fichas</a>
 					<a id="enlace-atras" class="btn-header">Atrás</a>
 					<a href="index.php?v=perfil" id="usuario"><?php echo $_SESSION['user'][1]; ?></a>
 					<a href="app/models/salir.php" id="salir">Cerrar Sesión</a>
@@ -87,7 +88,6 @@ if (!isset($_SESSION['user'])) {
 							<table>
 								<thead>
 									<tr>
-										<th>id</th>
 										<th>Nombres</th>
 										<th>Apellidos</th>
 										<th>CC</th>
@@ -122,7 +122,6 @@ if (!isset($_SESSION['user'])) {
 							<table>
 								<thead>
 									<tr>
-										<th>id</th>
 										<th>Nombre</th>
 										<th>Descripcion</th>
 										<th>Funciones</th>
@@ -154,7 +153,6 @@ if (!isset($_SESSION['user'])) {
 							<table>
 								<thead>
 									<tr>
-										<th>id</th>
 										<th>Nombre</th>
 										<th>Descripcion</th>
 										<th>Funciones</th>
@@ -186,7 +184,6 @@ if (!isset($_SESSION['user'])) {
 							<table>
 								<thead>
 									<tr>
-										<th>id</th>
 										<th>Nombre</th>
 										<th>Descripcion</th>
 										<th>Funciones</th>
@@ -218,7 +215,6 @@ if (!isset($_SESSION['user'])) {
 							<table>
 								<thead>
 									<tr>
-										<th>id</th>
 										<th>Descripcion</th>
 										<th>Horas</th>
 										<th>Funciones</th>
@@ -235,11 +231,15 @@ if (!isset($_SESSION['user'])) {
 		</div>
 	</main>
 </body>
-<script
-src="https://code.jquery.com/jquery-3.3.1.min.js"
-integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-crossorigin="anonymous"></script>
+<script type="text/javascript" src="app/resources/libjs/jquery.min.js"></script>
 <script src="app/resources/js/loader.js"></script>
 <script src="app/resources/js/nav.js"></script>
 <script src="app/resources/js/forms.js"></script>
 </html>
+<?php
+
+} else if ($_SESSION['user'][6] == 2) {
+    header("Location: index.php?v=fichas");
+}
+
+?>

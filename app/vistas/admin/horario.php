@@ -5,9 +5,9 @@ require_once "app/controllers/controller.php";
 if (!isset($_SESSION['user'])) {
     header("Location: index.php");
 }
-
-if (isset($_GET["n"]) && isset($_GET['t'])) {
-    ?>
+if ($_SESSION['user'][6] == 1) {
+    if (isset($_GET["n"]) && isset($_GET['t'])) {
+        ?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -21,7 +21,7 @@ if (isset($_GET["n"]) && isset($_GET['t'])) {
     <!--- Title --->
     <title>WEM</title>
     <!--- Stylesheets --->
-    <link rel="stylesheet" href="app/resources/css/crud.css">
+    <link rel="stylesheet" href="app/resources/css/horario.css">
     <link rel="stylesheet" href="app/resources/iconos/icomoon/style.css">
 </head>
 
@@ -43,8 +43,8 @@ if (isset($_GET["n"]) && isset($_GET['t'])) {
                     <img src="app/resources/img/logo.png" alt="">
                 </div>
                 <div id="enlaces" class="enlaces">
-                    <a href="index.php?v=fichas" id="enlace-ambientes" class="btn-header">Mis Fichas</a>
-                    <a href="index.php?v=forms" id="enlace-registros" class="btn-header">Registros</a>
+                    <a href="index.php?v=adminFichas" id="enlace-ambientes" class="btn-header">Mis Fichas</a>
+                    <a href="index.php?v=adminForms" id="enlace-registros" class="btn-header">Registros</a>
                     <a id="enlace-atras" class="btn-header">Atrás</a>
                     <a href="index.php?v=perfil" id="usuario"><?php echo $_SESSION['user'][1]; ?></a>
                     <a href="app/models/salir.php" id="salir">Cerrar Sesión</a>
@@ -88,7 +88,7 @@ if (isset($_GET["n"]) && isset($_GET['t'])) {
             </div>
         </div>
         <div class="table" id="<?php echo $_GET['n']; ?>">
-
+            <p id="alerta" class="alerta"></p>
             <table id="<?php echo $_GET['t']; ?>">
                 <tr>
                     <th colspan="6" id="num_ficha"></th>
@@ -152,19 +152,19 @@ if (isset($_GET["n"]) && isset($_GET['t'])) {
 </main>
 <!--- Javascriprt ---->
 
-<script
-src="https://code.jquery.com/jquery-3.3.1.min.js"
-integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-crossorigin="anonymous"></script>
+<script type="text/javascript" src="app/resources/libjs/jquery.min.js"></script>
 <script type="text/javascript" src="app/resources/libjs/jspdf.min.js"></script>
-<script src="app/resources/js/nav.js"></script>
-<script src="app/resources/js/loader.js"></script>
-<script src="app/resources/js/crud.js"></script>
+<script type="text/javascript" src="app/resources/js/nav.js"></script>
+<script type="text/javascript" src="app/resources/js/loader.js"></script>
+<script type="text/javascript" src="app/resources/js/horario.js"></script>
 
 </body>
 </html>
 <?php
 } else {
-    header("Location: index.php?v=fichas");
+        header("Location: index.php?v=adminFichas");
+    }
+} else if ($_SESSION['user'][6] == 2) {
+    header("Location: index.php?v=horario");
 }
 ?>

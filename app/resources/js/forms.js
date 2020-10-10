@@ -1,10 +1,10 @@
 /** 
  * Función que se ejecuta al cargar la ventana del navegador
-*/
-$(window).ready(function() { 
+ */
+$(window).ready(function() {
     /** 
      * Definicion de variables bandera
-    */
+     */
     let edit_instructor = false;
     let edit_ambiente = false;
     let edit_competencia = false;
@@ -12,7 +12,7 @@ $(window).ready(function() {
     let edit_contrato = false;
     /** 
      * Llamado a las funciones de busqueda
-    */
+     */
     buscar_instructor();
     buscar_ambiente();
     buscar_competencia();
@@ -23,46 +23,46 @@ $(window).ready(function() {
     });
     /** 
      * Variable que contiene los diferentes enlaces de los fomularios
-    */
+     */
     var etiqueta = document.querySelectorAll('.menu > a');
     /** 
      * Ciclo para dar la función de click a los enlaces de cada formulario para mostrarlos
-    */
+     */
     for (var i = 0; i < etiqueta.length; i++) {
         etiqueta[i].addEventListener('click', cambiar);
     }
     /** 
      * Se define la función para el cambio de formulario según el evento click definido anteriormente
-    */
+     */
     function cambiar(ev) {
         /** 
          * Se borra la clase active del elemento que tenga dicha clase
-        */
+         */
         document.querySelector('.active').classList.remove('active');
         /** 
          * Se agrega la clase active al elemento que se le de click
-        */
+         */
         ev.target.className = 'active';
         /** 
          * Se borra la clase show del elemento que tenga dicha clase
-        */
+         */
         document.querySelector('.show').classList.remove('show');
         /** 
          * Toggle es para asignar la clase si no existe y si existe borrarla
-        */
+         */
         document.querySelector('#' + ev.target.getAttribute('data-class')).classList.toggle('show');
     }
     /** 
      * Se define la función submit para el formulario de agregar instructor
-    */
+     */
     $('#agregar_instructor').submit(function(ev) {
         /** 
          * Esta linea permite que al envío de datos no se recargué la página
-        */
+         */
         ev.preventDefault();
         /** 
          * variable que almacena los valores de los input en un objeto
-        */
+         */
         const datos = {
             nombres: $('#nombres').val(),
             apellidos: $('#apellidos').val(),
@@ -74,50 +74,51 @@ $(window).ready(function() {
         };
         /** 
          * Condición para identificar si se agregará o se editará información
-        */
+         */
         let lugar = edit_instructor === false ? 'peticionesAjax&p=agregar' : 'peticionesAjax&p=editar';
         /** 
          * Condición para validar si se ejecutó la función
-        */
+         */
         peticion(lugar, "POST", datos);
         buscar_instructor();
+        $(this).trigger('reset');
         $('#documento').attr('disabled', false);
         /** 
          * Se declara la variable bandera de instructor como false para que la condición del lugar
          * Se pueda cumplir 
-        */
+         */
         edit_instructor = false;
     });
     /** 
      * Se define el evento de click al botón borrar de la lista de instructores
-    */
+     */
     $("#instructor").on('click', '.borrar', function(ev) {
         /** 
          * Conndición para validar si le dio por error o realmente quiere eliminar el dato
-        */
+         */
         if (confirm("Está seguro de eliminar esto?")) {
             /** 
              * Variables donde se almacena el atributo data-id de la fila donde se dio click
-            */
+             */
             let element = $(this)[0].parentElement.parentElement;
             let id = {
                 id: $(element).attr('data-id')
             };
             /** 
              * Ajax que hará la consulta para eliminar instructor según el id
-            */
+             */
             peticion("peticionesAjax&p=eliminar", "POST", id);
             buscar_instructor();
         }
     });
     /** 
      * Se define el evento de click al botón editar de la lista de instructores
-    */
+     */
     $("#instructor").on("click", ".editar", function() {
         /** 
          * Se obtiene el atributo data-id de la fila de donde se dio click al botón editar
          * y almacenarlo en la variable id
-        */
+         */
         let element = $(this)[0].parentElement.parentElement;
         let id = {
             id: $(element).attr('data-id')
@@ -128,7 +129,7 @@ $(window).ready(function() {
         var instructores = peticion("peticionesAjax&p=obtenerdatos", "POST", id);
         /** 
          * Se insertan los datos que retorna el ajax en los diferentes inputs
-        */
+         */
         $('#id').val(instructores[0].id);
         $('#nombres').val(instructores[0].nombres);
         $('#apellidos').val(instructores[0].apellidos);
@@ -140,21 +141,21 @@ $(window).ready(function() {
         /** 
          * Variable que permite saber si se editará o se agregará un dato
          * en false lo agrega y en true lo edita
-        */
+         */
         edit_instructor = true;
         validarLength();
     });
     /** 
      * Se define la función submit para el formulario de agregar ambiente
-    */
+     */
     $('#agregar_ambiente').submit(function(ev) {
         /** 
          * Esta linea permite que al envío de datos no se recargué la página
-        */
+         */
         ev.preventDefault();
         /** 
          * variable que almacena los valores de los input en un objeto
-        */
+         */
         const datos = {
             nombre_ambiente: $('#nombre_ambiente').val(),
             descripcion_ambiente: $('#descripcion_ambiente').val(),
@@ -163,7 +164,7 @@ $(window).ready(function() {
         console.log(datos);
         /** 
          * Condición para identificar si se agregará o se ediará información
-        */
+         */
         let lugar = edit_ambiente === false ? 'peticionesAjaxAmbiente&p=agregar' : 'peticionesAjaxAmbiente&p=editar';
         peticion(lugar, "POST", datos); // Se llama la función que hace la petición ajax
         buscar_ambiente(); // Se llama la función que busca los ambientes
@@ -173,27 +174,27 @@ $(window).ready(function() {
     });
     /** 
      * Se define el evento de click al botón borrar de la lista de ambiente
-    */
+     */
     $("#ambiente").on('click', '.borrar', function(ev) {
         /** 
          * Condicional que pregunta si está seguro de borrar esos datos y 
          * en caso verdadero hará la respectiva consulta
-        */
+         */
         if (confirm("Are you sure you want to delete it?")) {
             /** 
              * Se obtiene el atributo data-id de la fila de donde se dio click al botón editar
              * y almacenarlo en la variable id
-            */
+             */
             let element = $(this)[0].parentElement.parentElement;
             let id_amb = {
                 id_amb: $(element).attr('data-id')
             };
             /** 
              * función que hace la petición Ajax que hará la consulta para eliminar ambiente según el id
-            */
+             */
             peticion("peticionesAjaxAmbiente&p=eliminar", "POST", id_amb);
             /**Se llama la función que busca los ambientes */
-            buscar_ambiente(); 
+            buscar_ambiente();
         }
     });
     /**
@@ -203,7 +204,7 @@ $(window).ready(function() {
         /** 
          * Se obtiene el atributo data-id de la fila de donde se dio click al botón editar
          * y almacenarlo en la variable id
-        */
+         */
         let element = $(this)[0].parentElement.parentElement;
         let id_amb = {
             id_amb: $(element).attr('data-id')
@@ -211,32 +212,32 @@ $(window).ready(function() {
         /** 
          * Se llama la función que hace la peticion ajax para obtener los datos
          * según el atributo que se tomó anteriormente y se almacenan en una variable
-        */
+         */
         var ambiente = peticion("peticionesAjaxAmbiente&p=obtenerdatos", "POST", id_amb);
         /** 
          * Se insertan los datos que se almacenaron en la variable ambiente en los respectivos
          * inputs dell formulario
-        */
+         */
         $('#id_amb').val(ambiente[0].id_amb);
         $('#nombre_ambiente').val(ambiente[0].nombre_ambiente);
         $('#descripcion_ambiente').val(ambiente[0].descripcion_ambiente);
         /** 
          * Se declara la variable bandera de ambiente como true para que el lugar sea editar
-        */
+         */
         edit_ambiente = true;
         validarLength();
     });
     /** 
      * Se define la función submit para el formulario de agregar competencia
-    */
+     */
     $('#agregar_competencia').submit(function(ev) {
         /** 
          * Esta linea permite que al envío de datos no se recargué la página
-        */
+         */
         ev.preventDefault();
         /** 
          * variable que almacena los valores de los input en un objeto
-        */
+         */
         const datos = {
             nombre_comp: $('#nombre_comp').val(),
             descripcion_comp: $('#descripcion_comp').val(),
@@ -244,7 +245,7 @@ $(window).ready(function() {
         };
         /** 
          * Condición para identificar si se agregará o se ediará información
-        */
+         */
         let lugar = edit_competencia === false ? 'peticionesAjaxCompetencia&p=agregar' : 'peticionesAjaxCompetencia&p=editar';
         peticion(lugar, "POST", datos); // Se llama la función que hace la petición ajax
         buscar_competencia(); // Se llama la función que busca los competencias
@@ -254,17 +255,17 @@ $(window).ready(function() {
     });
     /** 
      * Se define el evento de click al botón borrar de la lista de ambiente
-    */
+     */
     $("#competencia").on('click', '.borrar', function(ev) {
         /** 
          * Condicional que pregunta si está seguro de borrar esos datos y 
          * en caso verdadero hará la respectiva consulta
-        */
+         */
         if (confirm("Está seguro que quiere eliminar esto?")) {
             /** 
              * Se obtiene el atributo data-id de la fila de donde se dio click al botón editar
              * y almacenarlo en la variable id
-            */
+             */
             let element = $(this)[0].parentElement.parentElement;
             let id_comp = {
                 id_comp: $(element).attr('data-id')
@@ -275,18 +276,18 @@ $(window).ready(function() {
             peticion("peticionesAjaxCompetencia&p=eliminar", "POST", id_comp);
             /** 
              * Se llama la función que busca los ambientes
-            */
-            buscar_competencia(); 
+             */
+            buscar_competencia();
         }
     });
     /** 
      * Se define el evento click al boton editar de la lista de ambiente
-    */
+     */
     $("#competencia").on("click", ".editar", function() {
         /** 
          * Se obtiene el atributo data-id de la fila de donde se dio click al botón editar
          * y almacenarlo en la variable id
-        */
+         */
         let element = $(this)[0].parentElement.parentElement;
         let id_comp = {
             id_comp: $(element).attr('data-id')
@@ -294,24 +295,24 @@ $(window).ready(function() {
         /** 
          * Se llama la función que hace la peticion ajax para obtener los datos
          * según el atributo que se tomó anteriormente y se almacenan en una variable
-        */
+         */
         var competencia = peticion("peticionesAjaxCompetencia&p=obtenerdatos", "POST", id_comp);
         /** 
          * Se insertan los datos que se almacenaron en la variable ambiente en los respectivos
          * inputs dell formulario
-        */
+         */
         $('#id_comp').val(competencia[0].id_comp);
         $('#nombre_comp').val(competencia[0].nombre_comp);
         $('#descripcion_comp').val(competencia[0].descripcion_comp);
         /** 
          * Se declara la variable bandera de ambiente como true para que el lugar sea editar
-        */
+         */
         edit_competencia = true;
         validarLength();
     });
     /** 
      * Se define la función submit para el formulario de agregar programa de formacion
-    */
+     */
     $('#agregar_programaformacion').submit(function(ev) {
         ev.preventDefault();
         const datos = {
@@ -321,7 +322,7 @@ $(window).ready(function() {
         };
         /** 
          * Condición para identificar si se agregará o se editará información
-        */
+         */
         let lugar = edit_programaformacion === false ? 'peticionesAjaxProgramaFormacion&p=agregar' : 'peticionesAjaxProgramaFormacion&p=editar';
         peticion(lugar, "POST", datos);
         buscar_programaformacion();
@@ -330,7 +331,7 @@ $(window).ready(function() {
     });
     /** 
      * Se define el evento click al boton borrar de la lista de programa
-    */
+     */
     $("#programa").on('click', '.borrar', function(ev) {
         if (confirm("Are you sure you want to delete it?")) {
             let element = $(this)[0].parentElement.parentElement;
@@ -341,9 +342,9 @@ $(window).ready(function() {
             buscar_programaformacion();
         }
     });
-     /** 
+    /** 
      * Se define el evento click al boton editar de la lista de programa
-    */
+     */
     $("#programa").on("click", ".editar", function() {
         let element = $(this)[0].parentElement.parentElement;
         let id_pf = {
@@ -357,7 +358,7 @@ $(window).ready(function() {
         /** 
          * Se insertan los datos que se almacenaron en la variable ambiente en los respectivos
          * inputs del formulario
-        */
+         */
         $('#id_pf').val(programaformacion[0].id_pf);
         $('#nombre_programa').val(programaformacion[0].nombre_programa);
         $('#descripcion_programa').val(programaformacion[0].descripcion_programa);
@@ -366,7 +367,7 @@ $(window).ready(function() {
     });
     /** 
      * Se define la función submit para el formulario de agregar contrato
-    */
+     */
     $('#agregar_contrato').submit(function(ev) {
         ev.preventDefault();
         const datos = {
@@ -376,7 +377,7 @@ $(window).ready(function() {
         };
         /** 
          * Condición para identificar si se agregará o se editará información 
-        */
+         */
         let lugar = edit_contrato === false ? 'peticionesAjaxContrato&p=agregar' : 'peticionesAjaxContrato&p=editar';
         peticion(lugar, "POST", datos)
         buscar_contrato();
@@ -385,7 +386,7 @@ $(window).ready(function() {
     });
     /** 
      * Se define el evento click al boton editar de la lista del contrato
-    */
+     */
     $("#contrato").on('click', '.borrar', function(ev) {
         if (confirm("Está seguro que quiere eliminar esto?")) {
             let element = $(this)[0].parentElement.parentElement;
@@ -398,7 +399,7 @@ $(window).ready(function() {
     });
     /** 
      * Se define el evento click al boton editar de la lista del contrato
-    */
+     */
     $("#contrato").on("click", ".editar", function() {
         let element = $(this)[0].parentElement.parentElement;
         let id_cont = {
@@ -468,7 +469,6 @@ function buscar_instructor() {
     instructores.forEach(instructor => {
         template += `
         <tr data-id="${instructor['id']}">
-        <td>${instructor['id']}</td>
         <td>${instructor['nombres']}</td>
         <td>${instructor['apellidos']}</td>
         <td>${instructor['documento']}</td>
@@ -483,7 +483,6 @@ function buscar_instructor() {
     });
     $('#lista_instructor').html(template);
 }
-
 /**
  *Esta funciona solo estamos haciendo la peticion para mostrar los datos del ambiente
  */
@@ -493,7 +492,6 @@ function buscar_ambiente() {
     ambientes.forEach(ambiente => {
         template += `
         <tr data-id="${ambiente['id_amb']}">
-        <td>${ambiente['id_amb']}</td>
         <td>${ambiente['nombre_ambiente']}</td>
         <td>${ambiente['descripcion_ambiente']}</td>
         <td class="cont_boton">
@@ -513,7 +511,6 @@ function buscar_competencia() {
     competencias.forEach(competencia => {
         template += `
         <tr data-id="${competencia['id_comp']}">
-        <td>${competencia['id_comp']}</td>
         <td>${competencia['nombre_comp']}</td>
         <td>${competencia['descripcion_comp']}</td>
         <td class="cont_boton">
@@ -533,7 +530,6 @@ function buscar_ficha() {
     fichas.forEach(ficha => {
         template += `
         <tr data-id="${ficha['id_fic']}">
-        <td>${ficha['id_fic']}</td>
         <td>${ficha['num_ficha']}</td>
         <td>${ficha['nombre_gestor']}</td>
         <td>${ficha['id_programa']}</td>
@@ -554,7 +550,6 @@ function buscar_programaformacion() {
     programasformaciones.forEach(programaformacion => {
         template += `
         <tr data-id="${programaformacion['id_pf']}">
-        <td>${programaformacion['id_pf']}</td>
         <td>${programaformacion['nombre_programa']}</td>
         <td>${programaformacion['descripcion_programa']}</td>
         <td class="cont_boton">
@@ -592,7 +587,6 @@ function buscar_contrato() {
     contratos.forEach(contrato => {
         template += `
         <tr data-id="${contrato['id_cont']}">
-        <td>${contrato['id_cont']}</td>
         <td>${contrato['descripcion_tipocontrato']}</td>
         <td>${contrato['horas_tipocontrato']}</td>
         <td class="cont_boton">
@@ -611,8 +605,8 @@ mostrar.addEventListener('click', function() {
 });
 /** 
  *  Función para abrir o cerrar el menú del nav cuando está responsive
-*/
-function menuforms() { 
+ */
+function menuforms() {
     if (abierto) {
         forms.style.height = '170px';
         abierto = false;
@@ -626,7 +620,7 @@ window.addEventListener('click', function(e) {
     if (abierto == false) {
         /** 
          * condición para cerrar el menú si se da por fuera o en el icono
-        */
+         */
         if (e.target !== mostrar) {
             forms.style.height = '0px';
             forms.style.overflow = 'hidden';
@@ -651,7 +645,7 @@ function validarLength() {
 /** 
  * Registra un evento a un objeto en específico. 
  * El ObJeto especifico puede ser un simple elemento en un archivo
-*/
+ */
 window.addEventListener('resize', function() {
     if (screen.width >= 700) {
         abierto = true;

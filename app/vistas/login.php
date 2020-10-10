@@ -17,13 +17,17 @@ if (!empty($_POST['correo']) && !empty($_POST['pw'])) {
     $_SESSION['user'] = $login->Login(0, $array);
     $resultado        = $_SESSION['user'];
     if ($resultado != null) {
-        header("Location: index.php?v=fichas");
+        if ($_SESSION['user'][6] == 1) {
+            header("Location: index.php?v=adminFichas");
+        } else if ($_SESSION['user'][6] == 2) {
+            header("Location: index.php?v=fichas");
+        }
     } else {
         $loginE = "Usuario o contraseña incorrectos";
     }
 }
 
-if (!empty($_POST['receptor']) && isset($_POST['enviar'])) {
+if (!empty($_POST['receptor'])) {
     $login = new controller();
     $array = [];
     $token = uniqid();
@@ -77,7 +81,7 @@ if (!empty($_POST['receptor']) && isset($_POST['enviar'])) {
 
     </div>
 
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="app/resources/libjs/jquery.min.js"></script>
     <script src="app/resources/js/loader.js"></script>
     <script type="text/javascript" src="app/resources/js/login.js"></script>
   </body>

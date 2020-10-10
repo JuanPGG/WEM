@@ -7,8 +7,41 @@ window.addEventListener('load', function() {
     datosFichayTrimestre();
     mostrarDatos();
     buscarHorario();
+    document.querySelector('#enlace-atras').addEventListener('click', function() {
+        window.history.back();
+    });
     for (var i = 0; i < td.length; i++) {
-        td[i].addEventListener('dblclick', mostrarForm);
+        td[i].addEventListener('dblclick', function(ev) {
+            if (ev.target.className == 'drops') {
+                celdaId = ev.target.id;
+            } else if (ev.target.className == 'caja') {
+                celdaId = ev.target.parentElement.id;
+            } else if (ev.target.className == 'icon-cog') {
+                celdaId = ev.target.parentElement.parentElement.parentElement.id;
+            } else {
+                celdaId = ev.target.parentElement.parentElement.id;
+            }
+            // celdaId = ev.target.className === 'drops' ? ev.target.id : ev.target.parentElement.id;
+            // celdaId = ev.target.parentElement.id;
+            var celda_select = document.querySelector("#" + celdaId);
+            const datos = {
+                dia: celda_select.getAttribute('data-dia'),
+                hora_inicio: celda_select.parentElement.getAttribute('data-inicio'),
+                hora_fin: celda_select.parentElement.getAttribute('data-fin'),
+                fecha_inicio: $('#fecha p').attr('inicio'),
+                fecha_fin: $('#fecha p').attr('fin'),
+                id_horario: $('table')[0].id
+            }
+            var resultado = peticion("peticionesAjaxDetallesHorario&p=existe", "POST", datos);
+            if (resultado.length > 0) {
+                var texto = 'El dia ' + resultado[0].dia + ' de ' + resultado[0].hora_inicio + ' a ' + resultado[0].hora_fin + ' ya se encuentra programado.';
+                document.querySelector("#alerta").style.display = "flex";
+                document.querySelector("#alerta").innerHTML = texto;
+            } else {
+                mostrarForm(ev);
+                document.querySelector("#alerta").style.display = "none";
+            }
+        });
     }
     /**
      *  Función tipo submit para el envío de los datos para guardar el horario
@@ -35,7 +68,7 @@ window.addEventListener('load', function() {
             success: function(response) {
                 switch (response) {
                     case "Error":
-                        alert('El instructor ya está programado el ' + celda_select.getAttribute('data-dia') + " a las " + celda_select.parentElement.getAttribute('data-inicio'));
+                        alert('El instructor ya está programado el ' + celda_select.getAttribute('data-dia') + " de " + celda_select.parentElement.getAttribute('data-inicio') + " a " + celda_select.parentElement.getAttribute('data-fin'));
                         cont.style.display = 'none';
                         break;
                     case "Ok":
@@ -49,6 +82,29 @@ window.addEventListener('load', function() {
             }
         });
     });
+    // Evento de click para mostrar las opciones detalles y eliminar de cada elemento arrastrado a la tabla
+    $(document).on('click', '.icon-cog', function(e) {
+        // La función toggle inserta o elimina una clase dependiendo de si existe o no
+        document.querySelector('#' + e.target.id + " ~ .menu").classList.toggle('a');
+    });
+    // Evento click sobre la opción detalles que mostrar la información del elemento arrastrado
+    $(document).on('click', '.detalles', function(e) {
+        window.location = 'index.php?v=detallesinstructor&id=' + e.target.id + '&t=' + $('table')[0].id;
+    });
+    // Evento click que eliminará el elemento arrastrado de la tabla
+    $(document).on('click', '.eliminar', function(e) {
+        if (confirm("Está seguro de eliminar esto?")) {
+            // Variables donde se almacena el atributo data-id de la fila donde se dio click
+            let element = $(this)[0].parentElement.parentElement.parentElement.parentElement.innerHTML = '';
+            let id_dh = {
+                id_dh: e.target.id
+            };
+            // Ajax que hará la consulta para eliminar instructor según el id
+            peticion("peticionesAjaxDetallesHorario&p=eliminar", "POST", id_dh);
+            element;
+            buscarHorario();
+        }
+    });
 });
 document.querySelector('#enlace-pdf').addEventListener('click', function() {
     quitarColor();
@@ -58,7 +114,7 @@ document.querySelector('#enlace-pdf').addEventListener('click', function() {
 function quitarColor() {
     var bg = 'transparent';
     var fondos = document.querySelectorAll('.caja');
-    var herramienta = document.querySelectorAll('.icon-cog');
+    var herramienta = document.querySelectorAll('.opcioes');
     document.querySelectorAll('table')[0].style.background = 'none';
     for (var i = 0; i < fondos.length; i++) {
         fondos[i].style.background = bg;
@@ -140,16 +196,11 @@ function buscarHorario() {
     const datos = {
         id_trimestre: $('table')[0].id
     };
-    $.ajax({
-        url: "http://localhost/Proyecto-WEM/index.php?v=peticionesAjaxDetallesHorario&p=mostrar",
-        type: "POST",
-        data: datos,
-        success: function(response) {
-            const horarios = JSON.parse(response);
-            let template = '';
-            var array = document.querySelectorAll('.drops');
-            horarios.forEach(horario => {
-                template = `
+    var horarios = peticion("peticionesAjaxDetallesHorario&p=mostrar", "POST", datos);
+    let template = '';
+    var array = document.querySelectorAll('.drops');
+    horarios.forEach(horario => {
+        template = `
                     <div class='caja' style='background-color:${horario['color']};'>
                     <h3>${horario['instructor']}</h3>
                     <p>${horario['competencia']}</p>
@@ -163,13 +214,11 @@ function buscarHorario() {
                     </div>
                     </div>
                  `;
-                array.forEach(ar => {
-                    if ((ar.dataset.dia == horario['dia']) && (ar.parentElement.dataset.inicio == horario['hora_inicio'])) {
-                        $("#" + ar.id).html(template);
-                    }
-                });
-            });
-        }
+        array.forEach(ar => {
+            if ((ar.dataset.dia == horario['dia']) && (ar.parentElement.dataset.inicio == horario['hora_inicio'])) {
+                $("#" + ar.id).html(template);
+            }
+        });
     });
 }
 
@@ -219,11 +268,11 @@ function mostrarDatos() {
 }
 
 function mostrarForm(ev) { // Se define la función que se encarga de mostrar el formulario
-    if (ev.target.className == 'drops') {
-        cont.style.display = 'flex'; // Se muestra el formulario
-        abierto = true; // Se le da el valor true a la variable bandera
-        celdaId = ev.target.id;
-    }
+    // if (ev.target.className == 'drops') {
+    cont.style.display = 'flex'; // Se muestra el formulario
+    abierto = true; // Se le da el valor true a la variable bandera
+    celdaId = ev.target.id;
+    // }
 }
 // Se define la función donde se realizará la petición ajax, la cual recibe la url, el tipo y los datos
 function peticion(lugar, tipo, datos) {
@@ -246,38 +295,6 @@ function peticion(lugar, tipo, datos) {
     });
     return respuesta;
 }
-document.querySelector('#enlace-atras').addEventListener('click', function() {
-    window.history.back();
-});
-// Evento de click para mostrar las opciones detalles y eliminar de cada elemento arrastrado a la tabla
-$(document).on('click', '.icon-cog', function(e) {
-    // La función toggle inserta o elimina una clase dependiendo de si existe o no
-    document.querySelector('#' + e.target.id + " ~ .menu").classList.toggle('a');
-});
-// Evento click sobre la opción detalles que mostrar la información del elemento arrastrado
-$(document).on('click', '.detalles', function(e) {
-    window.location = 'index.php?v=detallesinstructor&id=' + e.target.id + '&t=' + $('table')[0].id;
-});
-// Evento click que eliminará el elemento arrastrado de la tabla
-$(document).on('click', '.eliminar', function(e) {
-    console.log(e.target.id);
-    if (confirm("Está seguro de eliminar esto?")) {
-        // Variables donde se almacena el atributo data-id de la fila donde se dio click
-        let element = $(this)[0].parentElement.parentElement;
-        let id_dh = {
-            id_dh: e.target.id
-        };
-        // Ajax que hará la consulta para eliminar instructor según el id
-        $.ajax({
-            url: "http://localhost/Proyecto-WEM/index.php?v=peticionesAjaxDetallesHorario&p=eliminar",
-            type: "POST",
-            data: id_dh,
-            success: function(response) {
-                buscarHorario();
-            }
-        });
-    }
-});
 cont.addEventListener('click', function(e) { // Evento para esconder el formulario según donde se de clic
     // condición para cerrar el form si se da por fuera de este o en la X
     if (abierto == true && ((e.target == cont) || (e.target == cerrar))) {

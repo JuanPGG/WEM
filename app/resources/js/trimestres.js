@@ -127,7 +127,7 @@ function buscarTrimestre() {
                 <p>${trimestre['fecha_inicio']} / ${trimestre['fecha_fin']}</p>
                 </div>
                 <div class="info">
-                <p><a href="index.php?v=crud&n=${trimestre["id_ficha"]}&t=${trimestre['id_horario']}" class="abrir">Abrir</a></p>
+                <p><a href="index.php?v=adminHorario&n=${trimestre["id_ficha"]}&t=${trimestre['id_horario']}" class="abrir">Abrir</a></p>
                 <p><a class="editar">Editar</a></p>
                 <p><a class="eliminar">Eliminar</a></p>
                 </div>

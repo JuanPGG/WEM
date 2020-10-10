@@ -94,7 +94,7 @@ class login_controller {
         $result   = $conexion->query($sql);
         $filas    = $result->num_rows;
         if ($filas === 0) {
-            $stmt = $conexion->prepare("INSERT INTO usuario(Nombres,Apellidos,Correo,Contrasena) VALUES( ?, ?, ?, MD5(?))");
+            $stmt = $conexion->prepare("INSERT INTO usuario(Nombres,Apellidos,Correo,Contrasena, id_Rol) VALUES( ?, ?, ?, MD5(?), 2)");
             $stmt->bind_param("ssss", $array[0], $array[1], $array[2], $array[3]);
             $stmt->execute();
             echo "<script>
@@ -129,8 +129,8 @@ class login_controller {
             $message .= "
             .container-msg{
               width: 100%;
-              background: #ccc;
               text-align: center;
+              padding: 100px 0px;
             }
             .boton{
               margin: 20px auto;
@@ -156,9 +156,13 @@ class login_controller {
             $message .= "
             <div class='container-msg'>
                 <h1>Restablecer contraseña</h1>
+                <p>Este link solo será válido por 3 minutos.</p>
                 <p>Para restablecer su contraseña haga click en el siguiente boton: </p>
 
                 <a href='http://localhost/Proyecto-WEM/index.php?v=recuperarPw&token=" . $array[0] . "'><button class='boton'>Restablecer Contraseña</button></a>
+
+                <p>En caso de que el botón anterior no funcione, haga uso del siguiente enlace: <a href='http://localhost/Proyecto-WEM/index.php?v=recuperarPw&token=" . $array[0] . "'>http://localhost/Proyecto-WEM/index.php?v=recuperarPw&token=" . $array[0] . "</a></p>
+
               </div>
             ";
             $message .= "</body></html>";
@@ -188,7 +192,7 @@ class login_controller {
                 $sqlEvent = "SET GLOBAL event_scheduler = ON";
                 $conexion->query($sqlEvent);
                 $sql2 = "CREATE EVENT borrar_token
-                        ON SCHEDULE AT CURRENT_TIMESTAMP + INTERVAL 1 MINUTE
+                        ON SCHEDULE AT CURRENT_TIMESTAMP + INTERVAL 3 MINUTE
                         DO UPDATE usuario SET token = null WHERE token = '$array[0]'";
                 $conexion->query($sql2);
 

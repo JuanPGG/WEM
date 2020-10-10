@@ -5,7 +5,7 @@ require_once "app/controllers/controller.php";
 if (!isset($_SESSION['user'])) {
     header("Location: index.php");
 }
-if (isset($_GET['n'])) {
+if ($_SESSION['user'][6] == 1) {
     ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -20,7 +20,7 @@ if (isset($_GET['n'])) {
     <!--- Title --->
     <title>WEM</title>
     <!--- Stylesheets --->
-    <link rel="stylesheet" href="app/resources/css/trimestres.css">
+    <link rel="stylesheet" href="app/resources/css/fichas.css">
     <link rel="stylesheet" href="app/resources/iconos/icomoon/style.css">
 </head>
 
@@ -44,9 +44,8 @@ if (isset($_GET['n'])) {
                 </div>
                 <!-- Contenedor de los enlaces del nav -->
                 <div id="enlaces" class="enlaces">
-                    <a href="index.php?v=forms" id="enlace" class="btn-header">Registros</a>
-                    <a id="enlace-atras" class="btn-header">Atrás</a>
-                    <a href="index.php?v=perfil" id="usuario"><?php echo $_SESSION['user'][1]; ?></a>
+                    <a href="index.php?v=adminForms" id="enlace-registros" class="btn-header">Registros</a>
+                    <a href="index.php?v=perfil" id="usuario">Bienvenido, <?php echo $_SESSION['user'][1]; ?></a>
                     <a href="app/models/salir.php" id="salir">Cerrar Sesión</a>
                 </div>
                 <!-- Icono para la pantalla responsive -->
@@ -58,12 +57,12 @@ if (isset($_GET['n'])) {
     </header>
     <!---------- MAIN -------------->
     <main>
-        <div class="container" id="<?php echo $_GET['n']; ?>">
+        <div class="container">
             <div id="titulo">
-                <h1>Trimestres de la ficha <span id="num_ficha"></span></h1>
+                <h1>Mis Fichas</h1>
             </div>
             <!-- Contenedor donde se insertarán los ambientes encontrado en la BD -->
-            <div id="cont_trimestres">
+            <div id="cont_fichas">
 
             </div>
             <!-- Contenedor con el evento click para agregar trimestres -->
@@ -72,42 +71,30 @@ if (isset($_GET['n'])) {
             </div>
         </div>
         <div id="cont_form">
-            <div id="formTrimestre">
-                <form method="POST" id="form_trimestre" class="formulario">
-                <i class="icon-cross" id="cerrar"></i>
-                    <h1>Trimestre</h1>
-                    <input type="hidden" id="id_trimestre">
-                    <input class="input" type="text" id="nombre_trimestre">
-                    <label>Nombre del Trimestre</label>
-                    <div>
-                        <input class="input fecha" type="date" id="fecha_inicio">
-                        <label>Fecha de inicio</label>
-                    </div>
-                    <div>
-                        <input class="input fecha" type="date" id="fecha_fin">
-                        <label>Fecha de fin</label>
-                    </div>
-                    <button type="submit">Guardar</button>
-                </form>
-            </div>
+            <form method="POST" id="form_ficha" class="formulario">
+            <i class="icon-cross" id="cerrar"></i>
+                <h1>Ficha</h1>
+                <input type="hidden" id="id_fic">
+                <input type="text" class="input" id="nombre_gestor">
+                <label>Nombre del Gestor</label>
+                <input type="text" class="input" id="num_ficha">
+                <label>Número de la ficha</label>
+                <select class="select" id="nombre_prog"></select>
+                <button type="submit">Guardar</button>
+            </form>
         </div>
-
     </main>
     <!--- Javascriprt ---->
 
-    <script
-    src="https://code.jquery.com/jquery-3.3.1.min.js"
-    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-    crossorigin="anonymous"></script>
+    <script type="text/javascript" src="app/resources/libjs/jquery.min.js"></script>
     <script src="app/resources/js/nav.js"></script>
     <script src="app/resources/js/loader.js"></script>
-    <script src="app/resources/js/trimestres.js"></script>
+    <script src="app/resources/js/fichas.js"></script>
 
 </body>
 </html>
 <?php
-
-} else {
-    header("location: index.php?v=fichas");
+} else if ($_SESSION['user'][6] == 2) {
+    header("Location: index.php?v=fichas");
 }
 ?>

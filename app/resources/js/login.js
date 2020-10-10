@@ -57,31 +57,29 @@ function  validateForm1()  {
         colorDefault("email1");
     }
     //Validación del campo contrasena no esté vacío
-    if  (contrasena ==  ""  ||  contrasena  ==  null)  {  
-        call("pw", "El campo de la contraseña es obligatorio.");
-        return  false;
-        //Validación del campo contrasena que cumpla con: de 8 a 16 caracteres, 
-        //una minúscula, una mayúscula y un número
-    } else if (!expresionContrasena.test(contrasena)) {
-        call("pw", "Ingrese una contraseña válida. (De 8 a 16 caracteres, al menos una letra minúscula, una mayúscula y un número)");
-        return false;
-    } else {
-        colorDefault("pw");
-    }
+    // if  (contrasena ==  ""  ||  contrasena  ==  null)  {  
+    //     call("pw", "El campo de la contraseña es obligatorio.");
+    //     return  false;
+    //     //Validación del campo contrasena que cumpla con: de 8 a 16 caracteres, 
+    //     //una minúscula, una mayúscula y un número
+    // } else if (!expresionContrasena.test(contrasena)) {
+    //     call("pw", "Ingrese una contraseña válida. (De 8 a 16 caracteres, al menos una letra minúscula, una mayúscula y un número)");
+    //     return false;
+    // } else {
+    //     colorDefault("pw");
+    // }
     $('#containerSesion').submit();
     return  true;
 }
 
 function validateForm2() {
     var  correo2  =  $("#email2").val();
+    const expresionCorreo2 = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     //Validación del campo correo no esté vacío
     if  (correo2  ==  ""  ||  correo2  ==  null)  {
         call("email2", "El campo del email es obligatorio.");
         return  false;
         //Validación del campo correo que cumpla con el formato example_12@example.com
-    } else if (!expresionCorreo.test(correo2)) {
-        call("email2", "Ingresa un email válido como: example@example.com");
-        return false;
     } else {
         colorDefault("email2");
     }

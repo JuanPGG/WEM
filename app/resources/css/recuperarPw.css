@@ -87,6 +87,7 @@ body{
   justify-content: center;
   align-items: center;
   text-align: left;
+  color: white;
 }
 .formulario {
     width: 450px;
