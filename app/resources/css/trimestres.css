@@ -8,6 +8,8 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    user-select: none;
+    outline: none;
 }
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400&display=swap');
 body {
@@ -141,6 +143,18 @@ nav .enlaces a:hover, nav .enlaces2 a:hover {
     background-attachment: fixed;
     background-position: center;
     background-size: cover;
+}
+.alerta{
+  width: 100%;
+  padding:10px 20px;
+  background: rgba(255, 0, 0, .5);
+  margin: 0 auto;
+  border-radius: 5px;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  text-align: left;
+  color: white;
 }
 #cont_form {
     width: 100%;

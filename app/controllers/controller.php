@@ -9,9 +9,9 @@ require_once "ambiente_controller.php";
 require_once "ficha_controller.php";
 require_once "programaformacion_controller.php";
 require_once "contrato_controller.php";
-require_once "horario_controller.php";
+require_once "trimestre_controller.php";
 require_once "competencia_controller.php";
-require_once "detalleshorario_controller.php";
+require_once "horario_controller.php";
 /**
  * controller
  * 
@@ -40,11 +40,11 @@ class controller {
     public function contrato($option, $array = []) {
         return contrato_controller::Main($option, $array);
     }
+    public function trimestre($option, $array = []) {
+        return trimestre_controller::Main($option, $array);
+    }
     public function horario($option, $array = []) {
         return horario_controller::Main($option, $array);
-    }
-    public function detalleshorario($option, $array = []) {
-        return detalleshorario_controller::Main($option, $array);
     }
 }
 ?>

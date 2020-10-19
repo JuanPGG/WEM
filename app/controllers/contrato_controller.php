@@ -49,7 +49,7 @@ class contrato_controller{
      * @return retorna un array de datos
      */
     public function consult(){
-        $conexion=Conexion::connection();
+        $conexion=Conexion::conectar();
         $sql = "SELECT * FROM tipocontrato";
         return $conexion->query($sql);
     }
@@ -60,7 +60,7 @@ class contrato_controller{
      * @return type retorna un true o un false
      */
     public function insert($array){
-        $conexion=Conexion::connection();
+        $conexion=Conexion::conectar();
         $sql = "SELECT * FROM tipocontrato WHERE Horas_TipoContrato = '$array[1]' ";
         $result = $conexion->query($sql);
         $filas = $result->num_rows;
@@ -76,7 +76,7 @@ class contrato_controller{
      * @return type retorna un true o un false
      */
     public function update($array){
-        $conexion=Conexion::connection();
+        $conexion=Conexion::conectar();
         $sql = "UPDATE tipocontrato SET Descripcion_TipoContrato = ?, Horas_TipoContrato = ?  WHERE id_TipoContrato  = ? ";
         $stmt = $conexion->prepare($sql);
         $stmt->bind_param("sii",$array[0],$array[1],$array[2]);
@@ -88,7 +88,7 @@ class contrato_controller{
      * @return type retorna un true o un false
      */
     public function delete($array){
-        $conexion=Conexion::connection();
+        $conexion=Conexion::conectar();
         $sql = "DELETE FROM tipocontrato WHERE id_TipoContrato = ? ";
         $stmt=$conexion->prepare($sql);
         $stmt->bind_param("i",$array[0]);
@@ -100,7 +100,7 @@ class contrato_controller{
      * @return type retorna un array de datos
      */
     public function consultUpdate($array){
-        $conexion=Conexion::connection();
+        $conexion=Conexion::conectar();
         $sql = "SELECT * FROM tipocontrato WHERE id_TipoContrato = $array[0]";
         $result = $conexion->query($sql);
         return $result;

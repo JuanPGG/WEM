@@ -83,6 +83,7 @@ if (!empty($_POST['receptor'])) {
 
     <script type="text/javascript" src="app/resources/libjs/jquery.min.js"></script>
     <script src="app/resources/js/loader.js"></script>
+    <script type="text/javascript" src="app/resources/js/funciones.js"></script>
     <script type="text/javascript" src="app/resources/js/login.js"></script>
   </body>
   </html>

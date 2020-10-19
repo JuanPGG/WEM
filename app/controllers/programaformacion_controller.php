@@ -51,7 +51,7 @@ class programaformacion_controller {
      * @return retorna un array de datos
      */
     public function consult() {
-        $conexion = Conexion::connection();
+        $conexion = Conexion::conectar();
         $sql      = "SELECT * FROM programa_formacion";
         return $conexion->query($sql);
     }
@@ -62,7 +62,7 @@ class programaformacion_controller {
      * @return type retorna un true o un false
      */
     public function insert($array) {
-        $conexion = Conexion::connection();
+        $conexion = Conexion::conectar();
         $sql      = "SELECT * FROM programa_formacion WHERE Nombre_Programa = '$array[0]' ";
         $result   = $conexion->query($sql);
         $filas    = $result->num_rows;
@@ -78,7 +78,7 @@ class programaformacion_controller {
      * @return type retorna un true o un false
      */
     public function update($array) {
-        $conexion = Conexion::connection();
+        $conexion = Conexion::conectar();
         $sql      = "UPDATE programa_formacion SET Nombre_Programa = ?,  Descripcion_Programa = ? WHERE id_Programa  = ? ";
         $stmt     = $conexion->prepare($sql);
         $stmt->bind_param("ssi", $array[0], $array[1], $array[2]);
@@ -90,7 +90,7 @@ class programaformacion_controller {
      * @return type retorna un true o un false
      */
     public function delete($array) {
-        $conexion = Conexion::connection();
+        $conexion = Conexion::conectar();
         $sql      = "DELETE FROM programa_formacion WHERE id_Programa = ? ";
         $stmt     = $conexion->prepare($sql);
         $stmt->bind_param("i", $array[0]);
@@ -102,7 +102,7 @@ class programaformacion_controller {
      * @return type retorna un array de datos
      */
     public function consultUpdate($array) {
-        $conexion = Conexion::connection();
+        $conexion = Conexion::conectar();
         $sql      = "SELECT * FROM programa_formacion WHERE id_Programa = $array[0]";
         $result   = $conexion->query($sql);
         return $result;

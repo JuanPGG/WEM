@@ -1,11 +1,7 @@
 var inputs = document.querySelectorAll('.input');
 for (var i = 0; i < inputs.length; i++) {
     inputs[i].addEventListener('keyup', function() {
-        if (this.value.length >= 1) {
-            this.nextElementSibling.classList.add('fijar');
-        } else {
-            this.nextElementSibling.classList.remove('fijar');
-        }
+        validarLength();
     });
 }
 document.getElementById("resetPw").onclick = validateForm;
@@ -42,27 +38,4 @@ function  validateForm()  {
     }
     $('#form').submit();
     return  true;
-}
-//Función que hace el llamado a las demás funciones (Especialmente para ahorrar código)
-//Recibe el id del input y el mensaje que será mostrado según el caso
-function call(id, mensaje) {
-    cambiarColor(id);
-    mostraAlerta(mensaje);
-    //Hacerle focus al input que no cumpla con las validaciones especificadas
-    $("#" + id).focus();
-}
-// creamos un funcion de color por defecto a los bordes de los inputs
-function  colorDefault(dato)  {
-    document.querySelector("#" + dato).style.border =  "none";
-    document.querySelector("#" + dato).style.borderBottom =  "3px solid rgb(252, 115, 35)";
-}
-// creamos una funcio para cambiar de color a su bordes de los input
-function  cambiarColor(dato)  {
-    document.querySelector("#" + dato).style.border = '3px solid red';
-}
-// funcion para mostrar la alerta
-function  mostraAlerta(texto)  {
-    document.querySelector("#alerta").style.display = "flex";
-    document.querySelector("#alerta").value = texto;
-    document.querySelector("#alerta").innerHTML = texto;
 }

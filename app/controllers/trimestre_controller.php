@@ -4,15 +4,15 @@
  */
 require_once "app/models/conexion.php";
 /**
- * ambiente_controller - Clase en la que se harán las diferentes funciones de CRUD para los ambientes
+ * trimestre_controller
+ * 
+ * Se usa para el funcionamiento del CRUD de la clase trimestre
  */
-class ambiente_controller {
-
+class trimestre_controller {
     /**
      * @construct
      */
     public function __construct() {}
-
     /**
      * @Main - función que llama los diferentes métodos de la clase
      * @param type $option recibe un parametro tipo int para hacer el switch
@@ -20,38 +20,33 @@ class ambiente_controller {
      * @return type retorna la variable result que retorna true, false o un array de datos
      */
     public static function Main($option, $array = []) {
-        $login = new ambiente_controller();
-        // Según la opción que llegue, hará la función en el switch
+        $login = new trimestre_controller();
         switch ($option) {
         case 0:
-            $result = $login->consult(); // Se llama la funcion que trae los datos
+            $result = $login->consult($array);
             break;
-
         case 1:
-            $result = $login->insert($array); // Se llama la funcion que inserta los datos
+            $result = $login->insert($array);
             break;
-
         case 2:
-            $result = $login->delete($array); // Se llama la funcion que elimina el dato segun el id
+            $result = $login->delete($array);
             break;
-
         case 3:
-            $result = $login->consultUpdate($array); // Se llama la funcion que trae los datos según el id
+            $result = $login->consultUpdate($array);
             break;
-
         case 4:
-            $result = $login->update($array); // Se llama la funcion actualiza los datos
+            $result = $login->update($array);
             break;
         }
         return $result;
     }
-    /**
-     * @consult - función que hace la consulta de toda la información del ambiente
+     /**
+     * @consult - función que hace la consulta de toda la información del trimestre
      * @return retorna un array de datos
      */
-    public function consult() {
+    public function consult($array) {
         $conexion = Conexion::conectar();
-        $sql      = "SELECT * from ambiente";
+        $sql      = "SELECT * FROM trimestre WHERE id_Ficha = '$array[0]'";
         return $conexion->query($sql);
     }
     /**
@@ -62,26 +57,25 @@ class ambiente_controller {
      */
     public function insert($array) {
         $conexion = Conexion::conectar();
-        $sql      = "SELECT * from ambiente WHERE Nombre_Ambiente = '$array[0]'"; // Se busca si existe
+        $sql      = "SELECT * FROM trimestre WHERE Trimestre = '$array[0]' AND id_Ficha = '$array[3]' ";
         $result   = $conexion->query($sql);
         $filas    = $result->num_rows;
         if ($filas === 0) {
-            // En caso de que no exista se hace la consulta a continuación para insertar
-            $stmt = $conexion->prepare("INSERT INTO ambiente (Nombre_Ambiente, Descripcion_Ambiente)VALUES(?,?)");
-            $stmt->bind_param("ss", $array[0], $array[1]);
+            $stmt = $conexion->prepare("INSERT INTO trimestre (Trimestre, Fecha_Inicio, Fecha_Fin, id_Ficha)VALUES(?,?,?,?)");
+            $stmt->bind_param("sssi", $array[0], $array[1], $array[2], $array[3]);
             $stmt->execute();
         }
     }
-    /**
+     /**
      * @update - función que realiza una actualización de datos según el id
      * @param type $array recibe un array con los datos que se actualizaran
      * @return type retorna un true o un false
      */
     public function update($array) {
         $conexion = Conexion::conectar();
-        $sql      = "UPDATE ambiente SET Nombre_Ambiente = ?, Descripcion_Ambiente = ? WHERE id_Ambiente = ? ";
+        $sql      = "UPDATE trimestre SET Trimestre = ?, Fecha_Inicio = ? , Fecha_Fin = ?, id_Ficha = ? WHERE id_Trimestre  = ? ";
         $stmt     = $conexion->prepare($sql);
-        $stmt->bind_param("ssi", $array[0], $array[1], $array[2]);
+        $stmt->bind_param("sssii", $array[0], $array[1], $array[2], $array[3], $array[4]);
         $stmt->execute();
     }
     /**
@@ -91,7 +85,7 @@ class ambiente_controller {
      */
     public function delete($array) {
         $conexion = Conexion::conectar();
-        $sql      = "DELETE FROM ambiente WHERE id_Ambiente = ? ";
+        $sql      = "DELETE FROM trimestre WHERE id_Trimestre = ? ";
         $stmt     = $conexion->prepare($sql);
         $stmt->bind_param("i", $array[0]);
         $stmt->execute();
@@ -103,9 +97,9 @@ class ambiente_controller {
      */
     public function consultUpdate($array) {
         $conexion = Conexion::conectar();
-        $sql      = "SELECT * FROM ambiente WHERE id_Ambiente = $array[0]";
+        $sql      = "SELECT * FROM trimestre WHERE id_Trimestre = $array[0]";
         $result   = $conexion->query($sql);
-        return $result; // Se retornan los datos encontrados
+        return $result;
     }
 }
 

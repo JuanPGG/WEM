@@ -47,6 +47,7 @@ if ($resultado != null) {
 
     <script type="text/javascript" src="app/resources/libjs/jquery.min.js"></script>
     <script src="app/resources/js/loader.js"></script>
+    <script type="text/javascript"src="app/resources/js/funciones.js"></script>
     <script type="text/javascript" src="app/resources/js/recuperarPw.js"></script>
 </body>
 </html>

@@ -406,35 +406,34 @@ class redirec_controller {
         case 'mostrar':
             $array = [];
             array_push($array, $_POST['id_ficha']);
-            $result    = $controller->horario(0, $array);
-            $resultado = api_response::mostrar($result, ["id_horario", "trimestre", "fecha_inicio", "fecha_fin", "id_ficha"]);
+            $result    = $controller->trimestre(0, $array);
+            $resultado = api_response::mostrar($result, ["id_trimestre", "trimestre", "fecha_inicio", "fecha_fin","id_ficha"]);
             echo $resultado;
             break;
-
         case 'agregar':
             $array = [];
             array_push($array, $_POST['trimestre'], $_POST['fecha_inicio'], $_POST['fecha_fin'], $_POST['id_ficha']);
-            $result = $controller->horario(1, $array);
+            $result = $controller->trimestre(1, $array);
             break;
 
         case 'eliminar':
             $array = [];
-            array_push($array, $_POST['id_horario']);
-            $result = $controller->horario(2, $array);
+            array_push($array, $_POST['id_trimestre']);
+            $result = $controller->trimestre(2, $array);
             break;
 
         case 'obtenerdatos':
             $array = [];
-            array_push($array, $_POST['id_horario']);
-            $result    = $controller->horario(3, $array);
-            $resultado = api_response::mostrar($result, ["id_horario", "nombre_trimestre", "fecha_inicio", "fecha_fin", "id_ficha"]);
+            array_push($array, $_POST['id_trimestre']);
+            $result    = $controller->trimestre(3, $array);
+            $resultado = api_response::mostrar($result, ["id_trimestre", "nombre_trimestre", "fecha_inicio", "fecha_fin","id_ficha"]);
             echo $resultado;
             break;
 
         case 'editar':
             $array = [];
-            array_push($array, $_POST['trimestre'], $_POST['fecha_inicio'], $_POST['fecha_fin'], $_POST['id_ficha'], $_POST['id_horario']);
-            $result = $controller->horario(4, $array);
+            array_push($array, $_POST['trimestre'], $_POST['fecha_inicio'], $_POST['fecha_fin'], $_POST['id_ficha'], $_POST['id_trimestre']);
+            $result = $controller->trimestre(4, $array);
             break;
         }
     }
@@ -445,47 +444,57 @@ class redirec_controller {
      * @param type|String parametro que recibirá el string del caso que se ejecutará
      * @return type retorna los datos si es 'mostrar', 'obtenerInstructor' y en los demás solo true o false
      */
-    public function peticionesAjaxDetallesHorario($p) {
+    public function peticionesAjaxHorario($p) {
         $controller = new controller();
         switch ($p) {
         case 'mostrar':
             $array = [];
             array_push($array, $_POST['id_trimestre']);
-            $result    = $controller->detalleshorario(0, $array);
-            $resultado = api_response::mostrar($result, ["id", "dia", "hora_inicio", "hora_fin", "id_instructor", "instructor", "color", "ambiente", "competencia"]);
+            $result    = $controller->horario(0, $array);
+            $resultado = api_response::mostrar($result, ["id_horario", "dia", "hora_inicio", "hora_fin", "id_instructor", "instructor", "color", "ambiente", "competencia"]);
             echo $resultado;
             break;
 
         case 'agregar':
             $array = [];
-            array_push($array, $_POST['dia'], $_POST['hora_inicio'], $_POST['hora_fin'], $_POST['id_Ambiente'], $_POST['id_Competencia'], $_POST['id_Instructor'], $_POST['id_Horario'], $_POST['id_Usuario'], $_POST['fecha_inicio'], $_POST['fecha_fin']);
-            $controller->detalleshorario(1, $array);
+            array_push($array, $_POST['dia'], $_POST['hora_inicio'], $_POST['hora_fin'], $_POST['id_Ambiente'], $_POST['id_Competencia'], $_POST['id_Instructor'], $_POST['id_Trimestre'], $_POST['id_Usuario'], $_POST['fecha_inicio'], $_POST['fecha_fin']);
+            $result = $controller->horario(1, $array);
+            if($result != 'Ok'){
+                $resultado = api_response::mostrar($result, ["dia", "hora_inicio", "hora_fin", "nombre", "ficha"]);
+                echo $resultado;
+            }else{
+                echo $result;
+            }
             break;
 
         case 'obtenerInstructor':
             $array = [];
             array_push($array, $_POST['id_instructor'], $_POST['fecha_inicio'], $_POST['fecha_fin']);
-            $result    = $controller->detalleshorario(2, $array);
-            $resultado = api_response::mostrar($result, ["dia", "hora_inicio", "hora_fin", "color", "ambiente", "competencia", "ficha"]);
-            echo $resultado;
+            $result    = $controller->horario(2, $array);
+            if($result != 'No encontrado'){
+                $resultado = api_response::mostrar($result, ["dia", "hora_inicio", "hora_fin", "color", "id","ambiente", "competencia", "ficha"]);
+                echo $resultado;
+            }else{
+                echo $result;
+            }
             break;
         case 'eliminar':
             $array = [];
-            array_push($array, $_POST['id_dh']);
-            $controller->detalleshorario(3, $array);
+            array_push($array, $_POST['id_horario']);
+            $controller->horario(3, $array);
             break;
         case 'horas':
             $array = [];
             array_push($array, $_POST['id_instructor'], $_POST['fecha_inicio'], $_POST['fecha_fin']);
-            $result    = $controller->detalleshorario(4, $array);
+            $result    = $controller->horario(4, $array);
             $resultado = api_response::mostrar($result, ["horas"]);
             echo $resultado;
             break;
         case 'existe':
             $array = [];
-            array_push($array, $_POST['dia'], $_POST['hora_inicio'], $_POST['hora_fin'], $_POST['fecha_inicio'], $_POST['fecha_fin'], $_POST['id_horario']);
-            $result    = $controller->detalleshorario(5, $array);
-            $resultado = api_response::mostrar($result, ["dia", "hora_inicio", "hora_fin", "fecha_inicio", "fecha_fin", "id_horario"]);
+            array_push($array, $_POST['dia'], $_POST['hora_inicio'], $_POST['hora_fin'], $_POST['fecha_inicio'], $_POST['fecha_fin'], $_POST['id_trimestre']);
+            $result    = $controller->horario(5, $array);
+            $resultado = api_response::mostrar($result, ["dia", "hora_inicio", "hora_fin", "fecha_inicio", "fecha_fin", "id_trimestre"]);
             echo $resultado;
             break;
         }

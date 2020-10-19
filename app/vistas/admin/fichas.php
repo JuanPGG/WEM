@@ -72,15 +72,16 @@ if ($_SESSION['user'][6] == 1) {
         </div>
         <div id="cont_form">
             <form method="POST" id="form_ficha" class="formulario">
-            <i class="icon-cross" id="cerrar"></i>
+                <i class="icon-cross" id="cerrar"></i>
                 <h1>Ficha</h1>
+                <p id="alerta" class="alerta"></p>
                 <input type="hidden" id="id_fic">
                 <input type="text" class="input" id="nombre_gestor">
                 <label>Nombre del Gestor</label>
                 <input type="text" class="input" id="num_ficha">
                 <label>Número de la ficha</label>
                 <select class="select" id="nombre_prog"></select>
-                <button type="submit">Guardar</button>
+                <button type="submit" id="btn-ficha">Guardar</button>
             </form>
         </div>
     </main>
@@ -89,6 +90,7 @@ if ($_SESSION['user'][6] == 1) {
     <script type="text/javascript" src="app/resources/libjs/jquery.min.js"></script>
     <script src="app/resources/js/nav.js"></script>
     <script src="app/resources/js/loader.js"></script>
+    <script src="app/resources/js/funciones.js"></script>
     <script src="app/resources/js/fichas.js"></script>
 
 </body>

@@ -10,24 +10,32 @@
     --espacios: 10px;
     --espacios-contenido: 45px;
 }
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    user-select: none;
+    outline: none;
 }
+
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400&display=swap');
+
 body {
     font-family: 'Raleway', sans-serif;
     background: var(--fondo);
 }
+
 img {
     vertical-align: top;
 }
+
 /* -- Loader -- */
 
 .hidden {
     overflow: hidden;
 }
+
 .centrado {
     position: fixed;
     width: 100vw;
@@ -38,6 +46,7 @@ img {
     justify-content: center;
     align-items: center;
 }
+
 .loader {
     position: relative;
     width: 60px;
@@ -49,6 +58,7 @@ img {
     transform: rotate(360deg);
     animation: loader 0.6s ease-out alternate infinite;
 }
+
 .loader .loader-inner {
     border: 0px inset orange;
     border-radius: 50%;
@@ -56,24 +66,29 @@ img {
     height: 100%;
     animation: border-zoom 1s ease-out alternate infinite;
 }
+
 /* ----------------     KEYFRAMES    ----------------- */
 
 @keyframes loader {
     0% {
         transform: rotate(0deg);
     }
+
     100% {
         transform: rotate(-360deg);
     }
 }
+
 @keyframes border-zoom {
     0% {
         border-width: 0px;
     }
+
     100% {
         border-width: 15px;
     }
 }
+
 /*  Header / NAV */
 
 nav {
@@ -81,18 +96,21 @@ nav {
     position: fixed;
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, .6);
 }
+
 .nav1 {
     background: transparent;
     height: 80px;
     color: white;
     z-index: 4;
 }
+
 .nav2 {
     background: var(--fondo);
     height: 100px;
     color: black;
     z-index: 4;
 }
+
 .contenedor-nav {
     display: flex;
     margin: auto;
@@ -103,13 +121,17 @@ nav {
     height: inherit;
     overflow: hidden;
 }
+
 nav .enlaces a {
     color: white;
 }
+
 nav .enlaces2 a {
     color: black;
 }
-nav .enlaces a, nav .enlaces2 a {
+
+nav .enlaces a,
+nav .enlaces2 a {
     display: inline-block;
     padding: 5px 0;
     margin-right: 17px;
@@ -119,25 +141,35 @@ nav .enlaces a, nav .enlaces2 a {
     border-bottom: 3px solid transparent;
     cursor: pointer;
 }
-nav .enlaces #usuario, nav .enlaces2 #usuario {
+
+nav .enlaces #usuario,
+nav .enlaces2 #usuario {
     margin-left: 120px;
 }
-nav .enlaces #usuario i, nav .enlaces2 #usuario i {
+
+nav .enlaces #usuario i,
+nav .enlaces2 #usuario i {
     font-size: 30px;
     margin: 0 10px;
 }
-nav .enlaces a:hover, nav .enlaces2 a:hover {
+
+nav .enlaces a:hover,
+nav .enlaces2 a:hover {
     border-bottom: 3px solid rgb(252, 115, 35);
     transition: 0.6s;
 }
-.logo, .logo img {
+
+.logo,
+.logo img {
     height: 80px;
 }
+
 .icono {
     display: none;
     font-size: 24px;
     padding: 21.5px 20px;
 }
+
 /* Main */
 
 /* formulario */
@@ -153,8 +185,9 @@ nav .enlaces a:hover, nav .enlaces2 a:hover {
     top: 0;
     z-index: 100;
 }
+
 #form {
-    width: 330px;
+    width: 350px;
     height: auto;
     background: linear-gradient(to right, hsla(176, 73%, 25%, .6), hsla(176, 73%, 25%, .6), rgba(252, 115, 35, .6));
     line-height: 2;
@@ -164,6 +197,7 @@ nav .enlaces a:hover, nav .enlaces2 a:hover {
     box-shadow: 0 0 6px 0 var(--color3);
     padding: 20px;
 }
+
 #form>i {
     height: 14px;
     position: absolute;
@@ -172,34 +206,46 @@ nav .enlaces a:hover, nav .enlaces2 a:hover {
     font-size: 14px;
     cursor: pointer;
 }
+
 #form h1 {
     color: var(--color1);
 }
+
 #form .select {
     width: 100%;
     margin: 10px 0;
 }
+
 #form label {
+    width: 100%;
+    display: block;
+    font-size: 1.15em;
+    font-weight: bold;
     color: var(--color1);
-    font-size: 20px;
 }
-#form select {
-    width: 80%;
-    height: 30px;
-    border-radius: 5px;
-    text-align-last: center;
+
+#form select{
+    font-size: 1em;
+    padding: 10px 20px;
+    background: rgba(255,255,255, 0.2);
     border: none;
-    border-bottom: 3px solid var(--color3);
-    background: transparent;
+    border-radius: 5px;
+    border-bottom: 3px solid var(--color1);
+    margin: 12px auto;
+    position: relative;
+    z-index: 20;
     color: white;
 }
+
 #form select option {
     color: black;
 }
+
 *::-webkit-input-placeholder {
     text-align: center;
     color: white;
 }
+
 form>button {
     width: 50%;
     font-size: 15px;
@@ -208,33 +254,38 @@ form>button {
     border-radius: 5px;
     cursor: pointer;
     background: rgb(252, 115, 35);
-    margin: 10px 0 0 0;
+    margin: 20px 0 0 0;
     color: white;
 }
+
 form>button:hover {
     background: rgb(255, 94, 0);
     color: #000;
     cursor: pointer;
 }
+
 /* table */
-.alerta{
-  width: 100%;
-  padding:10px 20px;
-  background: rgba(255, 0, 0, .5);
-  margin: 0 auto;
-  border-radius: 5px;
-  display: none;
-  justify-content: center;
-  align-items: center;
-  text-align: left;
-  color: white;
-  position: absolute;
-  top: 95px;
-  left: 0;
+.alerta {
+    width: 100%;
+    padding: 10px 20px;
+    background: rgba(255, 0, 0, .5);
+    margin: 0 auto;
+    border-radius: 5px;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    text-align: left;
+    color: white;
+}
+.alerta2{
+    position: absolute;
+    top: 80px;
+    left: 0;
 }
 .table {
     width: 100%;
-    height: 48.1vw;
+    min-height: 100vh;
+    padding: 50px 0;
     overflow: hidden;
     background: linear-gradient(to right, hsla(176, 73%, 25%, .6), hsla(176, 73%, 25%, .6), rgba(252, 115, 35, .6)), url(../img/header.jpg);
     background-attachment: fixed;
@@ -245,6 +296,7 @@ form>button:hover {
     align-items: center;
     flex-direction: column;
 }
+
 table {
     width: 1200px;
     margin-top: 70px;
@@ -252,11 +304,25 @@ table {
     border: 1px solid rgba(0, 0, 0, .7);
     background: hsla(176, 73%, 25%, 1);
 }
+th select{
+    background: transparent;
+    border: none;
+    padding: 5px;
+    border-bottom: 3px solid var(--color1);
+    border-radius: 5px;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+}
+th select option{
+    color: black;
+}
 th.horas {
     width: 50px;
     height: 65px;
     padding: 20px 0;
 }
+
 td {
     width: 100px;
     background: rgba(100, 100, 100, 0.4);
@@ -265,12 +331,15 @@ td {
     z-index: 20;
     cursor: pointer;
 }
+
 td:hover {
     background: hsla(176, 73%, 10%, 1);
 }
+
 tr:hover {
     background: rgba(0, 0, 0, 0.5);
 }
+
 th {
     background: transparent;
     color: white;
@@ -281,21 +350,26 @@ th {
     width: 100px;
     padding: 8px;
 }
-#enlace-pdf {
-    position: fixed;
-    bottom: 10px;
-    right: 10px;
+tbody{
+    display: none;
+}
+.btn{
     font-size: 15px;
     border: none;
     padding: 8px;
     border-radius: 5px;
     cursor: pointer;
     background: rgb(252, 115, 35);
-    margin: 10px 0 0 0;
     color: white;
-    transition: transform 300ms;
+    transition: 300ms transform;
 }
-#enlace-pdf:hover {
+#enlace-pdf {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+}
+
+.btn:hover {
     background: rgb(255, 94, 0);
     color: #000;
     cursor: pointer;
@@ -314,9 +388,11 @@ th {
     align-items: center;
     flex-direction: column;
 }
+
 .caja>h3 {
     font-weight: 900;
 }
+
 .caja>p {
     width: 60%;
     white-space: nowrap;
@@ -324,6 +400,7 @@ th {
     overflow: hidden;
     font-weight: 600;
 }
+
 .button {
     width: 40%;
     height: 100%;
@@ -331,13 +408,17 @@ th {
     align-items: center;
     justify-content: space-around;
 }
-.editar, .borrar, .opciones {
+
+.editar,
+.borrar,
+.opciones {
     width: 30px;
     padding: 5px;
     display: flex;
     justify-content: center;
     border-radius: 5px;
 }
+
 .opciones {
     position: absolute;
     right: 0px;
@@ -345,9 +426,11 @@ th {
     color: black;
     cursor: pointer;
 }
+
 .opciones i:hover {
     color: white;
 }
+
 .menu {
     width: 100px;
     padding: 5px;
@@ -362,31 +445,40 @@ th {
     top: 70%;
     left: 70%;
 }
+
 .menu a {
     text-decoration: none;
     padding: 5px;
     border-radius: 5px;
     cursor: pointer;
 }
+
 .menu a:hover {
     background: #000;
 }
+
 .a {
     display: flex;
 }
+
 @media (min-width: 992px) and (max-width: 1280px) {
-    nav .enlaces #usuario, nav .enlaces2 #usuario {
+
+    nav .enlaces #usuario,
+    nav .enlaces2 #usuario {
         margin-left: 10px;
     }
 }
+
 @media (max-width: 991px) {
     .nav2 {
         color: white;
     }
+
     .icono {
         display: block;
         cursor: pointer;
     }
+
     .enlaces {
         position: fixed;
         top: 80px;
@@ -398,6 +490,7 @@ th {
         overflow: hidden;
         box-shadow: 2px 2px 6px 0 rgba(0, 0, 0, 0.5);
     }
+
     .enlaces a {
         display: block;
         width: 100%;
@@ -406,6 +499,7 @@ th {
         text-align: center;
         color: white;
     }
+
     .enlaces2 {
         position: fixed;
         top: 80px;
@@ -416,6 +510,7 @@ th {
         width: 40%;
         overflow: hidden;
     }
+
     .enlaces2 a {
         display: block;
         width: 100%;
@@ -425,13 +520,15 @@ th {
         background: var(--fondo);
         color: black;
     }
-    nav .enlaces #usuario, nav .enlaces2 #usuario {
+
+    nav .enlaces #usuario,
+    nav .enlaces2 #usuario {
         margin-left: 0px;
     }
+
     .table {
-        height: 100vh;
-        justify-content: flex-start;
-        overflow-x: scroll;
+        width: 1200px;
+        min-height: 100vh;
     }
     #enlace-pdf {
         display: none;

@@ -8,6 +8,8 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    user-select: none;
+    outline: none;
 }
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400&display=swap');
 body {
@@ -141,6 +143,7 @@ nav .enlaces a:hover, nav .enlaces2 a:hover {
 
 .container {
     width: 100%;
+    min-height: 100vh;
     overflow: hidden;
     background: linear-gradient(to right, hsla(176, 73%, 25%, .6), hsla(176, 73%, 25%, .6), rgba(252, 115, 35, .6)), url(../img/header.jpg);
     background-attachment: fixed;
@@ -237,7 +240,7 @@ a.active {
     font-size: 1.15em;
     font-weight: bold;
 }
-.formulario input[type="text"], .formulario select{
+.formulario .input, .formulario select{
     padding: 10px 20px;
     background: rgba(255,255,255, 0.2);
     border: none;
@@ -267,7 +270,7 @@ a.active {
     margin: -75px 0 0 -15px !important;
 }
 .formulario select{
-    margin-top: 20px;
+    /*margin-top: 40px;*/
 }
 .formulario select option {
     color: black;
@@ -373,7 +376,7 @@ a.active {
     cursor: pointer;
     box-shadow: 0 0 4px 0 black;
 }
-@media (max-width: 991px) {
+@media (min-width: 320px) and (max-width: 991px) {
     .nav2 {
         color: white;
     }
@@ -385,10 +388,10 @@ a.active {
         position: fixed;
         top: 80px;
         background: linear-gradient(to right, hsla(176, 73%, 25%, .85), hsla(176, 73%, 25%, .85), rgba(252, 115, 35, .65));
-        left: 60%;
+        left: 0;
         height: 0px;
         transition: all 1s ease;
-        width: 40%;
+        width: 100%;
         overflow: hidden;
         box-shadow: 2px 2px 6px 0 rgba(0, 0, 0, 0.5);
     }
@@ -422,12 +425,17 @@ a.active {
     nav .enlaces #usuario, nav .enlaces2 #usuario {
         margin-left: 0px;
     }
+    .formulario{
+        width: 100%;
+        padding: 20px 0px;
+    }
     .form {
         width: 90%;
-        padding: 20px 0;
+        margin: 0 auto;
+        padding: 20px 0px;
     }
-    form>input[type="text"], form>select {
-        width: 90%;
+    .formulario .input, .formulario select{
+        width: 100%;
     }
     .lista {
         padding: 20px 0;
@@ -444,6 +452,7 @@ a.active {
         overflow: hidden;
         flex-direction: column;
         border-bottom: none;
+        z-index: 100;
     }
     .menu a {
         width: 100%;

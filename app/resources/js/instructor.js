@@ -1,126 +1,108 @@
 var td = document.querySelectorAll('td');
 var th = document.querySelectorAll('th');
 window.addEventListener('load', function() {
-    datosFichayTrimestre();
-    document.querySelector('#enlace-pdf').addEventListener('click', function() {
-        quitarColor();
-        generarpdf();
-    });
+    datosTrimestre();
+    datosInstructores();
+    jornada();
 
-    function quitarColor() {
-        var bg = 'transparent';
-        var fondos = document.querySelectorAll('.caja');
-        document.querySelectorAll('table')[0].style.background = 'none';
-        for (var i = 0; i < fondos.length; i++) {
-            fondos[i].style.background = bg;
-        }
-        for (var i = 0; i < td.length; i++) {
-            td[i].style.background = bg;
-        }
-        for (var i = 0; i < th.length; i++) {
-            th[i].style.background = bg;
-            th[i].style.color = 'black';
-        }
-    }
+});
+document.querySelector('#jornada').addEventListener('change', jornada);
 
-    function generarpdf() {
-        var pdf = new jsPDF('l', 'mm', [203, 254]);
-        html2canvas($("table")[0], {
-            onrendered: function(canvas) {
-                var imgData = canvas.toDataURL("image/png", 1.0);
-                var width = canvas.width;
-                var height = canvas.clientHeight;
-                pdf.setFont('helvetica');
-                pdf.setFontType('bold');
-                pdf.setFontSize(30);
-                pdf.text(110, 20, 'Horario');
-                pdf.addImage(imgData, 'PNG', 10, 30, (width - 965), (height + 100));
-                pdf.save('HorarioInstructor.pdf');
-                location.reload();
-            }
-        });
-    }
+document.querySelector('#enlace-pdf').addEventListener('click', function() {
+    quitarColor(3);
+    generarpdf('HorarioInstructor');
 });
 // Se defina la función que hace una petición de los datos de la ficha
-function datosFichayTrimestre() {
-    let id = {
-        id: $('.table').attr("id")
-    };
-    let id_horario = {
-        id_horario: $('table')[0].id
+function datosTrimestre() {
+    let id_trimestre = {
+        id_trimestre: $('table')[0].id
     };
     $.ajax({
-        url: "http://localhost/Proyecto-WEM/index.php?v=peticionesAjax&p=obtenerdatos",
+        url: "http://localhost/WEM/index.php?v=peticionesAjaxTrimestre&p=obtenerdatos",
         type: "POST",
-        data: id,
-        success: function(response) {
-            const instructor = JSON.parse(response);
-            var nombre = instructor[0].nombres;
-            var mayus = nombre.toUpperCase();
-            template = `<p>Instructor: ${mayus} </p>`;
-            // Se inserta el numero de la ficha en el título de la tabla
-            $('#instructor').html(template);
-        }
-    });
-    $.ajax({
-        url: "http://localhost/Proyecto-WEM/index.php?v=peticionesAjaxTrimestre&p=obtenerdatos",
-        type: "POST",
-        data: id_horario,
+        data: id_trimestre,
         success: function(response) {
             const trimestre = JSON.parse(response);
             // Se inserta el numero de la ficha en el título de la tabla
-            $('#fecha').html(`<p inicio="${trimestre[0].fecha_inicio}" fin="${trimestre[0].fecha_fin}">Fecha: ${trimestre[0].fecha_inicio} / ${trimestre[0].fecha_fin}</p>`);
-            buscarHorario(trimestre[0].fecha_inicio, trimestre[0].fecha_fin);
-            cantidadHoras(trimestre[0].fecha_inicio, trimestre[0].fecha_fin);
+            document.querySelector('#fecha').setAttribute('data-inicio', trimestre[0].fecha_inicio);
+            document.querySelector('#fecha').setAttribute('data-fin', trimestre[0].fecha_fin);
+            document.querySelector('#fecha').innerHTML = `Fecha: ${trimestre[0].fecha_inicio} / ${trimestre[0].fecha_fin}`;
+            buscarHorario(null, trimestre[0].fecha_inicio, trimestre[0].fecha_fin);
+            // $('#fecha').html(`<p inicio="${trimestre[0].fecha_inicio}" fin="${trimestre[0].fecha_fin}">Fecha: ${trimestre[0].fecha_inicio} / ${trimestre[0].fecha_fin}</p>`);
+            // buscarHorario($('.table').attr("id"), trimestre[0].fecha_inicio, trimestre[0].fecha_fin);
         }
     });
 }
 
-function cantidadHoras(f_inicio, f_fin) {
-    var datos = {
-        id_instructor: $('.table')[0].id,
-        fecha_inicio: f_inicio,
-        fecha_fin: f_fin
+document.querySelector('#select_instructor').addEventListener('change', function(){
+    var idI = document.querySelector('#select_instructor').value;
+    var f_inicio = document.querySelector('#fecha').getAttribute('data-inicio');
+    var f_fin = document.querySelector('#fecha').getAttribute('data-fin');
+    buscarHorario(idI, f_inicio, f_fin);
+});
+function datosInstructores() {
+    let select_instructor = document.querySelector('#select_instructor');
+    $.ajax({
+        url: "http://localhost/WEM/index.php?v=peticionesAjax&p=mostrar",
+        type: "GET",
+        success: function(response) {
+            const instructores = JSON.parse(response);
+            instructores.forEach(instructor => {
+                let option = document.createElement("option");
+                option.text = instructor['nombres'];
+                option.value = instructor['id'];
+                select_instructor.add(option);
+            });
+        }
+    });
+}
+function buscarHorario(inst, inicio, fin) {
+    var datos;
+    if(inst == null){
+        datos = {
+            id_instructor: $('.table').attr('data-id'),
+            fecha_inicio: inicio,
+            fecha_fin: fin
+        }
+    }else{
+        datos = {
+            id_instructor: inst,
+            fecha_inicio: inicio,
+            fecha_fin: fin
+        }
     }
+    var array = document.querySelectorAll('.drops');
+    array.forEach(ar => {
+        ar.innerHTML = '';
+    })
     $.ajax({
-        url: "http://localhost/Proyecto-WEM/index.php?v=peticionesAjaxDetallesHorario&p=horas",
+        url: "http://localhost/WEM/index.php?v=peticionesAjaxHorario&p=obtenerInstructor",
         type: "POST",
         data: datos,
         success: function(response) {
-            const horas = JSON.parse(response);
-            $('#horasp').html(`<p>Horas programadas: ${horas[0].horas * 3}</p>`);
-        }
-    });
-}
-
-function buscarHorario(inicio, fin) {
-    const datos = {
-        id_instructor: $('.table')[0].id,
-        fecha_inicio: inicio,
-        fecha_fin: fin
-    };
-    $.ajax({
-        url: "http://localhost/Proyecto-WEM/index.php?v=peticionesAjaxDetallesHorario&p=obtenerInstructor",
-        type: "POST",
-        data: datos,
-        success: function(response) {
-            const horarios = JSON.parse(response);
-            let template = '';
-            var array = document.querySelectorAll('.drops');
-            horarios.forEach(horario => {
-                template = `
+            var contar = 0;
+            if(response != 'No encontrado'){
+                const horarios = JSON.parse(response);
+                let template = '';
+                document.querySelector('#select_instructor').value = horarios[0].id;
+                horarios.forEach(horario => {
+                    template = `
                     <div class='caja' style='background-color:${horario['color']};'>
                     <h3>Ficha: ${horario['ficha']}</h3>
                     <p>${horario['competencia']}</p>
                     <p>${horario['ambiente']}</p>
-                    </div>
-                 `;
-                array.forEach(ar => {
-                    if ((ar.dataset.dia == horario['dia']) && (ar.parentElement.dataset.inicio == horario['hora_inicio'])) {
-                        $("#" + ar.id).html(template);
-                    }
+                    </div>`;
+                    array.forEach(ar => {
+                        if (ar.dataset.dia == horario['dia'] && (ar.parentElement.dataset.inicio >= horario['hora_inicio'] && ar.parentElement.dataset.fin <= horario['hora_fin'])) {
+                            $("#" + ar.id).html(template);
+                            contar++;
+                            $('#horasp').html(`<p>Horas programadas: ${contar}</p>`);
+                        }
+                    });
                 });
-            });
+            }else{
+                $('#horasp').html(`<p>Horas programadas: ${contar}</p>`);
+            }
         }
     });
 }

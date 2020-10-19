@@ -13,8 +13,8 @@ class Conexion {
 	 * Se reañiza la conexión con la base de datos
 	 * @return Retorna la conexion con la base de datos mysql
 	 */
-    public function connection() {
-        return mysqli_connect("localhost", "root", "", "proyecto");
+    public function conectar() {
+        return mysqli_connect("localhost", "root", "", "wem");
     }
 }
 

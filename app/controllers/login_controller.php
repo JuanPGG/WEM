@@ -71,7 +71,7 @@ class login_controller {
      * @return type Retorna un array con los datos de la fila encontrada en la consulta
      */
     public function consult($array) {
-        $conexion = Conexion::connection();
+        $conexion = Conexion::conectar();
         $sql      = "SELECT * from usuario WHERE Correo = ? AND Contrasena = MD5(?) ";
         $stmt     = $conexion->prepare($sql);
         $stmt->bind_param("ss", $array[0], $array[1]);
@@ -89,7 +89,7 @@ class login_controller {
      * @return type retorna un true o false
      */
     public function insert($array) {
-        $conexion = Conexion::connection();
+        $conexion = Conexion::conectar();
         $sql      = "SELECT * from usuario WHERE Correo = '$array[2]'";
         $result   = $conexion->query($sql);
         $filas    = $result->num_rows;
@@ -115,7 +115,7 @@ class login_controller {
      * @return type retorna un true o false
      */
     public function setToken($array) {
-        $conexion = Conexion::connection();
+        $conexion = Conexion::conectar();
         $sql      = "SELECT Correo from usuario WHERE Correo = '$array[1]' ";
         $result   = $conexion->query($sql);
         $filas    = $result->num_rows;
@@ -213,7 +213,7 @@ class login_controller {
      * @return type retorna un true o false
      */
     public function recuperarPw($array) {
-        $conexion = Conexion::connection();
+        $conexion = Conexion::conectar();
         $sql      = "UPDATE usuario SET Contrasena = MD5(?) WHERE token = ?";
         $stmt     = $conexion->prepare($sql);
         $stmt->bind_param("ss", $array[0], $array[1]);
@@ -237,7 +237,7 @@ class login_controller {
      * @return type retorna los datos encontrados según el token
      */
     public function consultarToken($array) {
-        $conexion = Conexion::connection();
+        $conexion = Conexion::conectar();
         $sql      = "SELECT * from usuario WHERE token = ?";
         $stmt     = $conexion->prepare($sql);
         $stmt->bind_param("s", $array[0]);
@@ -253,7 +253,7 @@ class login_controller {
      * @return type retorna los datos del usuario encontrado
      */
     public function consultarId($array) {
-        $conexion = Conexion::connection();
+        $conexion = Conexion::conectar();
         $sql      = "SELECT * FROM usuario WHERE id_Usuario = $array[0]";
         $result   = $conexion->query($sql);
         return $result;
@@ -266,7 +266,7 @@ class login_controller {
      * @return type retorna un true o false
      */
     public function actualizarDatos($array) {
-        $conexion = Conexion::connection();
+        $conexion = Conexion::conectar();
         $sql      = "UPDATE usuario SET Nombres=?,Apellidos=? WHERE id_Usuario=?";
         $stmt     = $conexion->prepare($sql);
         $stmt->bind_param("ssi", $array[0], $array[1], $array[2]);

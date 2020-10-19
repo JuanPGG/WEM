@@ -80,6 +80,7 @@ if ($_SESSION['user'][6] == 1) {
 <script type="text/javascript" src="app/resources/libjs/jquery.min.js"></script>
 <script src="app/resources/js/loader.js"></script>
 <script src="app/resources/js/nav.js"></script>
+<script type="text/javascript" src="app/resources/js/funciones.js"></script>
 <script src="app/resources/js/perfil.js"></script>
 </body>
 </html>

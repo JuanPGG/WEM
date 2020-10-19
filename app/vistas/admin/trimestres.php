@@ -77,6 +77,7 @@ if ($_SESSION['user'][6] == 1) {
                 <form method="POST" id="form_trimestre" class="formulario">
                 <i class="icon-cross" id="cerrar"></i>
                     <h1>Trimestre</h1>
+                    <p id="alerta" class="alerta"></p>
                     <input type="hidden" id="id_trimestre">
                     <input class="input" type="text" id="nombre_trimestre">
                     <label>Nombre del Trimestre</label>
@@ -88,7 +89,7 @@ if ($_SESSION['user'][6] == 1) {
                         <input class="input fecha" type="date" id="fecha_fin">
                         <label>Fecha de fin</label>
                     </div>
-                    <button type="submit">Guardar</button>
+                    <button type="submit" id="btn-trimestre">Guardar</button>
                 </form>
             </div>
         </div>
@@ -99,6 +100,7 @@ if ($_SESSION['user'][6] == 1) {
     <script type="text/javascript" src="app/resources/libjs/jquery.min.js"></script>
     <script src="app/resources/js/nav.js"></script>
     <script src="app/resources/js/loader.js"></script>
+    <script src="app/resources/js/funciones.js"></script>
     <script src="app/resources/js/trimestres.js"></script>
 
 </body>

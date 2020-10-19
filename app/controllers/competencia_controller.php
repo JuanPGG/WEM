@@ -53,7 +53,7 @@ class competencia_controller {
      */
     public function consult() {
         // función que trae los datos del ambiente
-        $conexion = Conexion::connection();
+        $conexion = Conexion::conectar();
         $sql      = "SELECT * from competencia"; // consulta sql para traer todos los datos
         return $conexion->query($sql); // ejecución de la consulta y retorno del resultado
     }
@@ -67,13 +67,13 @@ class competencia_controller {
      */
     public function insert($array) {
         // función para insertar datos en la tabla ambiente
-        $conexion = Conexion::connection();
-        $sql      = "SELECT * from competencia WHERE Nombre_Comp = '$array[0]'"; // Se busca si existe
+        $conexion = Conexion::conectar();
+        $sql      = "SELECT * from competencia WHERE Nombre_Competencia = '$array[0]'"; // Se busca si existe
         $result   = $conexion->query($sql);
         $filas    = $result->num_rows;
         if ($filas === 0) {
             // En caso de que no exista se hace la consulta a continuación para insertar
-            $stmt = $conexion->prepare("INSERT INTO competencia (Nombre_Comp, Descripcion_Comp)VALUES(?,?)");
+            $stmt = $conexion->prepare("INSERT INTO competencia (Nombre_Competencia, Descripcion_Competencia)VALUES(?,?)");
             $stmt->bind_param("ss", $array[0], $array[1]);
             $stmt->execute();
         }
@@ -85,8 +85,8 @@ class competencia_controller {
      */
     public function update($array) {
         // Función para actualizar los datos
-        $conexion = Conexion::connection();
-        $sql      = "UPDATE competencia SET Nombre_Comp = ?, Descripcion_Comp = ? WHERE id_Competencia = ? ";
+        $conexion = Conexion::conectar();
+        $sql      = "UPDATE competencia SET Nombre_Competencia = ?, Descripcion_Competencia = ? WHERE id_Competencia = ? ";
         $stmt     = $conexion->prepare($sql);
         $stmt->bind_param("ssi", $array[0], $array[1], $array[2]);
         $stmt->execute();
@@ -98,7 +98,7 @@ class competencia_controller {
      */
     public function delete($array) {
         // función para eliminar el dato según el id que entra en el parametro
-        $conexion = Conexion::connection();
+        $conexion = Conexion::conectar();
         $sql      = "DELETE FROM competencia WHERE id_Competencia = ? ";
         $stmt     = $conexion->prepare($sql);
         $stmt->bind_param("i", $array[0]);
@@ -111,7 +111,7 @@ class competencia_controller {
      */
     public function consultUpdate($array) {
         // función que trae los datos según el id de la tabla ambiente
-        $conexion = Conexion::connection();
+        $conexion = Conexion::conectar();
         $sql      = "SELECT * FROM competencia WHERE id_Competencia = $array[0]";
         $result   = $conexion->query($sql);
         return $result; // Se retornan los datos encontrados

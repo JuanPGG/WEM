@@ -19,12 +19,10 @@ window.addEventListener('load', function() {
          * Se llama la función que buscará los programas de formación para la ficha que se registrará
          */
     });
-    /** 
-     * Se define la función submit para el formulario de agregar ficha
-     */
-    $('#form_ficha').submit(function(ev) {
+    document.querySelector('#btn-ficha').addEventListener('click', function(ev){
         ev.preventDefault();
-        /** 
+        if(validateFormFicha()){
+            /** 
          * Se toman los datos de los inputs en un objeto
          */
         const datos = {
@@ -42,13 +40,15 @@ window.addEventListener('load', function() {
         /**
          * Se reinicia el formulario
          */
-        $(this).trigger('reset');
+        $("form_ficha").trigger('reset');
         /**
          * Se esconde el formulario
          */
         cont.style.display = 'none';
         edit_ficha = false;
+        }
     });
+    
     $('#cont_fichas').on('click', '.editar', function() {
         var id_fic = {
             id_fic: $(this)[0].parentElement.parentElement.parentElement.id
@@ -135,35 +135,6 @@ function mostrarFichas() {
     $('#cont_fichas').html(template);
 }
 /** 
- * Se define la función donde se realizará la petición ajax, la cual recibe la url, el tipo y los datos
- */
-function peticion(lugar, tipo, datos) {
-    /** 
-     * se define la variable que será retornada
-     */
-    let respuesta;
-    $.ajax({
-        url: "http://localhost/Proyecto-WEM/index.php?v=" + lugar,
-        type: tipo,
-        data: datos,
-        async: false,
-        success: function(response) {
-            /** 
-             * En caso de no haber respuesta, retornará false para poder usar el código general sin error
-             */
-            if (!response) {
-                respuesta = false;
-                return;
-            }
-            /** 
-             * Se almacena la respuesta convertida en JSON en la ariable definida anteriormente
-             */
-            respuesta = JSON.parse(response);
-        }
-    });
-    return respuesta;
-}
-/** 
  * Se toma el select donde se mostrarán los programas mediante opciones
  */
 let select_programa = document.querySelector('#nombre_prog');
@@ -183,6 +154,7 @@ function nombre_programa(array = []) {
      * se le envía el primer valor
      */
     optionDefault.text = "Seleccione un programa";
+    optionDefault.value = 0;
     /**
      * se agrega en el select
      */
@@ -207,16 +179,6 @@ function buscar_programaformacion() { //
     nombre_programa(programasformaciones); // Se llama la función que agrega las funciones y se le pasa el array
 }
 
-function validarLength() {
-    var inputs = document.querySelectorAll('.input');
-    for (var i = 0; i < inputs.length; i++) {
-        if (inputs[i].value.length >= 1) {
-            inputs[i].nextElementSibling.classList.add('fijar');
-        } else {
-            inputs[i].nextElementSibling.classList.remove('fijar');
-        }
-    }
-}
 /**
  *Se define la función que se encarga de mostrar el formulario
  */
@@ -224,4 +186,14 @@ function mostrarForm() {
     cont.style.display = 'flex'; // Se muestra el formulario
     abierto = true; // Se le da el valor true a la variable bandera
     validarLength();
+}
+function validateFormFicha(){
+    var gestor = $('#nombre_gestor').val();
+    var ficha = $('#num_ficha').val();
+    var programa = $('#nombre_prog').val();
+    if(validarText(gestor, "nombre_gestor") && validarNum(ficha, "num_ficha") && validarSelect(programa, "nombre_prog")){
+        return true;
+    }else{
+        return false;
+    }
 }

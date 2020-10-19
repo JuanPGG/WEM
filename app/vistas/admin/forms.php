@@ -11,7 +11,7 @@ if ($_SESSION['user'][6] == 1) {
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<title>Registros</title>
 	<link rel="stylesheet" href="app/resources/iconos/icomoon/style.css">
 	<link rel="stylesheet" type="text/css" href="app/resources/css/forms.css">
@@ -78,7 +78,7 @@ if ($_SESSION['user'][6] == 1) {
 							<select id="tipoContrato"></select>
 							<div class="color">Elige un color: <input type="color" id="color" value="#000000"></div>
 							<div class="botones">
-								<button type="submit">Guardar</button>
+								<button type="submit" id="btn-instructor">Guardar</button>
 								<button type="button" class="cancelar">Cancelar</button>
 							</div>
 
@@ -113,7 +113,7 @@ if ($_SESSION['user'][6] == 1) {
 							<input class="input" type="text" id="descripcion_ambiente">
 							<label>Descripción del ambiente</label>
 							<div class="botones">
-								<button type="submit">Guardar</button>
+								<button type="submit" id="btn-ambiente">Guardar</button>
 								<button type="button" class="cancelar">Cancelar</button>
 							</div>
 						</form>
@@ -144,7 +144,7 @@ if ($_SESSION['user'][6] == 1) {
 							<input class="input" type="text" id="descripcion_comp">
 							<label>Descripción de la competencia</label>
 							<div class="botones">
-								<button type="submit">Guardar</button>
+								<button type="submit" id="btn-competencia">Guardar</button>
 								<button type="button" class="cancelar">Cancelar</button>
 							</div>
 						</form>
@@ -175,7 +175,7 @@ if ($_SESSION['user'][6] == 1) {
 							<input class="input" type="text" id="descripcion_programa">
 							<label>Descripción del programa</label>
 							<div class="botones">
-								<button type="submit">Guardar</button>
+								<button type="submit" id="btn-programa">Guardar</button>
 								<button type="button" class="cancelar">Cancelar</button>
 							</div>
 						</form>
@@ -206,7 +206,7 @@ if ($_SESSION['user'][6] == 1) {
 							<input class="input" type="text" id="horas_contrato">
 							<label>Cantidad de horas</label>
 							<div class="botones">
-								<button type="submit">Guardar</button>
+								<button type="submit" id="btn-contrato">Guardar</button>
 								<button type="button" class="cancelar">Cancelar</button>
 							</div>
 						</form>
@@ -234,6 +234,7 @@ if ($_SESSION['user'][6] == 1) {
 <script type="text/javascript" src="app/resources/libjs/jquery.min.js"></script>
 <script src="app/resources/js/loader.js"></script>
 <script src="app/resources/js/nav.js"></script>
+<script src="app/resources/js/funciones.js"></script>
 <script src="app/resources/js/forms.js"></script>
 </html>
 <?php

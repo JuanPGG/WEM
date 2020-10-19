@@ -74,6 +74,7 @@ if ($_SESSION['user'][6] == 2) {
     <script type="text/javascript" src="app/resources/libjs/jquery.min.js"></script>
     <script src="app/resources/js/nav.js"></script>
     <script src="app/resources/js/loader.js"></script>
+    <script src="app/resources/js/funciones.js"></script>
     <script src="app/resources/js/usuarioTrimestre.js"></script>
 
 </body>

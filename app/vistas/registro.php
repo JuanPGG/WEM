@@ -68,6 +68,7 @@ if (!empty($_POST['nombres']) && !empty($_POST['apellidos'])) {
 
   <script type="text/javascript" src="app/resources/libjs/jquery.min.js"></script>
   <script src="app/resources/js/loader.js"></script>
+  <script src="app/resources/js/funciones.js"></script>
   <script src="app/resources/js/registro.js"></script>
 </body>
 </html>

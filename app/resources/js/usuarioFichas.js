@@ -31,30 +31,3 @@ function mostrarFichas() {
      */
     $('#cont_fichas').html(template);
 }
-
-function peticion(lugar, tipo, datos) {
-    /** 
-     * se define la variable que será retornada
-     */
-    let respuesta;
-    $.ajax({
-        url: "http://localhost/Proyecto-WEM/index.php?v=" + lugar,
-        type: tipo,
-        data: datos,
-        async: false,
-        success: function(response) {
-            /** 
-             * En caso de no haber respuesta, retornará false para poder usar el código general sin error
-             */
-            if (!response) {
-                respuesta = false;
-                return;
-            }
-            /** 
-             * Se almacena la respuesta convertida en JSON en la ariable definida anteriormente
-             */
-            respuesta = JSON.parse(response);
-        }
-    });
-    return respuesta;
-}

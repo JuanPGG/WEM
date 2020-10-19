@@ -49,7 +49,7 @@ class instructor_controller {
      * @return retorna un array de datos
      */
     public function consult() {
-        $conexion = Conexion::connection();
+        $conexion = Conexion::conectar();
         $sql      = "SELECT i.id_Instructor, i.Nombres, i.Apellidos, i.Documento,i.Correo, i.Color, t.Descripcion_tipoContrato FROM instructor i INNER JOIN tipocontrato t ON t.id_TipoContrato = i.id_TipoContrato ORDER BY id_Instructor";
         return $conexion->query($sql);
     }
@@ -60,7 +60,7 @@ class instructor_controller {
      * @return type retorna un true o un false
      */
     public function insert($array) {
-        $conexion = Conexion::connection();
+        $conexion = Conexion::conectar();
         $sql      = "SELECT * from instructor WHERE Documento = '$array[2]' ";
         $result   = $conexion->query($sql);
         $filas    = $result->num_rows;
@@ -81,7 +81,7 @@ class instructor_controller {
      * @return type retorna un true o un false
      */
     public function update($array) {
-        $conexion = Conexion::connection();
+        $conexion = Conexion::conectar();
         $sql      = "UPDATE instructor SET Nombres=?,Apellidos=?,Correo=?,Color=?, id_TipoContrato = ? WHERE id_Instructor=?";
         $stmt     = $conexion->prepare($sql);
         $stmt->bind_param("sssssi", $array[0], $array[1], $array[2], $array[3], $array[4], $array[5]);
@@ -93,7 +93,7 @@ class instructor_controller {
      * @return type retorna un true o un false
      */
     public function delete($array) {
-        $conexion = Conexion::connection();
+        $conexion = Conexion::conectar();
         $sql      = "DELETE FROM instructor WHERE id_Instructor = ? ";
         $stmt     = $conexion->prepare($sql);
         $stmt->bind_param("i", $array[0]);
@@ -105,7 +105,7 @@ class instructor_controller {
      * @return type retorna un array de datos
      */
     public function consultUpdate($array) {
-        $conexion = Conexion::connection();
+        $conexion = Conexion::conectar();
         $sql      = "SELECT * FROM instructor WHERE id_Instructor = $array[0]";
         $result   = $conexion->query($sql);
         return $result;
