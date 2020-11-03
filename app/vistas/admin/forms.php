@@ -48,7 +48,7 @@ if ($_SESSION['user'][6] == 1) {
 
 	<!---------- MAIN -------------->
 	<main>
-		<div class="container">
+		<div class="container" data-user="<?php echo $_SESSION['user'][0] ?>">
 			<div class="cont-general">
 				<div class="menu">
 					<a data-class="instructor" class="active">Instructor</a>
@@ -56,6 +56,7 @@ if ($_SESSION['user'][6] == 1) {
 					<a data-class="competencia">Competencia</a>
 					<a data-class="programa">Programa de Formación</a>
 					<a data-class="contrato">Tipo de Contrato</a>
+					<a data-class="ayudante">Ayudantes</a>
 				</div>
 				<div class="icono icono-form">
 					<span id="enlace-form">&#9776;</span>
@@ -221,6 +222,41 @@ if ($_SESSION['user'][6] == 1) {
 									</tr>
 								</thead>
 								<tbody id="lista_contrato">
+
+								</tbody>
+							</table>
+						</div>
+					</div>
+
+					<!------------ formulario agregar contrato------------->
+					<div class="form" id="ayudante">
+						<form method="POST" id="agregar_ayudante" class="formulario">
+							<h1>Formulario: Ayudantes</h1>
+							<input type="text" class="input"  id="name">
+					        <label>Nombres*</label>
+					        <input type="text" class="input" id="lastname">
+					        <label>Apellidos*</label>
+					        <input type="text" class="input" id="email">
+					        <label>Correo*</label>
+					        <input type="password" class="input" id="pw">
+					        <label>Contraseña*</label>
+        					<div class="botones">
+								<button type="submit" id="btn-ayudante">Guardar</button>
+								<button type="button" class="cancelar">Cancelar</button>
+							</div>
+						</form>
+						<div class="lista">
+							<h2>Lista</h2>
+							<table>
+								<thead>
+									<tr>
+										<th>Nombres</th>
+										<th>Apellidos</th>
+										<th>Correo</th>
+										<th>Funciones</th>
+									</tr>
+								</thead>
+								<tbody id="lista_ayudantes">
 
 								</tbody>
 							</table>

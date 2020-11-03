@@ -133,6 +133,24 @@ class redirec_controller {
             array_push($array, $_POST['nombres'], $_POST['apellidos'], $_POST['id']);
             $result = $controller->Login(6, $array);
             break;
+        case 'ayudantes':
+            $array = [];
+            array_push($array, $_POST['id']);
+            $result    = $controller->Login(7, $array);
+            $resultado = api_response::mostrar($result, ["id", "nombres", "apellidos", "correo"]);
+            echo $resultado;
+            break;
+
+        case 'insertAyudante':
+            $array = [];
+            array_push($array, $_POST['nombres'], $_POST['apellidos'], $_POST['correo'], $_POST['contrasena']);
+            $result = $controller->Login(8, $array);
+            break;
+        case 'eliminar':
+            $array = [];
+            array_push($array, $_POST['id']);
+            $result = $controller->Login(9, $array);
+            break;
         }
     }
     /**

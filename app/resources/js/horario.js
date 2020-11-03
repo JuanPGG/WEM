@@ -168,7 +168,7 @@ function buscarHorario() {
 
 function datosFormulario() {
     let select_instructor = document.querySelector('#select_instructor');
-    
+
     let optionDefaultInstructor = document.createElement("option");
     optionDefaultInstructor.text = "Seleccione un instructor";
     optionDefaultInstructor.value = 0;
@@ -199,7 +199,7 @@ function datosFormulario() {
 
 
     let select_ambiente = document.querySelector('#select_ambiente');
-    
+
     let optionDefaultAmbiente = document.createElement("option");
     optionDefaultAmbiente.text = "Seleccione un instructor";
     optionDefaultAmbiente.value = 0;
@@ -230,14 +230,14 @@ cont.addEventListener('click', function(e) { // Evento para esconder el formular
         cont.style.display = 'none'; // Se esconde el form
     }
 });
-function validateFormHorario(){
+
+function validateFormHorario() {
     var instructor = $('#select_instructor').val();
     var competencia = $('#select_competencia').val();
     var ambiente = $('#select_ambiente').val();
-    console.log(instructor);
-    if(validarSelect(instructor, "select_instructor") && validarSelect(competencia, "select_competencia") && validarSelect(ambiente, "select_ambiente")){
+    if (validarSelect(instructor, "select_instructor") && validarSelect(competencia, "select_competencia") && validarSelect(ambiente, "select_ambiente")) {
         return true;
-    }else{
+    } else {
         return false;
     }
 }

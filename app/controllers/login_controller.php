@@ -57,6 +57,15 @@ class login_controller {
         case 6:
             $result = $login->actualizarDatos($array);
             break;
+        case 7:
+            $result = $login->consultAdmin($array);
+            break;
+        case 8:
+            $result = $login->insertAdmin($array);
+            break;
+        case 9:
+            $result = $login->eliminarAdmin($array);
+            break;
         }
 
         return $result;
@@ -270,6 +279,32 @@ class login_controller {
         $sql      = "UPDATE usuario SET Nombres=?,Apellidos=? WHERE id_Usuario=?";
         $stmt     = $conexion->prepare($sql);
         $stmt->bind_param("ssi", $array[0], $array[1], $array[2]);
+        $stmt->execute();
+    }
+
+    public function consultAdmin($array) {
+        $conexion = Conexion::conectar();
+        $sql      = "SELECT id_Usuario, Nombres, Apellidos, Correo from usuario WHERE id_Rol = 1 AND id_Usuario != '$array[0]'";
+        return $conexion->query($sql);
+    }
+
+    public function insertAdmin($array) {
+        $conexion = Conexion::conectar();
+        $sql      = "SELECT * from usuario WHERE Correo = '$array[2]'";
+        $result   = $conexion->query($sql);
+        $filas    = $result->num_rows;
+        if ($filas === 0) {
+            $stmt = $conexion->prepare("INSERT INTO usuario(Nombres,Apellidos,Correo,Contrasena, id_Rol) VALUES( ?, ?, ?, MD5(?), 1)");
+            $stmt->bind_param("ssss", $array[0], $array[1], $array[2], $array[3]);
+            $stmt->execute();
+        }
+    }
+
+    public function eliminarAdmin($array){
+        $conexion = Conexion::conectar();
+        $sql      = "DELETE FROM usuario WHERE id_Usuario = ? ";
+        $stmt     = $conexion->prepare($sql);
+        $stmt->bind_param("i", $array[0]);
         $stmt->execute();
     }
 }
