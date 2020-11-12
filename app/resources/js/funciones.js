@@ -102,6 +102,9 @@ function quitarColor(archivo) {
         case 3:
             quitar3();
             break;
+        case 4:
+            quitar4();
+            break;
     }
 
 }
@@ -110,9 +113,6 @@ function quitar1() {
     let herramienta = document.querySelectorAll('.opciones');
     let bg = 'transparent';
     let fondos = document.querySelectorAll('.caja');
-    let jornada = document.querySelector('#jornada');
-    jornada.style.color = 'black';
-    jornada.style.border = 'none';
     let select_instructor = document.querySelector('#select_instructor');
     select_instructor.style.color = 'black';
     select_instructor.style.border = 'none';
@@ -161,15 +161,47 @@ function quitar2() {
 function quitar3() {
     let bg = 'transparent';
     let fondos = document.querySelectorAll('.caja');
-    let jornada = document.querySelector('#jornada');
-    jornada.style.color = 'black';
-    jornada.style.border = 'none';
     let select_instructor = document.querySelector('#select_instructor');
     select_instructor.style.color = 'black';
     select_instructor.style.border = 'none';
+    select_fecha = document.querySelector('#select_fecha');
+    select_fecha.style.color = 'black';
+    select_fecha.style.border = 'none';
     document.querySelectorAll('table')[0].style.background = 'none';
     document.querySelector('#th_jornada').style.display = 'none';
-    document.querySelector('#fecha').setAttribute('colspan', '12');
+    document.querySelector('#instructor').setAttribute('colspan', '4');
+    document.querySelector('#fecha').setAttribute('colspan', '4');
+    document.querySelector('#horasp').setAttribute('colspan', '4');
+    var tbody = document.querySelectorAll('tbody');
+    tbody[0].style.display = 'table-row-group';
+    tbody[1].style.display = 'table-row-group';
+    tbody[2].style.display = 'table-row-group';
+    for (var i = 0; i < fondos.length; i++) {
+        fondos[i].style.background = bg;
+    }
+    for (var i = 0; i < td.length; i++) {
+        td[i].style.background = bg;
+    }
+    for (var i = 0; i < th.length; i++) {
+        th[i].style.background = bg;
+        th[i].style.color = 'black';
+    }
+}
+
+function quitar4() {
+    let bg = 'transparent';
+    let fondos = document.querySelectorAll('.caja');
+    select_ambiente = document.querySelector('#select_ambiente');
+    select_ambiente.style.color = 'black';
+    select_ambiente.style.border = 'none';
+    select_fecha = document.querySelector('#select_fecha');
+    select_fecha.style.color = 'black';
+    select_fecha.style.border = 'none';
+    document.querySelectorAll('table')[0].style.background = 'none';
+    document.querySelector('#th_jornada').style.display = 'none';
+    document.querySelector('#ambiente').setAttribute('colspan', '4');
+    document.querySelector('#fecha').setAttribute('colspan', '4');
+    document.querySelector('#horasp').setAttribute('colspan', '4');
     var tbody = document.querySelectorAll('tbody');
     tbody[0].style.display = 'table-row-group';
     tbody[1].style.display = 'table-row-group';

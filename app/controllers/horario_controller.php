@@ -40,6 +40,8 @@ class horario_controller {
             case 5:
             $result = $login->existe($array);
             break;
+            case 6:
+            $result = $login->consultAmbiente($array);
         }
         return $result;
     }
@@ -49,7 +51,7 @@ class horario_controller {
      */
     public function consult($array) {
         $conexion = Conexion::conectar();
-        $sql      = "SELECT id_Horario, Dia, Hora_Inicio, Hora_Fin, i.id_Instructor, Nombres, Color, Nombre_Ambiente, Nombre_Competencia FROM horario h INNER JOIN instructor i on h.id_Instructor = i.id_Instructor INNER JOIN ambiente a on h.id_Ambiente = a.id_Ambiente INNER JOIN competencia c on h.id_Competencia = c.id_Competencia WHERE id_Trimestre = '$array[0]'";
+        $sql      = "SELECT id_Horario, Dia, Hora_Inicio, Hora_Fin, i.id_Instructor, Nombres, Color, a.id_Ambiente, Nombre_Ambiente, c.id_Competencia, Nombre_Competencia FROM horario h INNER JOIN instructor i on h.id_Instructor = i.id_Instructor INNER JOIN ambiente a on h.id_Ambiente = a.id_Ambiente INNER JOIN competencia c on h.id_Competencia = c.id_Competencia WHERE id_Trimestre = '$array[0]'";
         return $conexion->query($sql);
     }
     /**
@@ -116,6 +118,16 @@ class horario_controller {
         $conexion = Conexion::conectar();
         $sql      = "SELECT Dia, Hora_Inicio, Hora_Fin, t.Fecha_Inicio, t.Fecha_Fin, h.id_Trimestre FROM horario h INNER JOIN trimestre t ON h.id_Trimestre = t.id_Trimestre WHERE Dia = '$array[0]' AND Hora_Inicio = '$array[1]' AND Hora_Fin = '$array[2]' AND t.Fecha_Inicio = '$array[3]' AND  t.Fecha_Fin ='$array[4]' AND h.id_Trimestre = '$array[5]'";
         return $conexion->query($sql);
+    }
+    public function consultAmbiente($array){
+        $conexion = Conexion::conectar();
+        $sql      = "SELECT Dia, Hora_Inicio, Hora_Fin, i.Nombres, i.Color, f.Numero_Ficha, t.Trimestre FROM horario h INNER JOIN instructor i ON h.id_Instructor = i.id_Instructor INNER JOIN trimestre t ON h.id_Trimestre = t.id_Trimestre INNER JOIN ficha f ON t.id_Ficha = f.id_Ficha WHERE id_Ambiente = '$array[0]' AND t.Fecha_Inicio = '$array[1]' AND t.Fecha_Fin = '$array[2]'";
+        $result = $conexion->query($sql);
+        $filas  = $result->num_rows;
+        if($filas === 0){
+            return 'No encontrado';
+        }
+        return $result;
     }
 }
 

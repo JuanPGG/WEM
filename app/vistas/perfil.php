@@ -43,6 +43,8 @@ if ($_SESSION['user'][6] == 1) {
     ?>
                     <a href="index.php?v=fichas" id="enlace-ambientes" class="btn-header">Fichas</a>
                 <?php }?>
+                    <a href="index.php?v=detallesInstructor" class="btn-header">Instructores</a>
+                    <a href="index.php?v=detallesAmbiente" class="btn-header">Ambientes</a>
                     <a id="enlace-atras" class="btn-header">Atrás</a>
                     <a href="app/models/salir.php" id="salir">Cerrar Sesión</a>
                 </div>
@@ -80,7 +82,7 @@ if ($_SESSION['user'][6] == 1) {
 <script type="text/javascript" src="app/resources/libjs/jquery.min.js"></script>
 <script src="app/resources/js/loader.js"></script>
 <script src="app/resources/js/nav.js"></script>
-<script type="text/javascript" src="app/resources/js/funciones.js"></script>
+<script src="app/resources/js/funciones.js"></script>
 <script src="app/resources/js/perfil.js"></script>
 </body>
 </html>

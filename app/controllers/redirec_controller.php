@@ -65,8 +65,16 @@ class redirec_controller {
      *
      * Función para redireccionar a la vista instructor.php
      */
-    public function detallesinstructor() {
+    public function detallesInstructor() {
         $this->redireccion('instructor');
+    }
+    /**
+     * @detallesinstructor
+     *
+     * Función para redireccionar a la vista instructor.php
+     */
+    public function detallesAmbiente() {
+        $this->redireccion('ambientes');
     }
     /**
      * @adminHorario
@@ -453,6 +461,18 @@ class redirec_controller {
             array_push($array, $_POST['trimestre'], $_POST['fecha_inicio'], $_POST['fecha_fin'], $_POST['id_ficha'], $_POST['id_trimestre']);
             $result = $controller->trimestre(4, $array);
             break;
+        case 'fechas':
+            $result    = $controller->trimestre(5);
+            $resultado = api_response::mostrar($result, ["fecha_inicio", "fecha_fin"]);
+            echo $resultado;
+            break;
+        case 'informacion':
+            $array = [];
+            array_push($array, $_POST['id_trimestre']);
+            $result    = $controller->trimestre(6, $array);
+            $resultado = api_response::mostrar($result, ["nombre_trimestre","numero_ficha"]);
+            echo $resultado;
+            break;
         }
     }
     /**
@@ -469,7 +489,7 @@ class redirec_controller {
             $array = [];
             array_push($array, $_POST['id_trimestre']);
             $result    = $controller->horario(0, $array);
-            $resultado = api_response::mostrar($result, ["id_horario", "dia", "hora_inicio", "hora_fin", "id_instructor", "instructor", "color", "ambiente", "competencia"]);
+            $resultado = api_response::mostrar($result, ["id_horario", "dia", "hora_inicio", "hora_fin", "id_instructor", "instructor", "color","id_ambiente", "ambiente","id_competencia", "competencia"]);
             echo $resultado;
             break;
 
@@ -514,6 +534,17 @@ class redirec_controller {
             $result    = $controller->horario(5, $array);
             $resultado = api_response::mostrar($result, ["dia", "hora_inicio", "hora_fin", "fecha_inicio", "fecha_fin", "id_trimestre"]);
             echo $resultado;
+            break;
+        case 'obtenerAmbiente':
+            $array = [];
+            array_push($array, $_POST['idA'], $_POST['inicio'], $_POST['fin']);
+            $result    = $controller->horario(6, $array);
+            if($result != 'No encontrado'){
+                $resultado = api_response::mostrar($result, ["dia", "hora_inicio", "hora_fin", "instructor", "color", "ficha", "trimestre"]);
+                echo $resultado;
+            }else{
+                echo $result;
+            }
             break;
         }
     }

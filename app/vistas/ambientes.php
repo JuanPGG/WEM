@@ -4,7 +4,7 @@ require_once "app/controllers/controller.php";
 if (!isset($_SESSION['user'])) {
     header("Location: index.php");
 }
-    ?>
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -16,7 +16,7 @@ if (!isset($_SESSION['user'])) {
     <meta name="description" content="">
     <meta name="author" content="">
     <!--- Title --->
-    <title>Horario instructores | WEM</title>
+    <title>Horario Ambientes | WEM</title>
     <!--- Stylesheets --->
     <link rel="stylesheet" href="app/resources/css/instructor.css">
     <link rel="stylesheet" href="app/resources/iconos/icomoon/style.css">
@@ -51,7 +51,7 @@ if ($_SESSION['user'][6] == 1) {
         ?>
                     <a href="index.php?v=fichas" id="enlace-fichas" class="btn-header">Fichas</a>
                 <?php }?>
-                    <a href="index.php?v=detallesAmbiente" class="btn-header">Ambientes</a>
+                    <a href="index.php?v=detallesInstructor" class="btn-header">Instructores</a>
                     <a id="enlace-atras" class="btn-header">Atrás</a>
                     <a href="index.php?v=perfil" id="usuario"><?php echo $_SESSION['user'][1]; ?></a>
                     <a href="app/models/salir.php" id="salir">Cerrar Sesión</a>
@@ -79,8 +79,8 @@ if ($_SESSION['user'][6] == 1) {
                         <th colspan="3" id="fecha">Fecha:
                             <select id="select_fecha"></select>
                         </th>
-                        <th colspan="3" id="instructor">Instructor: 
-                            <select id="select_instructor">
+                        <th colspan="3" id="ambiente">Ambiente: 
+                            <select id="select_ambiente">
                                 <!-- <option selected disabled>Seleccione alguno</option> -->
                             </select>
                         </th>
@@ -233,7 +233,7 @@ if ($_SESSION['user'][6] == 1) {
 <script src="app/resources/js/nav.js"></script>
 <script src="app/resources/js/loader.js"></script>
 <script src="app/resources/js/funciones.js"></script>
-<script src="app/resources/js/instructor.js"></script>
+<script src="app/resources/js/ambientes.js"></script>
 
 </body>
 </html>

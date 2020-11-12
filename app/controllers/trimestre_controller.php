@@ -37,6 +37,12 @@ class trimestre_controller {
         case 4:
             $result = $login->update($array);
             break;
+        case 5:
+            $result = $login->fechas();
+            break;
+        case 6:
+            $result = $login->informacion($array);
+            break;
         }
         return $result;
     }
@@ -100,6 +106,16 @@ class trimestre_controller {
         $sql      = "SELECT * FROM trimestre WHERE id_Trimestre = $array[0]";
         $result   = $conexion->query($sql);
         return $result;
+    }
+    public function fechas(){
+        $conexion = Conexion::conectar();
+        $sql      = "SELECT DISTINCT Fecha_Inicio, Fecha_Fin FROM trimestre";
+        return $conexion->query($sql);
+    }
+    public function informacion($array) {
+        $conexion = Conexion::conectar();
+        $sql      = "SELECT Trimestre, f.Numero_Ficha FROM trimestre t INNER JOIN ficha f ON t.id_Ficha = f.id_Ficha WHERE id_Trimestre = '$array[0]'";
+        return $conexion->query($sql);
     }
 }
 

@@ -45,6 +45,8 @@ if ($_SESSION['user'][6] == 1) {
                 <div id="enlaces" class="enlaces">
                     <a href="index.php?v=adminFichas" id="enlace-ambientes" class="btn-header">Mis Fichas</a>
                     <a href="index.php?v=adminForms" id="enlace-registros" class="btn-header">Registros</a>
+                    <a href="index.php?v=detallesInstructor" class="btn-header">Instructores</a>
+                    <a href="index.php?v=detallesAmbiente" class="btn-header">Ambientes</a>
                     <a id="enlace-atras" class="btn-header">Atrás</a>
                     <a href="index.php?v=perfil" id="usuario"><?php echo $_SESSION['user'][1]; ?></a>
                     <a href="app/models/salir.php" id="salir">Cerrar Sesión</a>
@@ -77,13 +79,9 @@ if ($_SESSION['user'][6] == 1) {
             </div>
         </div>
         <div class="table" id="<?php echo $_GET['n']; ?>">
-            <p id="alerta2" class="alerta"></p>
             <table id="<?php echo $_GET['t']; ?>">
+                <p id="alerta2" class="alerta"></p>
                 <thead> 
-                    <tr>
-                        <th colspan="6" id="num_ficha"></th>
-                        <th colspan="6" id="trimestre"></th>
-                    </tr>
                     <tr>
                         <th colspan="3" id="th_jornada">Jornada: 
                             <select name="jornada" id="jornada">
@@ -92,7 +90,9 @@ if ($_SESSION['user'][6] == 1) {
                                 <option value="noche">Noche</option>
                             </select>
                         </th>
-                        <th colspan="9" id="fecha"></th>
+                        <th colspan="3" id="num_ficha"></th>
+                        <th colspan="3" id="trimestre"></th>
+                        <th colspan="3" id="fecha"></th>
                     </tr>
                     <tr>
                         <th colspan="2">Hora Inicio / Fin</th>

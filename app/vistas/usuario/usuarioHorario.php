@@ -44,6 +44,8 @@ if ($_SESSION['user'][6] == 2) {
                 </div>
                 <div id="enlaces" class="enlaces">
                     <a href="index.php?v=fichas" id="enlace-ambientes" class="btn-header">Fichas</a>
+                    <a href="index.php?v=detallesInstructor" class="btn-header">Instructores</a>
+                    <a href="index.php?v=detallesAmbiente" class="btn-header">Ambientes</a>
                     <a id="enlace-atras" class="btn-header">Atrás</a>
                     <a href="index.php?v=perfil" id="usuario"><?php echo $_SESSION['user'][1]; ?></a>
                     <a href="app/models/salir.php" id="salir">Cerrar Sesión</a>
