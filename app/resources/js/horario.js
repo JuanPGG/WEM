@@ -6,8 +6,6 @@ var cont = document.querySelector('#cont_form');
 let abierto = false;
 
 // Eventos
-
-
 window.addEventListener('load', function() {
     datosFicha();
     datosTrimestre();

@@ -17,12 +17,12 @@
     box-sizing: border-box;
     user-select: none;
     outline: none;
+    font-family: 'Raleway', sans-serif;
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400&display=swap');
 
 body {
-    font-family: 'Raleway', sans-serif;
     background: var(--fondo);
 }
 
@@ -198,19 +198,21 @@ nav .enlaces2 a:hover {
 .textos>a>button {
     margin-top: var(--espacios-contenido);
     border: none;
-    border-radius: 8px;
+    border-radius: 5px;
     color: white;
     padding: 15px 18px;
     font-family: 'Raleway', sans-serif;
-    font-size: 17px;
+    font-size: 16px;
     font-weight: 500;
     background: rgb(252, 115, 35);
+    cursor: pointer;
+    transition: 300ms ease;
+    transition-property: color, background;
 }
 
 .textos>a>button:hover {
     background: rgb(255, 94, 0);
     color: #000;
-    cursor: pointer;
 }
 
 .textos>h1 {
@@ -310,6 +312,14 @@ nav .enlaces2 a:hover {
     margin-top: 6px;
 }
 
+.servicios,
+.caracteristicas {
+    display: flex;
+    color: var(--color1);
+    margin: 10px auto;
+    justify-content: space-around;
+}
+
 .caja-caracteristicas,
 .caja-servicios {
     width: 30%;
@@ -323,12 +333,15 @@ nav .enlaces2 a:hover {
     margin-bottom: 10px;
 }
 
-.servicios,
-.caracteristicas {
-    display: flex;
-    color: var(--color1);
-    margin: 10px auto;
-    justify-content: space-around;
+
+.caja-servicios h4,
+.caja-caracteristicas h4 {
+    font-size: 20px;
+}
+
+.caja-servicios p,
+.caja-caracteristicas p {
+    font-size: 16px;
 }
 
 .about {
@@ -520,22 +533,17 @@ footer p {
     }
 
     .about-img>img {
-        width: 60%;
+        width: 70%;
         height: 280px;
     }
 
-    .servicios,
-    .caracteristicas {
+    .caracteristicas,
+    .servicios {
         width: 100%;
         flex-direction: column;
     }
 
-    .caja-caracteristicas {
-        width: 60%;
-        padding: 20px;
-        margin: 0 auto;
-    }
-
+    .caja-caracteristicas,
     .caja-servicios {
         width: 60%;
         padding: 20px;
@@ -577,6 +585,7 @@ footer p {
         width: 90%;
     }
 
+    .caja-caracteristicas,
     .caja-servicios {
         width: 90%;
         margin-bottom: var(--margenes);

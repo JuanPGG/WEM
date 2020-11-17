@@ -18,7 +18,7 @@ if (!isset($_SESSION['user'])) {
     <!--- Title --->
     <title>Horario instructores | WEM</title>
     <!--- Stylesheets --->
-    <link rel="stylesheet" href="app/resources/css/instructor.css">
+    <link rel="stylesheet" href="app/resources/css/horario.css">
     <link rel="stylesheet" href="app/resources/iconos/icomoon/style.css">
 </head>
 
@@ -84,7 +84,9 @@ if ($_SESSION['user'][6] == 1) {
                                 <!-- <option selected disabled>Seleccione alguno</option> -->
                             </select>
                         </th>
-                        <th colspan="3" id="horasp"></th>
+                        <th colspan="3" >Horas programadas:
+                            <span id="horasp"></span>
+                        </th>
                     </tr>
                     <tr>
                         <th colspan="2">Hora</th>
@@ -222,7 +224,7 @@ if ($_SESSION['user'][6] == 1) {
                     </tr>
                 </tbody>
             </table>
-            <button id="enlace-pdf" class="btn-header">Descargar pdf <i class="icon-file-pdf"></i></button>
+            <button id="enlace-pdf" class="btn">Descargar pdf <i class="icon-file-pdf"></i></button>
         </div>
     </div>
 </main>

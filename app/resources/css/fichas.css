@@ -239,7 +239,7 @@ nav .enlaces2 a:hover {
     border: none;
     border-radius: 5px;
     border-bottom: 3px solid var(--color2);
-    margin-top: 40px;
+    margin-top: 30px;
     position: relative;
     z-index: 20;
     color: white;
@@ -250,7 +250,8 @@ nav .enlaces2 a:hover {
 }
 
 .formulario input:focus+label {
-    margin: -75px 0 0 -15px;
+    margin: -67px 0 0 -15px;
+    font-size: 16px;
 }
 
 .formulario label {
@@ -264,11 +265,13 @@ nav .enlaces2 a:hover {
 }
 
 .fijar {
-    margin: -75px 0 0 -15px !important;
+    margin: -67px 0 0 -15px !important;
+    font-size: 16px;
 }
 
 .formulario select {
     margin-top: 20px;
+    font-size: 18px;
 }
 
 .formulario select option {

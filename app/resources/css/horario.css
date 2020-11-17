@@ -267,7 +267,7 @@ form>button:hover {
 /* table */
 .alerta {
     width: 100%;
-    padding: 10px 20px;
+    padding: 5px 20px;
     background: rgba(255, 0, 0, .5);
     margin: 0 auto;
     border-radius: 5px;
@@ -276,11 +276,12 @@ form>button:hover {
     align-items: center;
     text-align: left;
     color: white;
+    font-size: 16px;
 }
 
 #alerta2 {
     position: absolute;
-    top: 80px;
+    top: 90px;
     left: 0;
 }
 
@@ -353,7 +354,8 @@ th {
     text-align: center;
     height: 30px;
     width: 100px;
-    padding: 8px;
+    padding: 5px;
+    font-size: 16px;
 }
 
 tbody {
@@ -380,7 +382,6 @@ tbody {
 .btn:hover {
     background: rgb(255, 94, 0);
     color: #000;
-    cursor: pointer;
     transform: translateY(-3px);
 }
 
@@ -388,7 +389,7 @@ tbody {
 
 .caja {
     width: 100%;
-    height: 100%;
+    height: 65px;
     padding: 2px 5px;
     position: relative;
     cursor: pointer;
@@ -401,10 +402,12 @@ tbody {
 .caja>h3 {
     font-weight: 900;
     pointer-events: none;
+    font-size: 16px;
 }
 
 .caja>p {
     width: 60%;
+    font-size: 14px;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -412,25 +415,12 @@ tbody {
     pointer-events: none;
 }
 
-.button {
-    width: 40%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-}
-
-.editar,
-.borrar,
 .opciones {
     width: 30px;
     padding: 5px;
     display: flex;
     justify-content: center;
     border-radius: 5px;
-}
-
-.opciones {
     position: absolute;
     right: 0px;
     top: 0px;
@@ -440,36 +430,6 @@ tbody {
 
 .opciones:hover i {
     color: white;
-}
-
-.menu {
-    width: 100px;
-    padding: 5px;
-    background: #3E3D57;
-    color: white;
-    position: absolute;
-    z-index: 3;
-    display: none;
-    border-radius: 5px;
-    box-shadow: 0 0 6px 0 black;
-    flex-direction: column;
-    top: 70%;
-    left: 70%;
-}
-
-.menu a {
-    text-decoration: none;
-    padding: 5px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.menu a:hover {
-    background: #000;
-}
-
-.a {
-    display: flex;
 }
 
 @media (min-width: 992px) and (max-width: 1280px) {
@@ -537,12 +497,64 @@ tbody {
         margin-left: 0px;
     }
 
+    .alerta {
+        padding: 5px 10px;
+        font-size: 14px;
+    }
+
     .table {
-        width: 1200px;
+        width: 100%;
         min-height: 100vh;
     }
 
+    table {
+        width: 100%;
+    }
+
     #enlace-pdf {
+        display: none;
+    }
+
+    th.horas {
+        width: 30px;
+        height: 65px;
+        padding: 0 5px;
+        font-size: 14px;
+    }
+
+    td {
+        width: 80px;
+    }
+
+    th {
+        width: 80px;
+        height: 30px;
+        padding: 2px;
+        font-size: 14px;
+    }
+
+    th select {
+        padding: 0px;
+        font-size: 14px;
+    }
+
+    th select#select_fecha,
+    th select#select_ambiente,
+    th select#select_instructor {
+        width: 95%;
+    }
+
+    /* cajas */
+    .caja {
+        width: 100%;
+        min-height: 65px;
+    }
+
+    .caja>h3 {
+        font-size: 14px;
+    }
+
+    .caja>p {
         display: none;
     }
 }

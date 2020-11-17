@@ -95,7 +95,7 @@ if ($_SESSION['user'][6] == 1) {
                         <th colspan="3" id="fecha"></th>
                     </tr>
                     <tr>
-                        <th colspan="2">Hora Inicio / Fin</th>
+                        <th colspan="2">Hora</th>
                         <th colspan="2">Lunes</th>
                         <th colspan="2">Martes</th>
                         <th colspan="2">Miercoles</th>

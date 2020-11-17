@@ -126,7 +126,7 @@ function buscarHorario(inst, inicio, fin) {
         type: "POST",
         data: datos,
         success: function(response) {
-            var contar = 0;
+            let contar = 0;
             if (response != 'No encontrado') {
                 const horarios = JSON.parse(response);
                 let template = '';
@@ -142,12 +142,12 @@ function buscarHorario(inst, inicio, fin) {
                         if (ar.dataset.dia == horario['dia'] && (ar.parentElement.dataset.inicio >= horario['hora_inicio'] && ar.parentElement.dataset.fin <= horario['hora_fin'])) {
                             $("#" + ar.id).html(template);
                             contar++;
-                            $('#horasp').html(`<p>Horas programadas: ${contar}</p>`);
+                            $('#horasp').html(`${contar}`);
                         }
                     });
                 });
             } else {
-                $('#horasp').html(`<p>Horas programadas: ${contar}</p>`);
+                $('#horasp').html(`${contar}`);
             }
         }
     });

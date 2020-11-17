@@ -19,36 +19,36 @@ window.addEventListener('load', function() {
          * Se llama la función que buscará los programas de formación para la ficha que se registrará
          */
     });
-    document.querySelector('#btn-ficha').addEventListener('click', function(ev){
+    document.querySelector('#btn-ficha').addEventListener('click', function(ev) {
         ev.preventDefault();
-        if(validateFormFicha()){
+        if (validateFormFicha()) {
             /** 
-         * Se toman los datos de los inputs en un objeto
-         */
-        const datos = {
-            nombre_gestor: $('#nombre_gestor').val(),
-            num_ficha: $('#num_ficha').val(),
-            id_programa: parseInt($('#nombre_prog').val()),
-            id_fic: $('#id_fic').val()
-        };
-        let lugar = edit_ficha === false ? "peticionesAjaxFicha&p=agregar" : "peticionesAjaxFicha&p=editar";
-        /** 
-         * Se llama la función que hará la petición ajax con los datos anteriores y la respectiva url
-         */
-        peticion(lugar, "POST", datos);
-        mostrarFichas();
-        /**
-         * Se reinicia el formulario
-         */
-        $("form_ficha").trigger('reset');
-        /**
-         * Se esconde el formulario
-         */
-        cont.style.display = 'none';
-        edit_ficha = false;
+             * Se toman los datos de los inputs en un objeto
+             */
+            const datos = {
+                nombre_gestor: $('#nombre_gestor').val(),
+                num_ficha: $('#num_ficha').val(),
+                id_programa: parseInt($('#nombre_prog').val()),
+                id_fic: $('#id_fic').val()
+            };
+            let lugar = edit_ficha === false ? "peticionesAjaxFicha&p=agregar" : "peticionesAjaxFicha&p=editar";
+            /** 
+             * Se llama la función que hará la petición ajax con los datos anteriores y la respectiva url
+             */
+            peticion(lugar, "POST", datos);
+            mostrarFichas();
+            /**
+             * Se reinicia el formulario
+             */
+            $("form_ficha").trigger('reset');
+            /**
+             * Se esconde el formulario
+             */
+            cont.style.display = 'none';
+            edit_ficha = false;
         }
     });
-    
+
     $('#cont_fichas').on('click', '.editar', function() {
         var id_fic = {
             id_fic: $(this)[0].parentElement.parentElement.parentElement.id
@@ -120,7 +120,11 @@ function mostrarFichas() {
         <div class="fichas" id=${ficha["id_fic"]}>
         <div class="numero_ficha">
         <h2>Ficha: ${ficha['num_ficha']} - ${ficha['id_programa']}</h2>
-        <p>${ficha['nombre_gestor']}</p>
+        <p><b>Gestor:</b> ${ficha['nombre_gestor']}</p>
+        <p><b>Cel: </b></p>
+        <p><b>Vocero: </b></p>
+        <p><b>Cel: </b></p>
+        <p></p>
         </div>
         <div class="info">
         <p><a href="index.php?v=adminTrimestre&n=${ficha["id_fic"]}" class="abrir">Abrir</a></p>
@@ -187,13 +191,14 @@ function mostrarForm() {
     abierto = true; // Se le da el valor true a la variable bandera
     validarLength();
 }
-function validateFormFicha(){
+
+function validateFormFicha() {
     var gestor = $('#nombre_gestor').val();
     var ficha = $('#num_ficha').val();
     var programa = $('#nombre_prog').val();
-    if(validarText(gestor, "nombre_gestor") && validarNum(ficha, "num_ficha") && validarSelect(programa, "nombre_prog")){
+    if (validarText(gestor, "nombre_gestor") && validarNum(ficha, "num_ficha") && validarSelect(programa, "nombre_prog")) {
         return true;
-    }else{
+    } else {
         return false;
     }
 }

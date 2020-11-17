@@ -18,7 +18,7 @@ if (!isset($_SESSION['user'])) {
     <!--- Title --->
     <title>Horario Ambientes | WEM</title>
     <!--- Stylesheets --->
-    <link rel="stylesheet" href="app/resources/css/instructor.css">
+    <link rel="stylesheet" href="app/resources/css/horario.css">
     <link rel="stylesheet" href="app/resources/iconos/icomoon/style.css">
 </head>
 
@@ -222,7 +222,7 @@ if ($_SESSION['user'][6] == 1) {
                     </tr>
                 </tbody>
             </table>
-            <button id="enlace-pdf" class="btn-header">Descargar pdf <i class="icon-file-pdf"></i></button>
+            <button id="enlace-pdf" class="btn">Descargar pdf <i class="icon-file-pdf"></i></button>
         </div>
     </div>
 </main>
