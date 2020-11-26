@@ -134,7 +134,7 @@ function buscarHorario(inst, inicio, fin) {
                 horarios.forEach(horario => {
                     template = `
                     <div class='caja' style='background-color:${horario['color']};'>
-                    <h3>Ficha: ${horario['ficha']}</h3>
+                    <h3>${horario['ficha']} - ${horario['programa']}</h3>
                     <p>${horario['competencia']}</p>
                     <p>${horario['ambiente']}</p>
                     </div>`;

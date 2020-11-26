@@ -79,16 +79,16 @@ if ($_SESSION['user'][6] == 1) {
                 <p id="alerta" class="alerta"></p>
                 <input type="hidden" id="id_fic">
                 <input type="text" class="input" id="nombre_gestor">
-                <label>Nombre del Gestor</label>
+                <label>Nombre del Gestor*</label>
                 <input type="text" class="input" id="cel_gestor">
                 <label>Cel del Gestor</label>
+                <input type="text" class="input" id="num_ficha">
+                <label>Número de la ficha*</label>
+                <select class="select" id="nombre_prog"></select>
                 <input type="text" class="input" id="nombre_vocero">
                 <label>Nombre del vocero</label>
                 <input type="text" class="input" id="cel_vocero">
                 <label>Cel del vocero</label>
-                <input type="text" class="input" id="num_ficha">
-                <label>Número de la ficha</label>
-                <select class="select" id="nombre_prog"></select>
                 <button type="submit" id="btn-ficha">Guardar</button>
             </form>
         </div>

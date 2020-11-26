@@ -57,6 +57,7 @@ if ($_SESSION['user'][6] == 1) {
 					<a data-class="programa">Programa de Formación</a>
 					<a data-class="contrato">Tipo de Contrato</a>
 					<a data-class="ayudante">Ayudantes</a>
+					<a data-class="trazabilidad">Trazabilidad</a>
 				</div>
 				<div class="icono icono-form">
 					<span id="enlace-form">&#9776;</span>
@@ -257,6 +258,36 @@ if ($_SESSION['user'][6] == 1) {
 									</tr>
 								</thead>
 								<tbody id="lista_ayudantes">
+
+								</tbody>
+							</table>
+						</div>
+					</div>
+
+					<!------------ formulario agregar contrato------------->
+					<div class="form" id="trazabilidad">
+						<div class="lista">
+							<div class="cont_title">
+								<h2>Lista de Trazabilidad</h2>
+								<form method="POST" id="busqueda" class="formulario">
+									<input class="input" type="text" id="buscar">
+									<label>Buscar</label>
+								</form>
+							</div>
+							<table>
+								<thead>
+									<tr>
+										<th>Usuario</th>
+										<th>Ficha</th>
+										<th>Trimestre</th>
+										<th>Instructor</th>
+										<th>Competencia</th>
+										<th>Ambiente</th>
+										<th>Fecha</th>
+										<th>Acción</th>
+									</tr>
+								</thead>
+								<tbody id="lista_trazabilidad">
 
 								</tbody>
 							</table>

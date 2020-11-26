@@ -300,15 +300,34 @@ form>button:hover {
     flex-direction: column;
 }
 
+.thead {
+    width: 1200px;
+    display: flex;
+    margin-top: 70px;
+    border: 1px solid rgba(0, 0, 0, .7);
+    border-bottom: none;
+    background: hsla(176, 73%, 25%, 1);
+    color: white;
+}
+
+.thead div {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid rgba(0, 0, 0, .7);
+    padding: 5px;
+    font-weight: bold;
+}
+
 table {
     width: 1200px;
-    margin-top: 70px;
     border-spacing: 0;
     border: 1px solid rgba(0, 0, 0, .7);
     background: hsla(176, 73%, 25%, 1);
 }
 
-th select {
+.thead div select {
     background: transparent;
     border: none;
     padding: 5px;
@@ -319,8 +338,12 @@ th select {
     font-weight: bold;
 }
 
-th select option {
+.thead div select option {
     color: black;
+}
+
+#horasp {
+    margin: 0 5px;
 }
 
 th.horas {
@@ -402,7 +425,7 @@ tbody {
 .caja>h3 {
     font-weight: 900;
     pointer-events: none;
-    font-size: 16px;
+    font-size: 18px;
 }
 
 .caja>p {

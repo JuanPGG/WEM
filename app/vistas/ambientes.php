@@ -65,27 +65,26 @@ if ($_SESSION['user'][6] == 1) {
     <!---------- MAIN -------------->
     <main>
         <div class="table" data-id="<?php echo $_GET['id']; ?>">
-
+<div class="thead">
+                <div id="th_jornada"><b>Jornada: </b> 
+                    <select name="jornada" id="jornada">
+                        <option value="mañana">Mañana</option>
+                        <option value="tarde">Tarde</option>
+                        <option value="noche">Noche</option>
+                    </select>
+                </div>
+                <div id="fecha">Fecha:
+                    <select id="select_fecha"></select>
+                </div>
+                <div id="instructor">Ambiente:
+                    <select id="select_ambiente"></select>
+                </div>
+                <div>Horas programadas:
+                    <span id="horasp"></span>
+                </div>
+            </div>
             <table id="<?php echo $_GET['t']; ?>">
                 <thead>
-                    <tr>
-                        <th colspan="3" id="th_jornada">Jornada: 
-                            <select name="jornada" id="jornada">
-                                <option value="mañana">Mañana</option>
-                                <option value="tarde">Tarde</option>
-                                <option value="noche">Noche</option>
-                            </select>
-                        </th>
-                        <th colspan="3" id="fecha">Fecha:
-                            <select id="select_fecha"></select>
-                        </th>
-                        <th colspan="3" id="ambiente">Ambiente: 
-                            <select id="select_ambiente">
-                                <!-- <option selected disabled>Seleccione alguno</option> -->
-                            </select>
-                        </th>
-                        <th colspan="3" id="horasp"></th>
-                    </tr>
                     <tr>
                         <th colspan="2">Hora</th>
                         <th colspan="2">Lunes</th>
@@ -93,132 +92,148 @@ if ($_SESSION['user'][6] == 1) {
                         <th colspan="2">Miercoles</th>
                         <th colspan="2">Jueves</th>
                         <th colspan="2">Viernes</th>
-                    </tr>   
+                        <th colspan="2">Sabado</th>
+                    </tr>
                 </thead>
                 <tbody id="mañana">
                     <tr data-inicio="06:00:00" data-fin="07:00:00">
                         <th colspan="2" class="horas">6:00AM / 7:00AM</th>
-                        <td colspan="2" class="drops" id="drop26" data-dia="Lunes"></td>
-                        <td colspan="2" class="drops" id="drop27" data-dia="Martes"></td>
-                        <td colspan="2" class="drops" id="drop28" data-dia="Miercoles"></td>
-                        <td colspan="2" class="drops" id="drop29" data-dia="Jueves"></td>
-                        <td colspan="2" class="drops" id="drop30" data-dia="Viernes"></td>
+                        <td colspan="2" class="drops" id="drop1" data-dia="Lunes"></td>
+                        <td colspan="2" class="drops" id="drop2" data-dia="Martes"></td>
+                        <td colspan="2" class="drops" id="drop3" data-dia="Miercoles"></td>
+                        <td colspan="2" class="drops" id="drop4" data-dia="Jueves"></td>
+                        <td colspan="2" class="drops" id="drop5" data-dia="Viernes"></td>
+                        <td colspan="2" class="drops" id="drop6" data-dia="Sabado"></td>
                     </tr>
                     <tr data-inicio="07:00:00" data-fin="08:00:00">
                         <th colspan="2" class="horas">7:00AM / 8:00AM</th>
+                        <td colspan="2" class="drops" id="drop7" data-dia="Lunes"></td>
+                        <td colspan="2" class="drops" id="drop8" data-dia="Martes"></td>
+                        <td colspan="2" class="drops" id="drop9" data-dia="Miercoles"></td>
+                        <td colspan="2" class="drops" id="drop10" data-dia="Jueves"></td>
+                        <td colspan="2" class="drops" id="drop11" data-dia="Viernes"></td>
+                        <td colspan="2" class="drops" id="drop12" data-dia="Sabado"></td>
+                    </tr>
+                    <tr data-inicio="08:00:00" data-fin="09:00:00">
+                        <th colspan="2" class="horas">8:00AM / 9:00AM</th>
+                        <td colspan="2" class="drops" id="drop13" data-dia="Lunes"></td>
+                        <td colspan="2" class="drops" id="drop14" data-dia="Martes"></td>
+                        <td colspan="2" class="drops" id="drop15" data-dia="Miercoles"></td>
+                        <td colspan="2" class="drops" id="drop16" data-dia="Jueves"></td>
+                        <td colspan="2" class="drops" id="drop17" data-dia="Viernes"></td>
+                        <td colspan="2" class="drops" id="drop18" data-dia="Sabado"></td>
+                    </tr>
+                    <tr data-inicio="09:00:00" data-fin="10:00:00">
+                        <th colspan="2" class="horas">9:00AM / 10:00AM</th>
+                        <td colspan="2" class="drops" id="drop19" data-dia="Lunes"></td>
+                        <td colspan="2" class="drops" id="drop20" data-dia="Martes"></td>
+                        <td colspan="2" class="drops" id="drop21" data-dia="Miercoles"></td>
+                        <td colspan="2" class="drops" id="drop22" data-dia="Jueves"></td>
+                        <td colspan="2" class="drops" id="drop23" data-dia="Viernes"></td>
+                        <td colspan="2" class="drops" id="drop24" data-dia="Sabado"></td>
+                    </tr>
+                    <tr data-inicio="10:00:00" data-fin="11:00:00">
+                        <th colspan="2" class="horas">10:00AM / 11:00AM</th>
+                        <td colspan="2" class="drops" id="drop25" data-dia="Lunes"></td>
+                        <td colspan="2" class="drops" id="drop26" data-dia="Martes"></td>
+                        <td colspan="2" class="drops" id="drop27" data-dia="Miercoles"></td>
+                        <td colspan="2" class="drops" id="drop28" data-dia="Jueves"></td>
+                        <td colspan="2" class="drops" id="drop29" data-dia="Viernes"></td>
+                        <td colspan="2" class="drops" id="drop30" data-dia="Sabado"></td>
+                    </tr>
+                    <tr data-inicio="11:00:00" data-fin="12:00:00">
+                        <th colspan="2" class="horas">11:00AM / 12:00PM</th>
                         <td colspan="2" class="drops" id="drop31" data-dia="Lunes"></td>
                         <td colspan="2" class="drops" id="drop32" data-dia="Martes"></td>
                         <td colspan="2" class="drops" id="drop33" data-dia="Miercoles"></td>
                         <td colspan="2" class="drops" id="drop34" data-dia="Jueves"></td>
                         <td colspan="2" class="drops" id="drop35" data-dia="Viernes"></td>
-                    </tr>
-                    <tr data-inicio="08:00:00" data-fin="09:00:00">
-                        <th colspan="2" class="horas">8:00AM / 9:00AM</th>
-                        <td colspan="2" class="drops" id="drop36" data-dia="Lunes"></td>
-                        <td colspan="2" class="drops" id="drop37" data-dia="Martes"></td>
-                        <td colspan="2" class="drops" id="drop38" data-dia="Miercoles"></td>
-                        <td colspan="2" class="drops" id="drop39" data-dia="Jueves"></td>
-                        <td colspan="2" class="drops" id="drop40" data-dia="Viernes"></td>
-                    </tr>
-                    <tr data-inicio="09:00:00" data-fin="10:00:00">
-                        <th colspan="2" class="horas">9:00AM / 10:00AM</th>
-                        <td colspan="2" class="drops" id="drop41" data-dia="Lunes"></td>
-                        <td colspan="2" class="drops" id="drop42" data-dia="Martes"></td>
-                        <td colspan="2" class="drops" id="drop43" data-dia="Miercoles"></td>
-                        <td colspan="2" class="drops" id="drop44" data-dia="Jueves"></td>
-                        <td colspan="2" class="drops" id="drop45" data-dia="Viernes"></td>
-                    </tr>
-                    <tr data-inicio="10:00:00" data-fin="11:00:00">
-                        <th colspan="2" class="horas">10:00AM / 11:00AM</th>
-                        <td colspan="2" class="drops" id="drop46" data-dia="Lunes"></td>
-                        <td colspan="2" class="drops" id="drop47" data-dia="Martes"></td>
-                        <td colspan="2" class="drops" id="drop48" data-dia="Miercoles"></td>
-                        <td colspan="2" class="drops" id="drop49" data-dia="Jueves"></td>
-                        <td colspan="2" class="drops" id="drop50" data-dia="Viernes"></td>
-                    </tr>
-                    <tr data-inicio="11:00:00" data-fin="12:00:00">
-                        <th colspan="2" class="horas">11:00AM / 12:00PM</th>
-                        <td colspan="2" class="drops" id="drop51" data-dia="Lunes"></td>
-                        <td colspan="2" class="drops" id="drop52" data-dia="Martes"></td>
-                        <td colspan="2" class="drops" id="drop53" data-dia="Miercoles"></td>
-                        <td colspan="2" class="drops" id="drop54" data-dia="Jueves"></td>
-                        <td colspan="2" class="drops" id="drop55" data-dia="Viernes"></td>
+                        <td colspan="2" class="drops" id="drop36" data-dia="Sabado"></td>
                     </tr>
                 </tbody>
                 <tbody id="tarde">
                     <tr data-inicio="12:00:00" data-fin="13:00:00">
                         <th colspan="2" class="horas">12:00PM / 1:00PM</th>
-                        <td colspan="2" class="drops" id="drop56" data-dia="Lunes"></td>
-                        <td colspan="2" class="drops" id="drop57" data-dia="Martes"></td>
-                        <td colspan="2" class="drops" id="drop58" data-dia="Miercoles"></td>
-                        <td colspan="2" class="drops" id="drop59" data-dia="Jueves"></td>
-                        <td colspan="2" class="drops" id="drop60" data-dia="Viernes"></td>
+                        <td colspan="2" class="drops" id="drop37" data-dia="Lunes"></td>
+                        <td colspan="2" class="drops" id="drop38" data-dia="Martes"></td>
+                        <td colspan="2" class="drops" id="drop39" data-dia="Miercoles"></td>
+                        <td colspan="2" class="drops" id="drop40" data-dia="Jueves"></td>
+                        <td colspan="2" class="drops" id="drop41" data-dia="Viernes"></td>
+                        <td colspan="2" class="drops" id="drop42" data-dia="Sabado"></td>
                     </tr>
                     <tr data-inicio="13:00:00" data-fin="14:00:00">
                         <th colspan="2" class="horas">1:00PM / 2:00PM</th>
+                        <td colspan="2" class="drops" id="drop43" data-dia="Lunes"></td>
+                        <td colspan="2" class="drops" id="drop44" data-dia="Martes"></td>
+                        <td colspan="2" class="drops" id="drop45" data-dia="Miercoles"></td>
+                        <td colspan="2" class="drops" id="drop46" data-dia="Jueves"></td>
+                        <td colspan="2" class="drops" id="drop47" data-dia="Viernes"></td>
+                        <td colspan="2" class="drops" id="drop48" data-dia="Sabado"></td>
+                    </tr>
+                    <tr data-inicio="14:00:00" data-fin="15:00:00">
+                        <th colspan="2" class="horas">2:00PM / 3:00PM</th>
+                        <td colspan="2" class="drops" id="drop49" data-dia="Lunes"></td>
+                        <td colspan="2" class="drops" id="drop50" data-dia="Martes"></td>
+                        <td colspan="2" class="drops" id="drop51" data-dia="Miercoles"></td>
+                        <td colspan="2" class="drops" id="drop52" data-dia="Jueves"></td>
+                        <td colspan="2" class="drops" id="drop53" data-dia="Viernes"></td>
+                        <td colspan="2" class="drops" id="drop54" data-dia="Sabado"></td>
+                    </tr>
+                    <tr data-inicio="15:00:00" data-fin="16:00:00">
+                        <th colspan="2" class="horas">3:00PM / 4:00PM</th>
+                        <td colspan="2" class="drops" id="drop55" data-dia="Lunes"></td>
+                        <td colspan="2" class="drops" id="drop56" data-dia="Martes"></td>
+                        <td colspan="2" class="drops" id="drop57" data-dia="Miercoles"></td>
+                        <td colspan="2" class="drops" id="drop58" data-dia="Jueves"></td>
+                        <td colspan="2" class="drops" id="drop59" data-dia="Viernes"></td>
+                        <td colspan="2" class="drops" id="drop60" data-dia="Sabado"></td>
+                    </tr>
+                    <tr data-inicio="16:00:00" data-fin="17:00:00">
+                        <th colspan="2" class="horas">4:00PM / 5:00PM</th>
                         <td colspan="2" class="drops" id="drop61" data-dia="Lunes"></td>
                         <td colspan="2" class="drops" id="drop62" data-dia="Martes"></td>
                         <td colspan="2" class="drops" id="drop63" data-dia="Miercoles"></td>
                         <td colspan="2" class="drops" id="drop64" data-dia="Jueves"></td>
                         <td colspan="2" class="drops" id="drop65" data-dia="Viernes"></td>
-                    </tr>
-                    <tr data-inicio="14:00:00" data-fin="15:00:00">
-                        <th colspan="2" class="horas">2:00PM / 3:00PM</th>
-                        <td colspan="2" class="drops" id="drop66" data-dia="Lunes"></td>
-                        <td colspan="2" class="drops" id="drop67" data-dia="Martes"></td>
-                        <td colspan="2" class="drops" id="drop68" data-dia="Miercoles"></td>
-                        <td colspan="2" class="drops" id="drop69" data-dia="Jueves"></td>
-                        <td colspan="2" class="drops" id="drop70" data-dia="Viernes"></td>
-                    </tr>
-                    <tr data-inicio="15:00:00" data-fin="16:00:00">
-                        <th colspan="2" class="horas">3:00PM / 4:00PM</th>
-                        <td colspan="2" class="drops" id="drop71" data-dia="Lunes"></td>
-                        <td colspan="2" class="drops" id="drop72" data-dia="Martes"></td>
-                        <td colspan="2" class="drops" id="drop73" data-dia="Miercoles"></td>
-                        <td colspan="2" class="drops" id="drop74" data-dia="Jueves"></td>
-                        <td colspan="2" class="drops" id="drop75" data-dia="Viernes"></td>
-                    </tr>
-                    <tr data-inicio="16:00:00" data-fin="17:00:00">
-                        <th colspan="2" class="horas">4:00PM / 5:00PM</th>
-                        <td colspan="2" class="drops" id="drop76" data-dia="Lunes"></td>
-                        <td colspan="2" class="drops" id="drop77" data-dia="Martes"></td>
-                        <td colspan="2" class="drops" id="drop78" data-dia="Miercoles"></td>
-                        <td colspan="2" class="drops" id="drop79" data-dia="Jueves"></td>
-                        <td colspan="2" class="drops" id="drop80" data-dia="Viernes"></td>
+                        <td colspan="2" class="drops" id="drop66" data-dia="Sabado"></td>
                     </tr>
                     <tr data-inicio="17:00:00" data-fin="18:00:00">
                         <th colspan="2" class="horas">5:00PM / 6:00PM</th>
-                        <td colspan="2" class="drops" id="drop81" data-dia="Lunes"></td>
-                        <td colspan="2" class="drops" id="drop82" data-dia="Martes"></td>
-                        <td colspan="2" class="drops" id="drop83" data-dia="Miercoles"></td>
-                        <td colspan="2" class="drops" id="drop84" data-dia="Jueves"></td>
-                        <td colspan="2" class="drops" id="drop85" data-dia="Viernes"></td>
+                        <td colspan="2" class="drops" id="drop67" data-dia="Lunes"></td>
+                        <td colspan="2" class="drops" id="drop68" data-dia="Martes"></td>
+                        <td colspan="2" class="drops" id="drop69" data-dia="Miercoles"></td>
+                        <td colspan="2" class="drops" id="drop70" data-dia="Jueves"></td>
+                        <td colspan="2" class="drops" id="drop71" data-dia="Viernes"></td>
+                        <td colspan="2" class="drops" id="drop72" data-dia="Sabado"></td>
                     </tr>
                 </tbody>
                 <tbody id="noche">
                     <tr data-inicio="18:00:00" data-fin="19:00:00">
                         <th colspan="2" class="horas">6:00PM / 7:00PM</th>
-                        <td colspan="2" class="drops" id="drop86" data-dia="Lunes"></td>
-                        <td colspan="2" class="drops" id="drop87" data-dia="Martes"></td>
-                        <td colspan="2" class="drops" id="drop88" data-dia="Miercoles"></td>
-                        <td colspan="2" class="drops" id="drop89" data-dia="Jueves"></td>
-                        <td colspan="2" class="drops" id="drop90" data-dia="Viernes"></td>
+                        <td colspan="2" class="drops" id="drop73" data-dia="Lunes"></td>
+                        <td colspan="2" class="drops" id="drop74" data-dia="Martes"></td>
+                        <td colspan="2" class="drops" id="drop75" data-dia="Miercoles"></td>
+                        <td colspan="2" class="drops" id="drop76" data-dia="Jueves"></td>
+                        <td colspan="2" class="drops" id="drop77" data-dia="Viernes"></td>
+                        <td colspan="2" class="drops" id="drop78" data-dia="Sabado"></td>
                     </tr>
                     <tr data-inicio="19:00:00" data-fin="20:00:00">
                         <th colspan="2" class="horas">7:00PM / 8:00PM</th>
-                        <td colspan="2" class="drops" id="drop91" data-dia="Lunes"></td>
-                        <td colspan="2" class="drops" id="drop92" data-dia="Martes"></td>
-                        <td colspan="2" class="drops" id="drop93" data-dia="Miercoles"></td>
-                        <td colspan="2" class="drops" id="drop94" data-dia="Jueves"></td>
-                        <td colspan="2" class="drops" id="drop95" data-dia="Viernes"></td>
+                        <td colspan="2" class="drops" id="drop79" data-dia="Lunes"></td>
+                        <td colspan="2" class="drops" id="drop80" data-dia="Martes"></td>
+                        <td colspan="2" class="drops" id="drop81" data-dia="Miercoles"></td>
+                        <td colspan="2" class="drops" id="drop82" data-dia="Jueves"></td>
+                        <td colspan="2" class="drops" id="drop83" data-dia="Viernes"></td>
+                        <td colspan="2" class="drops" id="drop84" data-dia="Sabado"></td>
                     </tr>
                     <tr data-inicio="20:00:00" data-fin="21:00:00">
                         <th colspan="2" class="horas">8:00PM / 9:00PM</th>
-                        <td colspan="2" class="drops" id="drop96" data-dia="Lunes"></td>
-                        <td colspan="2" class="drops" id="drop97" data-dia="Martes"></td>
-                        <td colspan="2" class="drops" id="drop98" data-dia="Miercoles"></td>
-                        <td colspan="2" class="drops" id="drop99" data-dia="Jueves"></td>
-                        <td colspan="2" class="drops" id="drop100" data-dia="Viernes"></td>
+                        <td colspan="2" class="drops" id="drop85" data-dia="Lunes"></td>
+                        <td colspan="2" class="drops" id="drop86" data-dia="Martes"></td>
+                        <td colspan="2" class="drops" id="drop87" data-dia="Miercoles"></td>
+                        <td colspan="2" class="drops" id="drop88" data-dia="Jueves"></td>
+                        <td colspan="2" class="drops" id="drop89" data-dia="Viernes"></td>
+                        <td colspan="2" class="drops" id="drop90" data-dia="Sabado"></td>
                     </tr>
                 </tbody>
             </table>

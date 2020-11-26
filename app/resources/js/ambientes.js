@@ -103,19 +103,19 @@ function buscarHorario(amb, inicio, fin) {
                     template = `
                     <div class='caja' style='background-color:${horario['color']};'>
                     <h3>${horario['instructor']}</h3>
-                    <p>Ficha: ${horario['ficha']}</p>
+                    <p>${horario['ficha']} - ${horario['programa']}</p>
                     <p>${horario['trimestre']}</p>
                     </div>`;
                     array.forEach(ar => {
                         if (ar.dataset.dia == horario['dia'] && (ar.parentElement.dataset.inicio >= horario['hora_inicio'] && ar.parentElement.dataset.fin <= horario['hora_fin'])) {
                             $("#" + ar.id).html(template);
                             contar++;
-                            $('#horasp').html(`<p>Horas programadas: ${contar}</p>`);
+                            $('#horasp').html(`${contar}`);
                         }
                     });
                 });
             } else {
-                $('#horasp').html(`<p>Horas programadas: ${contar}</p>`);
+                $('#horasp').html(`${contar}`);
             }
         }
     });

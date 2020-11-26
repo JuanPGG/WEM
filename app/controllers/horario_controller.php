@@ -89,7 +89,7 @@ class horario_controller {
      */
     public function consultInstructor($array) {
         $conexion = Conexion::conectar();
-        $sql      = "SELECT Dia, Hora_Inicio, Hora_Fin, Color,h.id_Instructor, Nombre_Ambiente, Nombre_Competencia, Numero_Ficha FROM horario h INNER JOIN instructor i ON h.id_Instructor = i.id_Instructor INNER JOIN ambiente a ON h.id_Ambiente = a.id_Ambiente INNER JOIN competencia c ON h.id_Competencia = c.id_Competencia INNER JOIN trimestre t ON h.id_Trimestre = t.id_Trimestre INNER JOIN ficha f ON t.id_Ficha = f.id_Ficha WHERE h.id_Instructor = '$array[0]' AND (t.Fecha_Inicio BETWEEN CAST('$array[1]' AS DATE) AND CAST('$array[2]' AS DATE))";
+        $sql      = "SELECT Dia, Hora_Inicio, Hora_Fin, Color,h.id_Instructor, Nombre_Ambiente, Nombre_Competencia, Numero_Ficha, pf.Nombre_Programa FROM horario h INNER JOIN instructor i ON h.id_Instructor = i.id_Instructor INNER JOIN ambiente a ON h.id_Ambiente = a.id_Ambiente INNER JOIN competencia c ON h.id_Competencia = c.id_Competencia INNER JOIN trimestre t ON h.id_Trimestre = t.id_Trimestre INNER JOIN ficha f ON t.id_Ficha = f.id_Ficha INNER JOIN programa_formacion pf ON f.id_Programa = pf.id_Programa WHERE h.id_Instructor = '$array[0]' AND (t.Fecha_Inicio BETWEEN CAST('$array[1]' AS DATE) AND CAST('$array[2]' AS DATE))";
         $result = $conexion->query($sql);
         $filas  = $result->num_rows;
         if($filas === 0){
@@ -121,7 +121,7 @@ class horario_controller {
     }
     public function consultAmbiente($array){
         $conexion = Conexion::conectar();
-        $sql      = "SELECT Dia, Hora_Inicio, Hora_Fin, i.Nombres, i.Color, f.Numero_Ficha, t.Trimestre FROM horario h INNER JOIN instructor i ON h.id_Instructor = i.id_Instructor INNER JOIN trimestre t ON h.id_Trimestre = t.id_Trimestre INNER JOIN ficha f ON t.id_Ficha = f.id_Ficha WHERE id_Ambiente = '$array[0]' AND t.Fecha_Inicio = '$array[1]' AND t.Fecha_Fin = '$array[2]'";
+        $sql      = "SELECT Dia, Hora_Inicio, Hora_Fin, i.Nombres, i.Color, f.Numero_Ficha, pf.Nombre_Programa, t.Trimestre FROM horario h INNER JOIN instructor i ON h.id_Instructor = i.id_Instructor INNER JOIN trimestre t ON h.id_Trimestre = t.id_Trimestre INNER JOIN ficha f ON t.id_Ficha = f.id_Ficha INNER JOIN programa_formacion pf ON f.id_Programa = pf.id_Programa WHERE id_Ambiente = '$array[0]' AND t.Fecha_Inicio = '$array[1]' AND t.Fecha_Fin = '$array[2]'";
         $result = $conexion->query($sql);
         $filas  = $result->num_rows;
         if($filas === 0){

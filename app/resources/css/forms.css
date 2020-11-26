@@ -260,6 +260,29 @@ a.active {
     margin: 0 auto;
 }
 
+.cont_title {
+    width: 100%;
+    min-height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cont_title h2 {
+    flex: 3;
+}
+
+#busqueda {
+    width: 30%;
+    padding: 10px 0;
+    flex: 1.5;
+}
+
+
+#trazabilidad tbody td {
+    padding: 5px 0;
+}
+
 .formulario>i {
     height: 14px;
     position: absolute;
@@ -319,7 +342,7 @@ a.active {
 
 .fijar {
     margin: -67px 0 0 -15px !important;
-    font-size: 16px;
+    font-size: 16px !important;
 }
 
 .formulario select {
@@ -394,6 +417,13 @@ a.active {
     width: 100%;
     margin: 0 auto;
     padding: 20px;
+    max-height: 500px;
+    transition: all 300ms ease;
+    overflow: hidden;
+}
+
+.lista:hover {
+    overflow-y: scroll;
 }
 
 .lista h2 {

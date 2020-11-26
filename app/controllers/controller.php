@@ -12,6 +12,7 @@ require_once "contrato_controller.php";
 require_once "trimestre_controller.php";
 require_once "competencia_controller.php";
 require_once "horario_controller.php";
+require_once "trazabilidad_controller.php";
 /**
  * controller
  * 
@@ -45,6 +46,9 @@ class controller {
     }
     public function horario($option, $array = []) {
         return horario_controller::Main($option, $array);
+    }
+    public function trazabilidad($option, $array = []) {
+        return trazabilidad_controller::Main($option, $array);
     }
 }
 ?>
