@@ -65,8 +65,16 @@ class redirec_controller {
      *
      * Función para redireccionar a la vista instructor.php
      */
-    public function detallesinstructor() {
+    public function detallesInstructor() {
         $this->redireccion('instructor');
+    }
+    /**
+     * @detallesinstructor
+     *
+     * Función para redireccionar a la vista instructor.php
+     */
+    public function detallesAmbiente() {
+        $this->redireccion('ambientes');
     }
     /**
      * @adminHorario
@@ -120,6 +128,28 @@ class redirec_controller {
     public function peticionUsuario($p) {
         $controller = new controller();
         switch ($p) {
+        case 'entrar':
+            $array = [];
+            array_push($array, $_POST['correo'], $_POST['contrasena']);
+            $result = $controller->Login(0, $array);
+            echo json_encode($result);
+            break;
+
+        case 'registrar':
+            $array = [];
+            array_push($array, $_POST['nombres'], $_POST['apellidos'], $_POST['correo'], $_POST['contrasena']);
+            $result = $controller->Login(1, $array);
+            echo json_encode($result);
+            break;
+
+        case 'setToken':
+            $array = [];
+            $token = uniqid();
+            array_push($array, $token, $_POST['receptor']);
+            $result = $controller->Login(2, $array);
+            echo json_encode($result);
+            break;
+
         case 'mostrar':
             $array = [];
             array_push($array, $_POST['user']);
@@ -132,6 +162,24 @@ class redirec_controller {
             $array = [];
             array_push($array, $_POST['nombres'], $_POST['apellidos'], $_POST['id']);
             $result = $controller->Login(6, $array);
+            break;
+        case 'ayudantes':
+            $array = [];
+            array_push($array, $_POST['id']);
+            $result    = $controller->Login(7, $array);
+            $resultado = api_response::mostrar($result, ["id", "nombres", "apellidos", "correo"]);
+            echo $resultado;
+            break;
+
+        case 'insertAyudante':
+            $array = [];
+            array_push($array, $_POST['nombres'], $_POST['apellidos'], $_POST['correo'], $_POST['contrasena']);
+            $result = $controller->Login(8, $array);
+            break;
+        case 'eliminar':
+            $array = [];
+            array_push($array, $_POST['id']);
+            $result = $controller->Login(9, $array);
             break;
         }
     }
@@ -276,13 +324,13 @@ class redirec_controller {
         switch ($p) {
         case 'mostrar':
             $result    = $controller->ficha(0);
-            $resultado = api_response::mostrar($result, ["id_fic", "nombre_gestor", "num_ficha", "id_programa"]);
+            $resultado = api_response::mostrar($result, ["id_fic", "nombre_gestor","cel_gestor","num_ficha", "id_programa", "nombre_vocero", "cel_vocero"]);
             echo $resultado;
             break;
 
         case 'agregar':
             $array = [];
-            array_push($array, $_POST['nombre_gestor'], $_POST['num_ficha'], $_POST['id_programa']);
+            array_push($array, $_POST['nombre_gestor'], $_POST['cel_gestor'],$_POST['num_ficha'], $_POST['id_programa'], $_POST['nombre_vocero'], $_POST['cel_vocero']);
             $result = $controller->ficha(1, $array);
             break;
 
@@ -296,13 +344,13 @@ class redirec_controller {
             $array = [];
             array_push($array, $_POST['id_fic']);
             $result    = $controller->ficha(3, $array);
-            $resultado = api_response::mostrar($result, ["id_fic", "nombre_gestor", "num_ficha", "id_programa"]);
+            $resultado = api_response::mostrar($result, ["id_fic", "nombre_gestor","cel_gestor","num_ficha", "id_programa", "nombre_vocero", "cel_vocero"]);
             echo $resultado;
             break;
 
         case 'editar':
             $array = [];
-            array_push($array, $_POST['nombre_gestor'], $_POST['num_ficha'], $_POST['id_programa'], $_POST['id_fic']);
+            array_push($array, $_POST['nombre_gestor'], $_POST['cel_gestor'],$_POST['num_ficha'], $_POST['id_programa'], $_POST['nombre_vocero'], $_POST['cel_vocero'], $_POST['id_fic']);
             $result = $controller->ficha(4, $array);
             break;
         }
@@ -435,6 +483,18 @@ class redirec_controller {
             array_push($array, $_POST['trimestre'], $_POST['fecha_inicio'], $_POST['fecha_fin'], $_POST['id_ficha'], $_POST['id_trimestre']);
             $result = $controller->trimestre(4, $array);
             break;
+        case 'fechas':
+            $result    = $controller->trimestre(5);
+            $resultado = api_response::mostrar($result, ["fecha_inicio", "fecha_fin"]);
+            echo $resultado;
+            break;
+        case 'informacion':
+            $array = [];
+            array_push($array, $_POST['id_trimestre']);
+            $result    = $controller->trimestre(6, $array);
+            $resultado = api_response::mostrar($result, ["nombre_trimestre","numero_ficha"]);
+            echo $resultado;
+            break;
         }
     }
     /**
@@ -451,7 +511,7 @@ class redirec_controller {
             $array = [];
             array_push($array, $_POST['id_trimestre']);
             $result    = $controller->horario(0, $array);
-            $resultado = api_response::mostrar($result, ["id_horario", "dia", "hora_inicio", "hora_fin", "id_instructor", "instructor", "color", "ambiente", "competencia"]);
+            $resultado = api_response::mostrar($result, ["id_horario", "dia", "hora_inicio", "hora_fin", "id_instructor", "instructor", "color","id_ambiente", "ambiente","id_competencia", "competencia"]);
             echo $resultado;
             break;
 
@@ -463,7 +523,7 @@ class redirec_controller {
                 $resultado = api_response::mostrar($result, ["dia", "hora_inicio", "hora_fin", "nombre", "ficha"]);
                 echo $resultado;
             }else{
-                echo $result;
+                echo json_encode($result);
             }
             break;
 
@@ -472,10 +532,10 @@ class redirec_controller {
             array_push($array, $_POST['id_instructor'], $_POST['fecha_inicio'], $_POST['fecha_fin']);
             $result    = $controller->horario(2, $array);
             if($result != 'No encontrado'){
-                $resultado = api_response::mostrar($result, ["dia", "hora_inicio", "hora_fin", "color", "id","ambiente", "competencia", "ficha"]);
+                $resultado = api_response::mostrar($result, ["dia", "hora_inicio", "hora_fin", "color", "id","ambiente", "competencia", "ficha", "programa"]);
                 echo $resultado;
             }else{
-                echo $result;
+                echo json_encode($result);
             }
             break;
         case 'eliminar':
@@ -495,6 +555,36 @@ class redirec_controller {
             array_push($array, $_POST['dia'], $_POST['hora_inicio'], $_POST['hora_fin'], $_POST['fecha_inicio'], $_POST['fecha_fin'], $_POST['id_trimestre']);
             $result    = $controller->horario(5, $array);
             $resultado = api_response::mostrar($result, ["dia", "hora_inicio", "hora_fin", "fecha_inicio", "fecha_fin", "id_trimestre"]);
+            echo $resultado;
+            break;
+        case 'obtenerAmbiente':
+            $array = [];
+            array_push($array, $_POST['idA'], $_POST['inicio'], $_POST['fin']);
+            $result    = $controller->horario(6, $array);
+            if($result != 'No encontrado'){
+                $resultado = api_response::mostrar($result, ["dia", "hora_inicio", "hora_fin", "instructor", "color", "ficha", "programa", "trimestre"]);
+                echo $resultado;
+            }else{
+                echo json_encode($result);
+            }
+            break;
+        }
+    }
+
+    public function peticionesAjaxTrazabilidad($p){
+        $controller = new controller();
+        switch ($p) {
+        case 'mostrar':
+            $result    = $controller->trazabilidad(0);
+            $resultado = api_response::mostrar($result, ["id_Tz", "usuario", "ficha", "trimestre","instructor", "competencia", "ambiente", "fecha", "accion"]);
+            echo $resultado;
+            break;
+
+        case 'buscar':
+            $array = [];
+            array_push($array, $_POST['texto']);
+            $result    = $controller->trazabilidad(1, $array);
+            $resultado = api_response::mostrar($result, ["id_Tz", "usuario", "ficha", "trimestre","instructor", "competencia", "ambiente", "fecha", "accion"]);
             echo $resultado;
             break;
         }

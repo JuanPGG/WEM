@@ -19,10 +19,14 @@ function mostrarFichas() {
         <div class="fichas" id=${ficha["id_fic"]}>
         <div class="numero_ficha">
         <h2>Ficha: ${ficha['num_ficha']} - ${ficha['id_programa']}</h2>
-        <p>${ficha['nombre_gestor']}</p>
+        <p><b>Gestor: </b> ${ficha['nombre_gestor']}</p>
+        <p><b>Cel: </b>${ficha['cel_gestor']}</p>
+        <div class="linea"></div>
+        <p><b>Vocero: </b>${ficha['nombre_vocero']}</p>
+        <p><b>Cel: </b>${ficha['cel_vocero']}</p>
         </div>
         <div class="info">
-        <p><a href="index.php?v=trimestres&n=${ficha["id_fic"]}" class="abrir">Abrir</a></p>
+        <p><a href="${url}index.php?v=trimestres&n=${ficha["id_fic"]}" class="abrir">Abrir</a></p>
         </div>
         </div>`
     });

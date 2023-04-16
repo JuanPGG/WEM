@@ -50,7 +50,7 @@ class ficha_controller {
      */
     public function consult() {
         $conexion = Conexion::conectar();
-        $sql      = "SELECT f.id_Ficha, f.Nombre_Gestor, f.Numero_Ficha, p.Nombre_Programa FROM ficha f INNER JOIN programa_formacion p ON p.id_Programa = f.id_Programa ORDER BY id_Ficha";
+        $sql      = "SELECT f.id_Ficha, f.Nombre_Gestor, f.Cel_Gestor,f.Numero_Ficha, p.Nombre_Programa, f.Nombre_Vocero, f.Cel_Vocero FROM ficha f INNER JOIN programa_formacion p ON p.id_Programa = f.id_Programa ORDER BY id_Ficha";
         return $conexion->query($sql);
     }
     /**
@@ -61,12 +61,12 @@ class ficha_controller {
      */
     public function insert($array) {
         $conexion = Conexion::conectar();
-        $sql      = "SELECT * FROM ficha WHERE Numero_Ficha = '$array[1]' ";
+        $sql      = "SELECT * FROM ficha WHERE Numero_Ficha = '$array[2]'";
         $result   = $conexion->query($sql);
         $filas    = $result->num_rows;
         if ($filas === 0) {
-            $stmt = $conexion->prepare("INSERT INTO ficha (Nombre_Gestor,Numero_Ficha, id_Programa)VALUES(?,?,?)");
-            $stmt->bind_param("ssi", $array[0], $array[1], $array[2]);
+            $stmt = $conexion->prepare("INSERT INTO ficha (Nombre_Gestor, Cel_Gestor, Numero_Ficha, id_Programa, Nombre_Vocero, Cel_Vocero)VALUES(?,?,?,?,?,?)");
+            $stmt->bind_param("sssiss", $array[0], $array[1], $array[2], $array[3], $array[4], $array[5]);
             $stmt->execute();
         }
     }
@@ -77,9 +77,9 @@ class ficha_controller {
      */
     public function update($array) {
         $conexion = Conexion::conectar();
-        $sql      = "UPDATE ficha SET  Nombre_Gestor = ? , Numero_Ficha = ?, id_Programa = ?  WHERE id_Ficha  = ? ";
+        $sql      = "UPDATE ficha SET  Nombre_Gestor = ?, Cel_Gestor = ?, Numero_Ficha = ?, id_Programa = ?, Nombre_Vocero = ?, Cel_Vocero = ?  WHERE id_Ficha  = ? ";
         $stmt     = $conexion->prepare($sql);
-        $stmt->bind_param("ssii", $array[0], $array[1], $array[2], $array[3]);
+        $stmt->bind_param("sssissi", $array[0], $array[1], $array[2], $array[3], $array[4],$array[5],$array[6]);
         $stmt->execute();
     }
     /**

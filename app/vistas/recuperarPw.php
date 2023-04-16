@@ -1,6 +1,7 @@
 <?php
 require_once "app/controllers/controller.php";
 $login = new controller();
+$url = $login->url();
 $array = [];
 array_push($array, $_GET['token']);
 $resultado = $login->Login(4, $array);
@@ -14,11 +15,12 @@ if ($resultado != null) {
     ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>WEM | Restablecer Contraseña</title>
+  <link rel="icon" type="image/ico" href="app/resources/img/logo.ico">
+  <title>Restablecer Contraseña | WEM</title>
   <link rel="stylesheet" href="app/resources/css/recuperarPw.css">
 </head>
 <body class="hidden">
@@ -34,7 +36,7 @@ if ($resultado != null) {
     <!------ form -------->
     <div class="container">
         <form id="form" method="POST" class="formulario">
-          <a href="../../index.php"><img src="app/resources/img/Logo.png" alt="Avatar Image"></a>
+          <a href="<?php echo $url ?>index.php"><img src="app/resources/img/logo.png" alt="Avatar Image"></a>
           <h1>Recuperar Contraseña</h1>
           <p id="alerta" class="alerta"></p>
           <input class="input" type="password" id="newpw" name="newpw">
@@ -54,7 +56,7 @@ if ($resultado != null) {
 <?php
 } else {
     echo "<script> alert('No existe un token'); </script>";
-    echo "<script> window.location = 'index.php?v=sesion';</script>";
+    echo "<script> window.location = '".$url."index.php?v=sesion';</script>";
 }
 
 ?>

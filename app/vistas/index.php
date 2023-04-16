@@ -1,10 +1,16 @@
+<?php 
+    require_once 'app/controllers/controller.php';
+    $controller = new controller();
+    $url = $controller->url();
+?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <!------ Required meta tags ------>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" type="image/ico" href="app/resources/img/logo.ico">
     <!------- SEO meta tags -------->
     <meta name="description" content="">
     <meta name="author" content="">
@@ -36,8 +42,8 @@
                     <a data-enlace="#enlace-nosotros" class="btn-header">Nosotros</a>
                     <a data-enlace="#enlace-servicios" class="btn-header">Servicios</a>
                     <a data-enlace="#enlace-contacto" class="btn-header">Contacto</a>
-                    <a href="index.php?v=sesion" id="iniciar-sesion">Iniciar Sesión</a>
-                    <a href="index.php?v=registrar" id="registrarse">Registrarse</a>
+                    <a href="<?php echo $url ?>index.php?v=sesion" id="iniciar-sesion">Iniciar Sesión</a>
+                    <a href="<?php echo $url ?>index.php?v=registrar" id="registrarse">Registrarse</a>
                 </div>
                 <div class="icono" id="open">
                     <span>&#9776;</span>
@@ -47,7 +53,7 @@
         <div class="textos">
             <h1 class="title move">Work Environment Managment</h1>
             <h2 class="subtitle move2">Gestion de Ambientes de Trabajo</h2>
-            <a href="index.php?v=sesion"><button class="btn">Crear Horario</button></a>
+            <a href="<?php echo $url ?>index.php?v=sesion"><button class="btn">Crear Horario</button></a>
         </div>
     </header>
     <!---------- MAIN -------------->
@@ -88,7 +94,7 @@
         <section class="features" id="enlace-caracteristica">
             <div class="contenedor">
                 <h3>Características</h3>
-                <p class="after">Nos caracterizamos por ser comprometidos con las dudad que se le puedan presentar a nuestros
+                <p class="after">Nos caracterizámos por ser comprometidos con las dudas que se le puedan presentar a nuestros
                 clientes, y estamos prestos a colaborar en su ambiente de trabajo.</p>
                 <div class="caracteristicas">
                     <div class="caja-caracteristicas">
@@ -154,7 +160,7 @@
     <footer id="enlace-contacto">
         <div class="footer">
             <div class="marca-logo">
-                <img src="app/resources/img/Logo.png" alt="">
+                <img src="app/resources/img/logo.png" alt="">
             </div>
             <div id="frase">
                 <p>La pasión e innovación es lo que nos distingue del resto.</p>

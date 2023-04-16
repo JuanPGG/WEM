@@ -2,19 +2,22 @@
 
 @session_start();
 require_once "app/controllers/controller.php";
+$controller = new controller();
+$url = $controller->url();
 if (!isset($_SESSION['user'])) {
-    header("Location: index.php");
+    header("Location: {$url}index.php");
 }
 if ($_SESSION['user'][6] == 2) {
     if (isset($_GET['n'])) {
         ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <!--- Required meta tags --->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" type="image/ico" href="app/resources/img/logo.ico">
     <!--- SEO meta tags --->
     <meta name="description" content="">
     <meta name="author" content="">
@@ -45,8 +48,10 @@ if ($_SESSION['user'][6] == 2) {
                 </div>
                 <!-- Contenedor de los enlaces del nav -->
                 <div id="enlaces" class="enlaces">
+                    <a href="<?php echo $url ?>index.php?v=detallesInstructor" class="btn-header">Instructores</a>
+                    <a href="<?php echo $url ?>index.php?v=detallesAmbiente" class="btn-header">Ambientes</a>
                     <a id="enlace-atras" class="btn-header">Atrás</a>
-                    <a href="index.php?v=perfil" id="usuario"><?php echo $_SESSION['user'][1]; ?></a>
+                    <a href="<?php echo $url ?>index.php?v=perfil" id="iniciar-sesion"><?php echo $_SESSION['user'][1]; ?></a>
                     <a href="app/models/salir.php" id="salir">Cerrar Sesión</a>
                 </div>
                 <!-- Icono para la pantalla responsive -->
@@ -81,7 +86,7 @@ if ($_SESSION['user'][6] == 2) {
 </html>
 <?php
 } else if ($_SESSION['user'][6] == 1) {
-        header("location: index.php?v=adminTrimestre");
+        header("location: {$url}index.php?v=adminTrimestre");
     }
 }
 

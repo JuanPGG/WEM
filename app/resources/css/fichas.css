@@ -4,6 +4,7 @@
     --color3: rgb(255, 94, 0);
     --fondo: #f2f2f2;
 }
+
 * {
     margin: 0;
     padding: 0;
@@ -11,19 +12,24 @@
     user-select: none;
     outline: none;
 }
+
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400&display=swap');
+
 body {
     font-family: 'Raleway', sans-serif;
     background: var(--fondo);
 }
+
 img {
     vertical-align: top;
 }
+
 /* -- Loader -- */
 
 .hidden {
     overflow: hidden;
 }
+
 .centrado {
     position: fixed;
     width: 100vw;
@@ -34,6 +40,7 @@ img {
     justify-content: center;
     align-items: center;
 }
+
 .loader {
     position: relative;
     width: 60px;
@@ -45,6 +52,7 @@ img {
     transform: rotate(360deg);
     animation: loader 0.6s ease-out alternate infinite;
 }
+
 .loader .loader-inner {
     border: 0px inset orange;
     border-radius: 50%;
@@ -52,24 +60,29 @@ img {
     height: 100%;
     animation: border-zoom 1s ease-out alternate infinite;
 }
+
 /* ----------------     KEYFRAMES    ----------------- */
 
 @keyframes loader {
     0% {
         transform: rotate(0deg);
     }
+
     100% {
         transform: rotate(-360deg);
     }
 }
+
 @keyframes border-zoom {
     0% {
         border-width: 0px;
     }
+
     100% {
         border-width: 15px;
     }
 }
+
 /*  Header  */
 
 nav {
@@ -77,18 +90,21 @@ nav {
     position: fixed;
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, .6);
 }
+
 .nav1 {
     background: transparent;
     height: 80px;
     color: white;
     z-index: 4;
 }
+
 .nav2 {
     background: var(--fondo);
     height: 100px;
     color: black;
     z-index: 4;
 }
+
 .contenedor-nav {
     display: flex;
     margin: auto;
@@ -99,13 +115,17 @@ nav {
     height: inherit;
     overflow: hidden;
 }
+
 nav .enlaces a {
     color: white;
 }
+
 nav .enlaces2 a {
     color: black;
 }
-nav .enlaces a, nav .enlaces2 a {
+
+nav .enlaces a,
+nav .enlaces2 a {
     display: inline-block;
     padding: 5px 0;
     margin-right: 17px;
@@ -115,21 +135,29 @@ nav .enlaces a, nav .enlaces2 a {
     border-bottom: 3px solid transparent;
     cursor: pointer;
 }
-nav .enlaces #usuario, nav .enlaces2 #usuario {
+
+nav .enlaces #iniciar-sesion,
+nav .enlaces2 #iniciar-sesion {
     margin-left: 120px;
 }
-nav .enlaces a:hover, nav .enlaces2 a:hover {
+
+nav .enlaces a:hover,
+nav .enlaces2 a:hover {
     border-bottom: 3px solid var(--color2);
     transition: 0.6s;
 }
-.logo, .logo img {
+
+.logo,
+.logo img {
     height: 80px;
 }
+
 .icono {
     display: none;
     font-size: 24px;
     padding: 21.5px 20px;
 }
+
 /* Main */
 
 /* Fichas */
@@ -144,9 +172,12 @@ nav .enlaces a:hover, nav .enlaces2 a:hover {
     background-position: center;
     background-size: cover;
 }
+
 #cont_form {
     width: 100%;
     height: 100vh;
+    min-height: 100vh;
+    max-height: 100vh;
     display: none;
     background: hsla(0, 0%, 0%, 0.7);
     justify-content: center;
@@ -155,18 +186,20 @@ nav .enlaces a:hover, nav .enlaces2 a:hover {
     top: 0;
     z-index: 100;
 }
-.alerta{
-  width: 100%;
-  padding:10px 20px;
-  background: rgba(255, 0, 0, .5);
-  margin: 0 auto;
-  border-radius: 5px;
-  display: none;
-  justify-content: center;
-  align-items: center;
-  text-align: left;
-  color: white;
+
+.alerta {
+    width: 100%;
+    padding: 10px 20px;
+    background: rgba(255, 0, 0, .5);
+    margin: 0 auto;
+    border-radius: 5px;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    text-align: left;
+    color: white;
 }
+
 .formulario {
     width: 350px;
     padding: 20px;
@@ -176,7 +209,8 @@ nav .enlaces a:hover, nav .enlaces2 a:hover {
     background: linear-gradient(to right, hsla(176, 73%, 25%, .6), hsla(176, 73%, 25%, .6), rgba(252, 115, 35, .6));
     box-shadow: 0 0 6px 0 var(--color2);
 }
-.formulario > i {
+
+.formulario>i {
     height: 14px;
     position: absolute;
     color: white;
@@ -184,36 +218,45 @@ nav .enlaces a:hover, nav .enlaces2 a:hover {
     font-size: 14px;
     cursor: pointer;
 }
+
 .formulario h1 {
     text-align: center;
     color: var(--color2);
 }
+
 .formulario input,
 .formulario label,
-.formulario select, .formulario button{
+.formulario select,
+.formulario button {
     width: 100%;
     display: block;
     font-size: 1.15em;
     font-weight: bold;
 }
-.formulario input, .formulario select{
+
+.formulario input,
+.formulario select {
     padding: 10px 20px;
-    background: rgba(255,255,255, 0.2);
+    background: rgba(255, 255, 255, 0.2);
     border: none;
     border-radius: 5px;
     border-bottom: 3px solid var(--color2);
-    margin-top: 40px;
+    margin-top: 30px;
     position: relative;
     z-index: 20;
     color: white;
 }
-.formulario input:focus{
+
+.formulario input:focus {
     outline: none;
 }
-.formulario input:focus + label {
-    margin: -75px 0 0 -15px;
+
+.formulario input:focus+label {
+    margin: -67px 0 0 -15px;
+    font-size: 16px;
 }
-.formulario label{
+
+.formulario label {
     padding-left: 20px;
     position: absolute;
     margin-top: -35px;
@@ -222,47 +265,58 @@ nav .enlaces a:hover, nav .enlaces2 a:hover {
     text-align: left;
     color: white;
 }
-.fijar{
-    margin: -75px 0 0 -15px !important;
+
+.fijar {
+    margin: -67px 0 0 -15px !important;
+    font-size: 16px;
 }
-.formulario select{
+
+.formulario select {
     margin-top: 20px;
+    font-size: 18px;
 }
+
 .formulario select option {
     color: black;
 }
-.formulario button{
-  width: 60%;
-  font-size: 18px;
-  border:none;
-  padding: 8px 10px;
-  border-radius: 5px;
-  cursor: pointer;
-  background: var(--color2);
-  margin:20px auto;
-  font-family: 'Raleway', sans-serif;
+
+.formulario button {
+    width: 60%;
+    font-size: 18px;
+    border: none;
+    padding: 8px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    background: var(--color2);
+    margin: 20px auto;
+    font-family: 'Raleway', sans-serif;
 }
-.formulario button:hover{
-  background: var(--color3);
-  color: white;
+
+.formulario button:hover {
+    background: var(--color3);
+    color: white;
 }
-/* Contenedos de Fichas */ 
+
+/* Contenedos de Fichas */
 #titulo h1 {
     text-align: center;
     color: white;
 }
+
 #cont_fichas {
     width: 100%;
     display: flex;
     align-items: center;
     flex-wrap: wrap;
 }
+
 .fichas {
     width: 23%;
     background: #fff;
     border-radius: 10px;
     margin: 8px;
 }
+
 .numero_ficha {
     width: 100%;
     padding: 10px;
@@ -270,6 +324,15 @@ nav .enlaces a:hover, nav .enlaces2 a:hover {
     border-bottom: 1px solid gray;
     color: var(--color1);
 }
+
+.linea {
+    display: block;
+    width: 40%;
+    height: 1px;
+    background: gray;
+    margin: 4px auto;
+}
+
 .info {
     width: 100%;
     height: 30px;
@@ -277,23 +340,29 @@ nav .enlaces a:hover, nav .enlaces2 a:hover {
     justify-content: space-around;
     align-items: center;
 }
+
 .info p {
     flex: auto;
     text-align: center;
     cursor: pointer;
 }
+
 .info p a {
     text-decoration: none;
 }
+
 .abrir {
     color: #1CF34F;
 }
+
 .editar {
     color: black;
 }
+
 .eliminar {
     color: red;
 }
+
 #agregar {
     width: 80px;
     height: 80px;
@@ -307,12 +376,16 @@ nav .enlaces a:hover, nav .enlaces2 a:hover {
     font-size: 30px;
     color: var(--color1);
 }
+
 @media (min-width: 992px) and (max-width: 1280px) {
-    nav .enlaces #usuario, nav .enlaces2 #usuario {
+
+    nav .enlaces #iniciar-sesion,
+    nav .enlaces2 #iniciar-sesion {
         margin-left: 10px;
         transition: 1s;
     }
 }
+
 /* 
   ##Device = Tablets, Ipads (portrait)
   ##Screen = B/w 768px to 1024px
@@ -322,21 +395,24 @@ nav .enlaces a:hover, nav .enlaces2 a:hover {
     .nav2 {
         color: white;
     }
+
     .icono {
         display: block;
         cursor: pointer;
     }
+
     .enlaces {
         position: fixed;
         top: 80px;
         background: linear-gradient(to right, hsla(176, 73%, 25%, .85), hsla(176, 73%, 25%, .85), rgba(252, 115, 35, .65));
-        left: 60%;
+        left: 0;
         height: 0px;
         transition: 1s;
-        width: 40%;
+        width: 100%;
         overflow: hidden;
         box-shadow: 2px 2px 6px 0 rgba(0, 0, 0, 0.5);
     }
+
     .enlaces a {
         display: block;
         width: 100%;
@@ -345,16 +421,18 @@ nav .enlaces a:hover, nav .enlaces2 a:hover {
         text-align: center;
         color: white;
     }
+
     .enlaces2 {
         position: fixed;
         top: 80px;
         background: white;
-        left: 60%;
+        left: 0;
         height: 0px;
         transition: 1s;
-        width: 40%;
+        width: 100%;
         overflow: hidden;
     }
+
     .enlaces2 a {
         display: block;
         width: 100%;
@@ -364,8 +442,15 @@ nav .enlaces a:hover, nav .enlaces2 a:hover {
         background: var(--fondo);
         color: black;
     }
-    nav .enlaces #usuario, nav .enlaces2 #usuario {
+
+    nav .enlaces #iniciar-sesion,
+    nav .enlaces2 #iniciar-sesion {
         margin-left: 0px;
+    }
+    #cont_form {
+        padding: 50px 0;
+        position: absolute;
+        overflow-y: scroll;
     }
     .fichas {
         width: 100%;

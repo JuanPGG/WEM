@@ -1,6 +1,6 @@
 window.addEventListener('load', function() {
     buscarDatos();
-    validarLenght();
+    validarLength();
     $('#usuario').submit(function(ev) {
         ev.preventDefault();
         const data = {
@@ -17,7 +17,7 @@ window.addEventListener('load', function() {
 var inputs = document.querySelectorAll('.input');
 for (var i = 0; i < inputs.length; i++) {
     inputs[i].addEventListener('keyup', function() {
-        validarLenght();
+        validarLength();
     });
 }
 

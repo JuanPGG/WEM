@@ -1,4 +1,5 @@
 <?php
+@session_start();
 /**
  *Se llama el modelo conexion
  * Se llama y usa la libreria PHPMailer
@@ -57,6 +58,15 @@ class login_controller {
         case 6:
             $result = $login->actualizarDatos($array);
             break;
+        case 7:
+            $result = $login->consultAdmin($array);
+            break;
+        case 8:
+            $result = $login->insertAdmin($array);
+            break;
+        case 9:
+            $result = $login->eliminarAdmin($array);
+            break;
         }
 
         return $result;
@@ -71,13 +81,20 @@ class login_controller {
      * @return type Retorna un array con los datos de la fila encontrada en la consulta
      */
     public function consult($array) {
+        $respuesta = [];
         $conexion = Conexion::conectar();
         $sql      = "SELECT * from usuario WHERE Correo = ? AND Contrasena = MD5(?) ";
         $stmt     = $conexion->prepare($sql);
         $stmt->bind_param("ss", $array[0], $array[1]);
         $stmt->execute();
         $result = $stmt->get_result();
-        return $result->fetch_row();
+        $resultado = $result->fetch_row();
+        $_SESSION['user'] = $resultado;
+        if($resultado != null){
+            return $respuesta['Ok'] = 'Ok';
+        }else{
+            return $respuesta['Error'] = 'Error';
+        }
     }
     /**
      * @insert
@@ -90,18 +107,17 @@ class login_controller {
      */
     public function insert($array) {
         $conexion = Conexion::conectar();
+        $respuesta = [];
         $sql      = "SELECT * from usuario WHERE Correo = '$array[2]'";
         $result   = $conexion->query($sql);
         $filas    = $result->num_rows;
         if ($filas === 0) {
-            $stmt = $conexion->prepare("INSERT INTO usuario(Nombres,Apellidos,Correo,Contrasena, id_Rol) VALUES( ?, ?, ?, MD5(?), 2)");
+            $stmt = $conexion->prepare("INSERT INTO usuario(Nombres,Apellidos,Correo,Contrasena, Token,id_Rol) VALUES( ?, ?, ?, MD5(?), '', 2)");
             $stmt->bind_param("ssss", $array[0], $array[1], $array[2], $array[3]);
             $stmt->execute();
-            echo "<script>
-            alert('Usuario registrado con exito!');
-            window.location = 'index.php?v=sesion';
-            </script>";
-            return $stmt;
+            return $respuesta['Ok'] = 'Ok';
+        }else{
+            return $respuesta['Error'] = 'Error';
         }
     }
     /**
@@ -116,6 +132,9 @@ class login_controller {
      */
     public function setToken($array) {
         $conexion = Conexion::conectar();
+        $controller = new controller();
+        $url = $controller->url();
+        $respuesta = [];
         $sql      = "SELECT Correo from usuario WHERE Correo = '$array[1]' ";
         $result   = $conexion->query($sql);
         $filas    = $result->num_rows;
@@ -128,28 +147,29 @@ class login_controller {
             $message .= "<style type='text/css'>";
             $message .= "
             .container-msg{
-              width: 100%;
-              text-align: center;
-              padding: 100px 0px;
+                width: 100%;
+                text-align: center;
+                padding: 100px 0px;
             }
             .boton{
-              margin: 20px auto;
-              padding: 10px;
-              border-radius: 8px;
-              border-style: none;
-              border: 1px solid gray;
-              box-shadow: 2px 2px 4px 0 black;
-              background: orange;
-              cursor: pointer;
+                margin: 20px auto;
+                font-size: 15px;
+                border: none;
+                padding: 8px;
+                border-radius: 5px;
+                cursor: pointer;
+                background: rgb(252, 115, 35);
+                color: white;
+                transition: 300ms transform;
             }
-            a{
-              text-decoration: none;
-              cursor: pointer;
-              color: black;
+            .container-msg > a{
+                text-decoration: none;
+                cursor: pointer;
+                color: black;
             }
             a:hover > .boton{
-              color: white;
-              box-shadow: 1px 1px 2px 0 black;
+                background: rgb(255, 94, 0);
+                color: #000;
             }
             ";
             $message .= "</style></head><body>";
@@ -159,9 +179,9 @@ class login_controller {
                 <p>Este link solo será válido por 3 minutos.</p>
                 <p>Para restablecer su contraseña haga click en el siguiente boton: </p>
 
-                <a href='http://localhost/Proyecto-WEM/index.php?v=recuperarPw&token=" . $array[0] . "'><button class='boton'>Restablecer Contraseña</button></a>
+                <a href='".$url."index.php?v=recuperarPw&token=" . $array[0] . "'><button class='boton'>Restablecer Contraseña</button></a>
 
-                <p>En caso de que el botón anterior no funcione, haga uso del siguiente enlace: <a href='http://localhost/Proyecto-WEM/index.php?v=recuperarPw&token=" . $array[0] . "'>http://localhost/Proyecto-WEM/index.php?v=recuperarPw&token=" . $array[0] . "</a></p>
+                <p>En caso de que el botón anterior no funcione, haga uso del siguiente enlace: <a href='".$url."index.php?v=recuperarPw&token=" . $array[0] . "'>".$url."index.php?v=recuperarPw&token=" . $array[0] . "</a></p>
 
               </div>
             ";
@@ -173,13 +193,13 @@ class login_controller {
             $mail->CharSet    = 'UTF-8'; // Send using SMTP
             $mail->Host       = 'smtp.gmail.com'; // Set the SMTP server to send through
             $mail->SMTPAuth   = true; // Enable SMTP authentication
-            $mail->Username   = 'proyectowemsena@gmail.com'; // SMTP username
+            $mail->Username   = 'correoproyectowem@gmail.com'; // SMTP username
             $mail->Password   = 'proyectowem1234'; // SMTP password
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
-            $mail->Port       = 25; // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
+            $mail->Port       = 587; // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
 
             //Recipients
-            $mail->setFrom('proyectowemsena@gmail.com', 'Proyecto Wem');
+            $mail->setFrom('correoproyectowem@gmail.com', 'Proyecto Wem');
             $mail->addAddress($array[1]); // Add a recipient
 
             // Content
@@ -188,20 +208,19 @@ class login_controller {
             $mail->Body    = $message;
 
             if ($mail->send()) {
-                echo '<script>alert("Se envió un link a su correo para cambiar contraseña."); </script>';
                 $sqlEvent = "SET GLOBAL event_scheduler = ON";
                 $conexion->query($sqlEvent);
                 $sql2 = "CREATE EVENT borrar_token
                         ON SCHEDULE AT CURRENT_TIMESTAMP + INTERVAL 3 MINUTE
-                        DO UPDATE usuario SET token = null WHERE token = '$array[0]'";
+                        DO UPDATE usuario SET token = '' WHERE token = '$array[0]'";
                 $conexion->query($sql2);
-
+                return $respuesta['Ok'] = 'Ok';
             } else {
-                echo '<script>alert("No se envio el correo"); </script>';
+                return $respuesta['Error'] = 'Error';
             }
 
         } else {
-            echo '<script>alert("El correo electronico no existe"); </script>';
+            return $respuesta['Existe'] = 'No';
         }
     }
     /**
@@ -214,6 +233,8 @@ class login_controller {
      */
     public function recuperarPw($array) {
         $conexion = Conexion::conectar();
+        $controller = new controller();
+        $url = $controller->url();
         $sql      = "UPDATE usuario SET Contrasena = MD5(?) WHERE token = ?";
         $stmt     = $conexion->prepare($sql);
         $stmt->bind_param("ss", $array[0], $array[1]);
@@ -224,7 +245,7 @@ class login_controller {
             $stmt->execute();
             echo "<script>
             alert('Su contraseña ha cambiado con exito!');
-            window.location = 'index.php?v=sesion';
+            window.location = '".$url."index.php?v=sesion';
             </script>";
         }
 
@@ -270,6 +291,32 @@ class login_controller {
         $sql      = "UPDATE usuario SET Nombres=?,Apellidos=? WHERE id_Usuario=?";
         $stmt     = $conexion->prepare($sql);
         $stmt->bind_param("ssi", $array[0], $array[1], $array[2]);
+        $stmt->execute();
+    }
+
+    public function consultAdmin($array) {
+        $conexion = Conexion::conectar();
+        $sql      = "SELECT id_Usuario, Nombres, Apellidos, Correo from usuario WHERE id_Rol = 1 AND id_Usuario != '$array[0]'";
+        return $conexion->query($sql);
+    }
+
+    public function insertAdmin($array) {
+        $conexion = Conexion::conectar();
+        $sql      = "SELECT * from usuario WHERE Correo = '$array[2]'";
+        $result   = $conexion->query($sql);
+        $filas    = $result->num_rows;
+        if ($filas === 0) {
+            $stmt = $conexion->prepare("INSERT INTO usuario(Nombres,Apellidos,Correo,Contrasena, id_Rol) VALUES( ?, ?, ?, MD5(?), 1)");
+            $stmt->bind_param("ssss", $array[0], $array[1], $array[2], $array[3]);
+            $stmt->execute();
+        }
+    }
+
+    public function eliminarAdmin($array){
+        $conexion = Conexion::conectar();
+        $sql      = "DELETE FROM usuario WHERE id_Usuario = ? ";
+        $stmt     = $conexion->prepare($sql);
+        $stmt->bind_param("i", $array[0]);
         $stmt->execute();
     }
 }

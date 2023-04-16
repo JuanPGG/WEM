@@ -19,36 +19,40 @@ window.addEventListener('load', function() {
          * Se llama la función que buscará los programas de formación para la ficha que se registrará
          */
     });
-    document.querySelector('#btn-ficha').addEventListener('click', function(ev){
+    document.querySelector('#btn-ficha').addEventListener('click', function(ev) {
         ev.preventDefault();
-        if(validateFormFicha()){
+        if (validateFormFicha()) {
             /** 
-         * Se toman los datos de los inputs en un objeto
-         */
-        const datos = {
-            nombre_gestor: $('#nombre_gestor').val(),
-            num_ficha: $('#num_ficha').val(),
-            id_programa: parseInt($('#nombre_prog').val()),
-            id_fic: $('#id_fic').val()
-        };
-        let lugar = edit_ficha === false ? "peticionesAjaxFicha&p=agregar" : "peticionesAjaxFicha&p=editar";
-        /** 
-         * Se llama la función que hará la petición ajax con los datos anteriores y la respectiva url
-         */
-        peticion(lugar, "POST", datos);
-        mostrarFichas();
-        /**
-         * Se reinicia el formulario
-         */
-        $("form_ficha").trigger('reset');
-        /**
-         * Se esconde el formulario
-         */
-        cont.style.display = 'none';
-        edit_ficha = false;
+             * Se toman los datos de los inputs en un objeto
+             */
+            const datos = {
+                nombre_gestor: $('#nombre_gestor').val(),
+                cel_gestor: $('#cel_gestor').val(),
+                num_ficha: $('#num_ficha').val(),
+                nombre_vocero: $('#nombre_vocero').val(),
+                cel_vocero: $('#cel_vocero').val(),
+                id_programa: parseInt($('#nombre_prog').val()),
+                id_fic: $('#id_fic').val()
+            };
+            console.log(datos);
+            let lugar = edit_ficha === false ? "peticionesAjaxFicha&p=agregar" : "peticionesAjaxFicha&p=editar";
+            /** 
+             * Se llama la función que hará la petición ajax con los datos anteriores y la respectiva url
+             */
+            peticion(lugar, "POST", datos);
+            mostrarFichas();
+            /**
+             * Se reinicia el formulario
+             */
+            $("#form_ficha").trigger('reset');
+            /**
+             * Se esconde el formulario
+             */
+            cont.style.display = 'none';
+            edit_ficha = false;
         }
     });
-    
+
     $('#cont_fichas').on('click', '.editar', function() {
         var id_fic = {
             id_fic: $(this)[0].parentElement.parentElement.parentElement.id
@@ -61,8 +65,11 @@ window.addEventListener('load', function() {
         var ficha = peticion("peticionesAjaxFicha&p=obtenerdatos", "POST", id_fic);
         $('#id_fic').val(ficha[0].id_fic);
         $('#nombre_gestor').val(ficha[0].nombre_gestor);
+        $('#cel_gestor').val(ficha[0].cel_gestor);
         $('#num_ficha').val(ficha[0].num_ficha);
         $('#nombre_prog').val(ficha[0].id_programa);
+        $('#nombre_vocero').val(ficha[0].nombre_vocero);
+        $('#cel_vocero').val(ficha[0].cel_vocero);
         edit_ficha = true;
         validarLength();
     });
@@ -120,10 +127,14 @@ function mostrarFichas() {
         <div class="fichas" id=${ficha["id_fic"]}>
         <div class="numero_ficha">
         <h2>Ficha: ${ficha['num_ficha']} - ${ficha['id_programa']}</h2>
-        <p>${ficha['nombre_gestor']}</p>
+        <p><b>Gestor: </b> ${ficha['nombre_gestor']}</p>
+        <p><b>Cel: </b>${ficha['cel_gestor']}</p>
+        <div class="linea"></div>
+        <p><b>Vocero: </b>${ficha['nombre_vocero']}</p>
+        <p><b>Cel: </b>${ficha['cel_vocero']}</p>
         </div>
         <div class="info">
-        <p><a href="index.php?v=adminTrimestre&n=${ficha["id_fic"]}" class="abrir">Abrir</a></p>
+        <p><a href="${url}index.php?v=adminTrimestre&n=${ficha["id_fic"]}" class="abrir">Abrir</a></p>
         <p><a class="editar">Editar</a></p>
         <p><a class="eliminar">Eliminar</a></p>
         </div>
@@ -187,13 +198,14 @@ function mostrarForm() {
     abierto = true; // Se le da el valor true a la variable bandera
     validarLength();
 }
-function validateFormFicha(){
+
+function validateFormFicha() {
     var gestor = $('#nombre_gestor').val();
     var ficha = $('#num_ficha').val();
     var programa = $('#nombre_prog').val();
-    if(validarText(gestor, "nombre_gestor") && validarNum(ficha, "num_ficha") && validarSelect(programa, "nombre_prog")){
+    if (validarText(gestor, "nombre_gestor") && validarNum(ficha, "num_ficha") && validarSelect(programa, "nombre_prog")) {
         return true;
-    }else{
+    } else {
         return false;
     }
 }

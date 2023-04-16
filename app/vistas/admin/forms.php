@@ -2,16 +2,19 @@
 
 @session_start();
 require_once "app/controllers/controller.php";
+$controller = new controller();
+$url = $controller->url();
 if (!isset($_SESSION['user'])) {
-    header("Location: index.php");
+    header("Location: {$url}index.php");
 }
 if ($_SESSION['user'][6] == 1) {
     ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
 	<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" type="image/ico" href="app/resources/img/logo.ico">
 	<title>Registros</title>
 	<link rel="stylesheet" href="app/resources/iconos/icomoon/style.css">
 	<link rel="stylesheet" type="text/css" href="app/resources/css/forms.css">
@@ -34,9 +37,9 @@ if ($_SESSION['user'][6] == 1) {
 					<img src="app/resources/img/logo.png" alt="">
 				</div>
 				<div id="enlaces" class="enlaces">
-					<a href="index.php?v=adminFichas" id="enlace-ambientes" class="btn-header">Mis Fichas</a>
+					<a href="<?php echo $url ?>index.php?v=adminFichas" id="enlace-ambientes" class="btn-header">Mis Fichas</a>
 					<a id="enlace-atras" class="btn-header">Atrás</a>
-					<a href="index.php?v=perfil" id="usuario"><?php echo $_SESSION['user'][1]; ?></a>
+					<a href="<?php echo $url ?>index.php?v=perfil" id="iniciar-sesion"><?php echo $_SESSION['user'][1]; ?></a>
 					<a href="app/models/salir.php" id="salir">Cerrar Sesión</a>
 				</div>
 				<div class="icono" id="open">
@@ -48,7 +51,7 @@ if ($_SESSION['user'][6] == 1) {
 
 	<!---------- MAIN -------------->
 	<main>
-		<div class="container">
+		<div class="container" data-user="<?php echo $_SESSION['user'][0] ?>">
 			<div class="cont-general">
 				<div class="menu">
 					<a data-class="instructor" class="active">Instructor</a>
@@ -56,6 +59,8 @@ if ($_SESSION['user'][6] == 1) {
 					<a data-class="competencia">Competencia</a>
 					<a data-class="programa">Programa de Formación</a>
 					<a data-class="contrato">Tipo de Contrato</a>
+					<a data-class="ayudante">Ayudantes</a>
+					<a data-class="trazabilidad">Trazabilidad</a>
 				</div>
 				<div class="icono icono-form">
 					<span id="enlace-form">&#9776;</span>
@@ -226,6 +231,71 @@ if ($_SESSION['user'][6] == 1) {
 							</table>
 						</div>
 					</div>
+
+					<!------------ formulario agregar contrato------------->
+					<div class="form" id="ayudante">
+						<form method="POST" id="agregar_ayudante" class="formulario">
+							<h1>Formulario: Ayudantes</h1>
+							<input type="text" class="input"  id="name">
+					        <label>Nombres*</label>
+					        <input type="text" class="input" id="lastname">
+					        <label>Apellidos*</label>
+					        <input type="text" class="input" id="email">
+					        <label>Correo*</label>
+					        <input type="password" class="input" id="pw">
+					        <label>Contraseña*</label>
+        					<div class="botones">
+								<button type="submit" id="btn-ayudante">Guardar</button>
+								<button type="button" class="cancelar">Cancelar</button>
+							</div>
+						</form>
+						<div class="lista">
+							<h2>Lista</h2>
+							<table>
+								<thead>
+									<tr>
+										<th>Nombres</th>
+										<th>Apellidos</th>
+										<th>Correo</th>
+										<th>Funciones</th>
+									</tr>
+								</thead>
+								<tbody id="lista_ayudantes">
+
+								</tbody>
+							</table>
+						</div>
+					</div>
+
+					<!------------ formulario agregar contrato------------->
+					<div class="form" id="trazabilidad">
+						<div class="cont_title">
+							<h2>Lista de Trazabilidad</h2>
+							<form method="POST" id="busqueda" class="formulario">
+								<input class="input" type="text" id="buscar">
+								<label>Buscar</label>
+							</form>
+						</div>
+						<div class="lista">
+							<table>
+								<thead>
+									<tr>
+										<th>Usuario</th>
+										<th>Ficha</th>
+										<th>Trimestre</th>
+										<th>Instructor</th>
+										<th>Competencia</th>
+										<th>Ambiente</th>
+										<th>Fecha</th>
+										<th>Acción</th>
+									</tr>
+								</thead>
+								<tbody id="lista_trazabilidad">
+
+								</tbody>
+							</table>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -240,7 +310,7 @@ if ($_SESSION['user'][6] == 1) {
 <?php
 
 } else if ($_SESSION['user'][6] == 2) {
-    header("Location: index.php?v=fichas");
+    header("Location: {$url}index.php?v=fichas");
 }
 
 ?>

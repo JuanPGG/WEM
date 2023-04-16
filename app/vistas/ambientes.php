@@ -6,9 +6,7 @@ $url = $controller->url();
 if (!isset($_SESSION['user'])) {
     header("Location: {$url}index.php");
 }
-if ($_SESSION['user'][6] == 2) {
-    if (isset($_GET["n"]) && isset($_GET['t'])) {
-        ?>
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -21,7 +19,7 @@ if ($_SESSION['user'][6] == 2) {
     <meta name="description" content="">
     <meta name="author" content="">
     <!--- Title --->
-    <title>WEM</title>
+    <title>Horario Ambientes | WEM</title>
     <!--- Stylesheets --->
     <link rel="stylesheet" href="app/resources/css/horario.css">
     <link rel="stylesheet" href="app/resources/iconos/icomoon/style.css">
@@ -45,9 +43,18 @@ if ($_SESSION['user'][6] == 2) {
                     <img src="app/resources/img/logo.png" alt="">
                 </div>
                 <div id="enlaces" class="enlaces">
-                    <a href="<?php echo $url ?>index.php?v=fichas" id="enlace-ambientes" class="btn-header">Fichas</a>
+                    <?php
+                    if ($_SESSION['user'][6] == 1) {
+                    ?>
+                        <a href="<?php echo $url ?>index.php?v=adminFichas" id="enlace-fichas" class="btn-header">Mis Fichas</a>
+                        <a href="<?php echo $url ?>index.php?v=adminForms" id="enlace-registros" class="btn-header">Registros</a>
+                    <?php
+
+                    } else if ($_SESSION['user'][6] == 2) {
+                    ?>
+                        <a href="<?php echo $url ?>index.php?v=fichas" id="enlace-fichas" class="btn-header">Fichas</a>
+                    <?php } ?>
                     <a href="<?php echo $url ?>index.php?v=detallesInstructor" class="btn-header">Instructores</a>
-                    <a href="<?php echo $url ?>index.php?v=detallesAmbiente" class="btn-header">Ambientes</a>
                     <a id="enlace-atras" class="btn-header">Atrás</a>
                     <a href="<?php echo $url ?>index.php?v=perfil" id="iniciar-sesion"><?php echo $_SESSION['user'][1]; ?></a>
                     <a href="app/models/salir.php" id="salir">Cerrar Sesión</a>
@@ -59,42 +66,30 @@ if ($_SESSION['user'][6] == 2) {
         </nav>
     </header>
     <!---------- MAIN -------------->
-    <main data-user="<?php echo $_SESSION['user'][0]; ?>">
-        <div id="cont_form">
-            <div id="form">
-                <i class="icon-cross" id="cerrar"></i>
-                <form method="POST" id="formulario">
-                    <h1>Seleccionar</h1>
-                    <p id="alerta" class="alerta"></p>
-                        <label for="">Instructor:</label>
-                        <select id="select_instructor"></select>
-
-                        <label for="">Competencia:</label>
-                        <select id="select_competencia"></select>
-
-                        <label for="">Ambiente:</label>
-                        <select id="select_ambiente"></select>
-
-                    <button type="submit" id="btn-horario">Guardar</button>
-                </form>
-            </div>
-        </div>
-        <div class="table" id="<?php echo $_GET['n']; ?>">
+    <main>
+        <div class="table" data-id="<?php echo $_SESSION['user'][0]; ?>">
             <div class="thead">
-                <div id="th_jornada"><b>Jornada: </b> 
+                <div id="th_jornada"><b>Jornada: </b>
                     <select name="jornada" id="jornada">
                         <option value="mañana">Mañana</option>
                         <option value="tarde">Tarde</option>
                         <option value="noche">Noche</option>
                     </select>
                 </div>
-                <div id="num_ficha"></div>
-                <div id="trimestre"></div>
-                <div id="fecha"></div>
+                <div id="fecha">Fecha:
+                    <select id="select_fecha"></select>
+                </div>
+                <div id="ambiente">Ambiente:
+                    <select id="select_ambiente"></select>
+                </div>
+                <div>
+                    <p>Horas programadas:
+                        <span id="horasp"></span>
+                    </p>
+                </div>
             </div>
             <div class="cont_table">
-                <table id="<?php echo $_GET['t']; ?>">
-                    <p id="alerta2" class="alerta"></p>
+                <table>
                     <thead>
                         <tr>
                             <th colspan="2">Hora</th>
@@ -251,22 +246,17 @@ if ($_SESSION['user'][6] == 2) {
             </div>
             <button id="enlace-pdf" class="btn">Descargar pdf <i class="icon-file-pdf"></i></button>
         </div>
-    </div>
-</main>
-<!--- Javascriprt ---->
+        </div>
+    </main>
+    <!--- Javascriprt ---->
 
-<script type="text/javascript" src="app/resources/libjs/jquery.min.js"></script>
-<script type="text/javascript" src="app/resources/libjs/jspdf.min.js"></script>
-<script type="text/javascript" src="app/resources/js/nav.js"></script>
-<script type="text/javascript" src="app/resources/js/loader.js"></script>
-<script type="text/javascript" src="app/resources/js/funciones.js"></script>
-<script type="text/javascript" src="app/resources/js/usuarioHorario.js"></script>
+    <script type="text/javascript" src="app/resources/libjs/jquery.min.js"></script>
+    <script type="text/javascript" src="app/resources/libjs/jspdf.min.js"></script>
+    <script src="app/resources/js/nav.js"></script>
+    <script src="app/resources/js/loader.js"></script>
+    <script src="app/resources/js/funciones.js"></script>
+    <script src="app/resources/js/ambientes.js"></script>
 
 </body>
+
 </html>
-<?php
-} else if ($_SESSION['user'][6] == 1) {
-        header("Location: {$url}index.php?v=adminHorario");
-    }
-}
-?>

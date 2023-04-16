@@ -2,15 +2,18 @@
 
 @session_start();
 require_once "app/controllers/controller.php";
+$controller = new controller();
+$url = $controller->url();
 if (!isset($_SESSION['user'])) {
-    header("Location: index.php");
+    header("Location: {$url}index.php");
 }
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" type="image/ico" href="app/resources/img/logo.ico">
     <title><?php echo $_SESSION['user'][1] . " " . $_SESSION['user'][2]; ?></title>
     <link rel="stylesheet" href="app/resources/css/perfil.css">
     <link rel="stylesheet" href="app/resources/iconos/icomoon/style.css">
@@ -36,13 +39,15 @@ if (!isset($_SESSION['user'])) {
                     <?php
 if ($_SESSION['user'][6] == 1) {
     ?>
-                    <a href="index.php?v=adminFichas" id="enlace-ambientes" class="btn-header">Mis Fichas</a>
+                    <a href="<?php echo $url ?>index.php?v=adminFichas" id="enlace-ambientes" class="btn-header">Mis Fichas</a>
                     <?php
 
 } else if ($_SESSION['user'][6] == 2) {
     ?>
-                    <a href="index.php?v=fichas" id="enlace-ambientes" class="btn-header">Fichas</a>
+                    <a href="<?php echo $url ?>index.php?v=fichas" id="enlace-ambientes" class="btn-header">Fichas</a>
                 <?php }?>
+                    <a href="<?php echo $url ?>index.php?v=detallesInstructor" class="btn-header">Instructores</a>
+                    <a href="<?php echo $url ?>index.php?v=detallesAmbiente" class="btn-header">Ambientes</a>
                     <a id="enlace-atras" class="btn-header">Atrás</a>
                     <a href="app/models/salir.php" id="salir">Cerrar Sesión</a>
                 </div>
@@ -80,7 +85,7 @@ if ($_SESSION['user'][6] == 1) {
 <script type="text/javascript" src="app/resources/libjs/jquery.min.js"></script>
 <script src="app/resources/js/loader.js"></script>
 <script src="app/resources/js/nav.js"></script>
-<script type="text/javascript" src="app/resources/js/funciones.js"></script>
+<script src="app/resources/js/funciones.js"></script>
 <script src="app/resources/js/perfil.js"></script>
 </body>
 </html>

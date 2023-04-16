@@ -1,37 +1,36 @@
 let td = document.querySelectorAll('td');
 let th = document.querySelectorAll('th');
 window.addEventListener('load', function() {
+    datosAmbiente();
     datosFecha();
-    datosInstructores();
     jornada();
-
 });
 document.querySelector('#jornada').addEventListener('change', jornada);
 
 document.querySelector('#enlace-pdf').addEventListener('click', function() {
-    console.log(document.querySelector('#select_instructor').value);
-    if (document.querySelector('#select_instructor').value != "vacio" && document.querySelector('#select_fecha').value != "vacio") {
-        quitarColor(3);
-        generarpdf('HorarioInstructor');
+    console.log(document.querySelector('#select_ambiente').value);
+    if (document.querySelector('#select_ambiente').value != "vacio" && document.querySelector('#select_fecha').value != "vacio") {
+        quitarColor(4);
+        generarpdf('HorarioAmbiente');
     } else {
-        alert('Por favor elige un instructor y una fecha.');
+        alert('Por favor elige un ambiente y una fecha.');
     }
 });
 
-document.querySelector('#select_instructor').addEventListener('change', function() {
-    let idI = document.querySelector('#select_instructor').value;
+document.querySelector('#select_ambiente').addEventListener('change', function() {
+    let idA = document.querySelector('#select_ambiente').value;
     if (document.querySelector('#select_fecha').value != "vacio") {
         let finicio = document.querySelector('#select_fecha').value.slice(0, 10);
         let ffin = document.querySelector('#select_fecha').value.slice(13, 23);
-        buscarHorario(idI, finicio, ffin);
+        buscarHorario(idA, finicio, ffin);
     }
 });
 document.querySelector('#select_fecha').addEventListener('change', function() {
     let finicio = document.querySelector('#select_fecha').value.slice(0, 10);
     let ffin = document.querySelector('#select_fecha').value.slice(13, 23);
-    if (document.querySelector('#select_instructor').value != "vacio") {
-        let idI = document.querySelector('#select_instructor').value;
-        buscarHorario(idI, finicio, ffin);
+    if (document.querySelector('#select_ambiente').value != "vacio") {
+        let idA = document.querySelector('#select_ambiente').value;
+        buscarHorario(idA, finicio, ffin);
     }
 });
 
@@ -51,53 +50,42 @@ function datosFecha() {
     });
 }
 
-function datosInstructores() {
-    let select_instructor = document.querySelector('#select_instructor');
+function datosAmbiente() {
+    let select_ambiente = document.querySelector('#select_ambiente');
     let optionDefault = document.createElement("option");
-    optionDefault.text = "Seleccionar Instructor";
+    optionDefault.text = "Seleccionar Ambiente";
     optionDefault.value = "vacio";
     optionDefault.selected = true;
     optionDefault.disabled = true;
-    select_instructor.add(optionDefault);
-    const instructores = peticion('peticionesAjax&p=mostrar', 'GET', null);
-    instructores.forEach(instructor => {
+    select_ambiente.add(optionDefault);
+    const ambientes = peticion('peticionesAjaxAmbiente&p=mostrar', 'GET', null);
+    ambientes.forEach(ambiente => {
         let option = document.createElement("option");
-        option.text = instructor['nombres'];
-        option.value = instructor['id'];
-        select_instructor.add(option);
+        option.text = ambiente['nombre_ambiente'];
+        option.value = ambiente['id_amb'];
+        select_ambiente.add(option);
     });
 }
 
-function buscarHorario(inst, inicio, fin) {
-    let datos;
-    if (inst == null) {
-        datos = {
-            id_instructor: $('.table').attr('data-id'),
-            fecha_inicio: inicio,
-            fecha_fin: fin
-        }
-    } else {
-        datos = {
-            id_instructor: inst,
-            fecha_inicio: inicio,
-            fecha_fin: fin
-        }
+function buscarHorario(amb, inicio, fin) {
+    let datos = {
+        idA: amb,
+        inicio: inicio,
+        fin: fin
     }
     let array = document.querySelectorAll('.drops');
     array.forEach(ar => {
         ar.innerHTML = '';
     });
-    const horarios = peticion('peticionesAjaxHorario&p=obtenerInstructor', 'POST', datos);
+    const horarios = peticion('peticionesAjaxHorario&p=obtenerAmbiente', 'POST', datos);
     let contar = 0;
+    let template = '';
     if (horarios != 'No encontrado') {
-        let template = '';
-        document.querySelector('#select_instructor').value = horarios[0].id;
         horarios.forEach(horario => {
-            template = `
-                    <div class='caja' style='background-color:${horario['color']};'>
-                    <h3>${horario['ficha']} - ${horario['programa']}</h3>
-                    <p>${horario['competencia']}</p>
-                    <p>${horario['ambiente']}</p>
+            template = `<div class='caja' style='background-color:${horario['color']};'>
+                    <h3>${horario['instructor']}</h3>
+                    <p>${horario['ficha']} - ${horario['programa']}</p>
+                    <p>${horario['trimestre']}</p>
                     </div>`;
             array.forEach(ar => {
                 if (ar.dataset.dia == horario['dia'] && (ar.parentElement.dataset.inicio >= horario['hora_inicio'] && ar.parentElement.dataset.fin <= horario['hora_fin'])) {
